@@ -1,0 +1,8 @@
+Time: 13:15:08 | isValid: true | original: meytalg@nathan.co | fix: meytalg@nathan.co.il | functionIds: 14
+Time: 13:15:08 | isValid: true | original: meytalg@nathan.co | fix: meytalg@nathan.co.il | functionIds: 14
+Time: 13:15:08 | isValid: true | original: mijaele@gmail.co | fix: mijaele@gmail.com | functionIds: 14,19
+Time: 13:15:08 | isValid: true | original: mijaele@gmail.co | fix: mijaele@gmail.com | functionIds: 14,19
+Time: 13:15:08 | isValid: true | original: itay.k@enosh.org.ill | fix: itay.k@enosh.org.il | functionIds: 14
+Time: 13:15:08 | isValid: true | original: itay.k@enosh.org.ill | fix: itay.k@enosh.org.il | functionIds: 14
+Time: 13:16:02 | isValid: true | original: Teachers.Training@biu.ac.i | fix: Teachers.Training@biu.ac.il | functionIds: 14
+Time: 13:16:02 | isValid: true | original: Teachers.Training@biu.ac.i | fix: Teachers.Training@biu.ac.il | functionIds: 14

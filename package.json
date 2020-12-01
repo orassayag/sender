@@ -1,0 +1,58 @@
+{
+  "name": "sender",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "keywords": [
+    "send",
+    "emails",
+    "email addresses"
+  ],
+  "license": "UNLICENSED",
+  "author": "Or Assayag <orassayag@gmail.com>",
+  "contributors": [
+    {
+      "name": "Or Assayag",
+      "email": "orassayag@gmail.com",
+      "url": "https://github.com/orassayag"
+    }
+  ],
+  "main": "src/scripts/send.script.js",
+  "files": [
+    "src",
+    ".eslintignore",
+    ".eslintrc",
+    ".gitignore",
+    ".jsbeautifyrc",
+    ".npmignore",
+    "INSTRUCTIONS.md",
+    "package-lock.json",
+    "package.json",
+    "README.md"
+  ],
+  "scripts": {
+    "backup": "node src/scripts/backup.script.js",
+    "sand": "node src/tests/sandBox.test.js",
+    "send": "node src/tests/sendEmail.test.js",
+    "start": "node src/scripts/send.script.js",
+    "stop": "taskkill -f -im node.exe",
+    "debug": "node --inspect-brk src/scripts/send.script.js"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "dependencies": {
+    "@sendgrid/mail": "^7.4.0",
+    "ansi-escapes": "^4.3.1",
+    "babel-eslint": "^10.1.0",
+    "cli-cursor": "^3.1.0",
+    "eslint": "^7.14.0",
+    "fs-extra": "^9.0.1",
+    "mongoose": "^5.11.0",
+    "slice-ansi": "^4.0.0",
+    "wrap-ansi": "^7.0.0"
+  }
+}

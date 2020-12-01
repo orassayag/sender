@@ -1,0 +1,3 @@
+info@gov.il | functionIds: -8
+info@gov.il | functionIds: -8
+simple-line-icons@2.4.1 | functionIds: -4

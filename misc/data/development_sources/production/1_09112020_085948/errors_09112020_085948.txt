@@ -1,0 +1,28 @@
+waiting for function failed: timeout 30000ms exceeded
+TimeoutError: waiting for function failed: timeout 30000ms exceeded
+    at new WaitTask (C:\Or\Web\Crawler\Crawler\node_modules\puppeteer\lib\cjs\puppeteer\common\DOMWorld.js:482:34)
+    at DOMWorld.waitForFunction (C:\Or\Web\Crawler\Crawler\node_modules\puppeteer\lib\cjs\puppeteer\common\DOMWorld.js:443:16)
+    at Frame.waitForFunction (C:\Or\Web\Crawler\Crawler\node_modules\puppeteer\lib\cjs\puppeteer\common\FrameManager.js:910:32)
+    at Page.waitForFunction (C:\Or\Web\Crawler\Crawler\node_modules\puppeteer\lib\cjs\puppeteer\common\Page.js:1291:33)
+    at C:\Or\Web\Crawler\Crawler\src\services\files\puppeteerService.js:68:33
+    at processTicksAndRejections (internal/process/task_queues.js:93:5)
+=======
+waiting for function failed: timeout 30000ms exceeded
+TimeoutError: waiting for function failed: timeout 30000ms exceeded
+    at new WaitTask (C:\Or\Web\Crawler\Crawler\node_modules\puppeteer\lib\cjs\puppeteer\common\DOMWorld.js:482:34)
+    at DOMWorld.waitForFunction (C:\Or\Web\Crawler\Crawler\node_modules\puppeteer\lib\cjs\puppeteer\common\DOMWorld.js:443:16)
+    at Frame.waitForFunction (C:\Or\Web\Crawler\Crawler\node_modules\puppeteer\lib\cjs\puppeteer\common\FrameManager.js:910:32)
+    at Page.waitForFunction (C:\Or\Web\Crawler\Crawler\node_modules\puppeteer\lib\cjs\puppeteer\common\Page.js:1291:33)
+    at C:\Or\Web\Crawler\Crawler\src\services\files\puppeteerService.js:68:33
+    at processTicksAndRejections (internal/process/task_queues.js:93:5)
+=======
+waiting for function failed: timeout 30000ms exceeded
+TimeoutError: waiting for function failed: timeout 30000ms exceeded
+    at new WaitTask (C:\Or\Web\Crawler\Crawler\node_modules\puppeteer\lib\cjs\puppeteer\common\DOMWorld.js:482:34)
+    at DOMWorld.waitForFunction (C:\Or\Web\Crawler\Crawler\node_modules\puppeteer\lib\cjs\puppeteer\common\DOMWorld.js:443:16)
+    at Frame.waitForFunction (C:\Or\Web\Crawler\Crawler\node_modules\puppeteer\lib\cjs\puppeteer\common\FrameManager.js:910:32)
+    at Page.waitForFunction (C:\Or\Web\Crawler\Crawler\node_modules\puppeteer\lib\cjs\puppeteer\common\Page.js:1291:33)
+    at C:\Or\Web\Crawler\Crawler\src\services\files\puppeteerService.js:68:33
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (internal/process/task_queues.js:93:5)
+=======

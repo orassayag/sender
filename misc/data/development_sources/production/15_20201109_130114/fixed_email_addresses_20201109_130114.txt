@@ -1,0 +1,16 @@
+Time: 13:03:01 | isValid: true | original: robisasi@nana.co.il | fix: robisasi@nana10.co.il | functionIds: 23
+Time: 13:03:01 | isValid: true | original: robisasi@nana.co.il | fix: robisasi@nana10.co.il | functionIds: 23
+Time: 13:03:21 | isValid: true | original: tamar-eng@013net.net | fix: tamar-eng@013.net.il | functionIds: 23
+Time: 13:03:21 | isValid: true | original: tamar-eng@013net.net | fix: tamar-eng@013.net.il | functionIds: 23
+Time: 13:03:21 | isValid: true | original: hr2@hatzerim.co.il | fix: hr2@hatzerim.org.il | functionIds: 23
+Time: 13:03:21 | isValid: true | original: hr2@hatzerim.co.il | fix: hr2@hatzerim.org.il | functionIds: 23
+Time: 13:03:21 | isValid: true | original: liora@urban21.co.i | fix: liora@urban21.co.il | functionIds: 14
+Time: 13:03:21 | isValid: true | original: liora@urban21.co.i | fix: liora@urban21.co.il | functionIds: 14
+Time: 13:03:44 | isValid: false | original: u002F736e443433c3403396572cc0526bba2d@sentrylabs.indeed.com | fix: 736e443433c3403396572cc0526bba2d@sentrylabs.indeed.com | functionIds: 26,-17
+Time: 13:03:44 | isValid: false | original: u002F736e443433c3403396572cc0526bba2d@sentrylabs.indeed.com | fix: 736e443433c3403396572cc0526bba2d@sentrylabs.indeed.com | functionIds: 26,-17
+Time: 13:04:13 | isValid: true | original: Hr2017bi@gmail.co | fix: Hr2017bi@gmail.com | functionIds: 14,19
+Time: 13:04:13 | isValid: true | original: Hr2017bi@gmail.co | fix: Hr2017bi@gmail.com | functionIds: 14,19
+Time: 13:04:13 | isValid: true | original: yaweiss@bezeqonline.co.il | fix: yaweiss@bezeqint.net | functionIds: 23
+Time: 13:04:13 | isValid: true | original: yaweiss@bezeqonline.co.il | fix: yaweiss@bezeqint.net | functionIds: 23
+Time: 13:04:23 | isValid: false | original: u002F736e443433c3403396572cc0526bba2d@sentrylabs.indeed.com | fix: 736e443433c3403396572cc0526bba2d@sentrylabs.indeed.com | functionIds: 26,-17
+Time: 13:04:23 | isValid: false | original: u002F736e443433c3403396572cc0526bba2d@sentrylabs.indeed.com | fix: 736e443433c3403396572cc0526bba2d@sentrylabs.indeed.com | functionIds: 26,-17

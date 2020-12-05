@@ -1,0 +1,30 @@
+/* const fs = require('fs');
+const sgMail = require('@sendgrid/mail');
+
+sgMail.setApiKey('SG.XXXXXXXXXX-XXXXXXXXXX-XXXXXXXXXX-XXXXXXXXXX-XXXXXXXXXXX');
+const pathToAttachment = 'C:\\Or\\Web\\Sender\\Sender\\misc\\data\\cv\\CV Billy Ravid.doc';
+const attachment = fs.readFileSync(pathToAttachment).toString('base64');
+const msg = {
+    to: 'testTo@example.com',
+    from: 'testFrom@example.com',
+    subject: 'test',
+    text: 'test',
+    attachments: [
+        {
+            content: attachment,
+            filename: 'file.doc',
+            type: 'application/doc',
+            disposition: 'attachment'
+        }
+    ]
+};
+(async () => {
+    try {
+        await sgMail.send(msg);
+    } catch (error) {
+        console.error(error);
+        if (error.response) {
+            console.log(typeof error.response.body);
+        }
+    }
+})(); */

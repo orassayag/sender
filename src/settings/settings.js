@@ -15,10 +15,10 @@ const settings = {
     IS_DROP_COLLECTION: false,
     // Determine if to active the skip logic, that detailed in above the
     // MAXIMUM_UNIQUE_DOMAIN_COUNT parameter.
-    IS_SKIP_LOGIC: true,
+    IS_SKIP_LOGIC: false,
     // Determine if to active the monitor logic, to send emails to verify that the process works and get
     // a copy of the email the sender sent.
-    IS_MONITOR_LOGIC: true,
+    IS_MONITOR_LOGIC: false,
     // Determine if to log results for each email to a TXT file.
     IS_LOG_RESULTS: true,
     // Determine if to display the log console status (false) or to display the email results one by one (true).
@@ -45,6 +45,30 @@ const settings = {
     // Other files which not include this part in the file name will not be scanned.
     // There is no option to scan all the TXT files.
     EMAIL_ADDRESSES_INCLUDE_FILE_NAME: 'email_addresses_',
+
+    // ===SENDGRID=== //
+    // Determine the name of the sender of the email.
+    EMAIL_SENDER_NAME: 'Billy Ravid',
+    // Determine the path of the JSON file from which all the SendGrid accounts will be fetched. Must be a JSON file.
+    ACCOUNTS_FILE_PATH: pathUtils.getJoinPath({
+        targetPath: __dirname,
+        targetName: '../../../../../../SendGrid/accounts.json'
+    }),
+    // Determine the path of the JSON file from which all the templates will be fetched. Must be a JSON file.
+    TEMPLATES_FILE_PATH: pathUtils.getJoinPath({
+        targetPath: __dirname,
+        targetName: '../../misc/data/templates/templates.json'
+    }),
+    // Determine the path of the TXT file from which all the monitor email addresses will be fetched. Must be a TXT file.
+    MONITOR_FILE_PATH: pathUtils.getJoinPath({
+        targetPath: __dirname,
+        targetName: '../../misc/data/monitor/monitor.txt'
+    }),
+    // Determine the path of the CV DOC file. Must be a DOC file.
+    CV_FILE_PATH: pathUtils.getJoinPath({
+        targetPath: __dirname,
+        targetName: '../../misc/data/cv/CV Billy Ravid.doc'
+    }),
 
     // ===COUNTS & LIMITS=== //
     // Determine the maximum number of emails to send during the process. If there are more email addresses fetched

@@ -1,7 +1,8 @@
-const accounts = require('../../../misc/data/accounts/accounts');
+const settings = require('../../settings/settings');
 const { AccountData, AccountsData } = require('../../core/models/application');
 const { textUtils, validationUtils } = require('../../utils');
 const countsLimitsService = require('./countsLimits.service');
+const filesService = require('./files.service');
 
 class AccountsService {
 
@@ -12,11 +13,13 @@ class AccountsService {
         this.isAccountsLeft = true;
     }
 
-    initiate() {
-        if (accounts.length <= 0) {
-            throw new Error('No accounts found in the account.json file. (1000005)');
-        }
-        this.accountsData = new AccountsData();
+    async initiate() {
+        this.accountsData = new AccountsData(settings);
+        const accounts = await filesService.getFileData({
+            path: this.accountsData.accountsFilePath,
+            parameterName: 'accountsFilePath',
+            fileExtension: '.json'
+        });
         for (let i = 0; i < accounts.length; i++) {
             const { username, apiKey } = accounts[i];
             this.validateAccount({
@@ -25,7 +28,7 @@ class AccountsService {
                 i: i
             });
             if (this.accountsData.accountsList.findIndex(a => a.emailAddress === username) > -1) {
-                throw new Error(`Duplicate accounts detected with the username: ${username}. (1000006)`);
+                throw new Error(`Duplicate accounts detected with the username: ${username} (1000006)`);
             }
             this.lastAccountDataId++;
             this.accountsData.accountsList.push(new AccountData({
@@ -41,16 +44,16 @@ class AccountsService {
     validateAccount(data) {
         const { username, apiKey, i } = data;
         if (!username) {
-            throw new Error(`Missing username of account index: ${i}. (1000007)`);
+            throw new Error(`Missing username of account index: ${i} (1000007)`);
         }
         if (!validationUtils.validateEmailAddress(textUtils.toLowerCase(username))) {
-            throw new Error(`Invalid username of account index: ${i}. (1000008)`);
+            throw new Error(`Invalid username of account index: ${i} (1000008)`);
         }
         if (!apiKey) {
-            throw new Error(`Missing api key of account index: ${i}. (1000009)`);
+            throw new Error(`Missing api key of account index: ${i} (1000009)`);
         }
         if (!validationUtils.isValidSendGridApiKey(apiKey)) {
-            throw new Error(`Invalid api key of account index: ${i}. (1000010)`);
+            throw new Error(`Invalid api key of account index: ${i} (1000010)`);
         }
     }
 

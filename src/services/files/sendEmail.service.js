@@ -115,7 +115,8 @@ class SendEmailService {
 
     async send() {
         return applicationService.applicationData.isSendEmails ?
-            await sendgridService.send(this.emailData, templatesService.cvData) : await sendgridService.simulate();
+            await sendgridService.send(this.emailData, templatesService.templatesData, templatesService.cvData) :
+            await sendgridService.simulate();
     }
 
     async save() {

@@ -8,7 +8,7 @@ const { fileUtils, pathUtils, textUtils, validationUtils } = require('../../util
 const { invalidDomains, filterEmailAddressDomains, filterEmailAddresses,
     commonEmailAddressDomainsList } = require('../../configurations/emailAddress.configuration');
 
-const emailAddressesFromArray = [];
+const emailAddressesFromArray = ['ronitzilber4983739@gmail.com'];
 
 class CreateEmailsService {
 
@@ -74,14 +74,9 @@ class CreateEmailsService {
     }
 
     async addMonitorEmails(emailsData) {
-        const fileName = 'monitor.txt';
-        const path = pathUtils.getJoinPath({
-            targetPath: __dirname,
-            targetName: `../../../misc/data/monitor/${fileName}`
-        });
         emailsData = await this.getEmailAddressesFile({
-            path: path,
-            parameterName: fileName,
+            path: this.sourcesData.monitorFilePath,
+            parameterName: pathUtils.getBasename(this.sourcesData.monitorFilePath),
             emailsData: emailsData
         });
         return emailsData;
@@ -124,7 +119,7 @@ class CreateEmailsService {
             throw new Error(`Invalid or no ${parameterName} parameter was found: Excpected a number but received: ${path} (1000013)`);
         }
         if (fileUtils.isFilePath(path)) {
-            throw new Error(`The parameter path ${parameterName} marked as file but it's a path of a directory: ${path} (1000014)`);
+            throw new Error(`The parameter path ${parameterName} marked as directory but it's a path of a file: ${path} (1000014)`);
         }
         // Fetch the email addresses.
         let files = await fileUtils.getFilesRecursive(path);
@@ -162,7 +157,7 @@ class CreateEmailsService {
             throw new Error(`Invalid or no ${parameterName} parameter was found: Excpected a number but received: ${path} (1000016)`);
         }
         if (fileUtils.isDirectoryPath(path)) {
-            throw new Error(`The parameter path ${parameterName} marked as directory but it's a path of a file: ${path} (1000017)`);
+            throw new Error(`The parameter path ${parameterName} marked as file but it's a path of a directory: ${path} (1000017)`);
         }
         // Fetch the email addresses.
         const emailAddressesList = await this.fetchEmailAddresses(path);

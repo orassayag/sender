@@ -30,7 +30,7 @@ class SendLogic {
         await mongoDatabaseService.initiate(settings);
         pathsService.initiate(settings);
         await logsService.initiate(settings);
-        accountsService.initiate();
+        await accountsService.initiate();
         templatesService.initiate();
         this.emailsData = await createEmailsService.initiate(settings);
     }

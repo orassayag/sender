@@ -3,6 +3,7 @@ const globalUtils = require('../../utils/files/global.utils');
 const pathUtils = require('../../utils/files/path.utils');
 const validationUtils = require('../../utils/files/validation.utils');
 const { EmailAddressesSourceType } = require('../../core/enums');
+const { exit } = require('../../utils/files/system.utils');
 
 class InitiateService {
 
@@ -27,6 +28,7 @@ class InitiateService {
 			process.stdout.clearLine();
 			process.stdout.cursorTo(0);
 			console.log(error);
+			process.exit(0);
 		});
 		// Handle any unhandledRejection promise error.
 		process.on('unhandledRejection', (reason, promise) => {
@@ -34,6 +36,7 @@ class InitiateService {
 			process.stdout.cursorTo(0);
 			console.log(reason);
 			console.log(promise);
+			process.exit(0);
 		});
 	}
 
@@ -90,6 +93,9 @@ class InitiateService {
 
 	validateStrings() {
 		[
+			// ===SENDGRID=== //
+			'EMAIL_SENDER_NAME', 'ACCOUNTS_FILE_PATH', 'TEMPLATES_FILE_PATH', 'MONITOR_FILE_PATH',
+			'CV_FILE_PATH',
 			// ===ROOT PATHS=== //
 			'APPLICATION_NAME', 'OUTER_APPLICATION_PATH', 'INNER_APPLICATION_PATH',
 			// ===DYNAMIC PATHS=== //

@@ -10,11 +10,20 @@ d. Keep the backup update - Every change you do - Update in iOmega (each couple 
 
 ToDo Tasks:
 ===========
--After register from all emails in KeyPass, add all SendGrid accounts to the JSON file.
--Fill in the accounts.json with real accounts from KeyPass.
 
 Complete / Cancel Tasks:
 ========================
+-Update packages. *
+-Add 'fromname' field as here: https://stackoverflow.com/questions/16755545/adding-a-name-to-the-from-field-in-sendgrid-in-node-js. *
+-Add to settings.js paths to: accounts, templates, CV file. *
+-Update errors numbers. *
+-Remove commants. *
+-Format all files.
+-After register from all emails in KeyPass, add all SendGrid accounts to the JSON file - Canceled. *
+-Fill in the accounts.json with real accounts from KeyPass - Canceled. *
+-Change the path to accounts to be outside the project - Canceled. *
+-Test that all works. *
+-Update GitHub. *
 -Fix all spell mistakes in all misc TXT files. *
 -Make a real test session with real emails (from folder with TXT files - Canceled. * from array). *
 -Remove all the comments around the project. *

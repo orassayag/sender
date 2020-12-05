@@ -11,7 +11,7 @@ class SendGridService {
     this.sendErrorInARowCount = 0;
   }
 
-  async send(emailData, cvData) {
+  async send(emailData, templatesData, cvData) {
     return await new Promise(async (resolve, reject) => {
       if (reject) { }
       // Limit the runtime of this function in case of email send process get stuck.
@@ -20,6 +20,7 @@ class SendGridService {
         return;
       }, countsLimitsService.countsLimitsData.millisecondsSendTimeout);
       const { accountApiKey, toEmailAddress, fromEmailAddress, subject, text } = emailData;
+      const { emailSenderName } = templatesData;
       const { fileName, attachmentBase64, type, disposition } = cvData;
       // Set the api key.
       sgMail.setApiKey(accountApiKey);
@@ -27,7 +28,10 @@ class SendGridService {
       // Create the email object.
       const email = {
         to: toEmailAddress,
-        from: fromEmailAddress,
+        from: {
+          email: fromEmailAddress,
+          name: emailSenderName
+        },
         subject: subject,
         text: text,
         attachments: [

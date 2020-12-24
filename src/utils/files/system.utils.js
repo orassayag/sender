@@ -6,10 +6,17 @@ class SystemUtils {
 
     exit(exitReason, color) {
         logUtils.logColorStatus({
-            status: `EXIT: ${exitReason}`,
+            status: this.getExitReason(exitReason),
             color: color
         });
         process.exit(0);
+    }
+
+    getExitReason(exitReason) {
+        if (!exitReason) {
+            return '';
+        }
+        return `EXIT: ${exitReason}`;
     }
 
     getErrorDetails(error) {

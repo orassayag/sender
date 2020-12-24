@@ -1,6 +1,6 @@
 const settings = require('../settings/settings');
-const { accountsService, applicationService, confirmationService, countsLimitsService,
-    createEmailsService, logsService, mongoDatabaseService, pathsService, templatesService,
+const { accountService, applicationService, confirmationService, countLimitService,
+    createEmailService, logService, mongoDatabaseService, pathService, templateService,
     sendEmailService, validationService } = require('../services');
 const { Color, Status } = require('../core/enums');
 const { globalUtils, logUtils, systemUtils } = require('../utils');
@@ -8,7 +8,7 @@ const { globalUtils, logUtils, systemUtils } = require('../utils');
 class SendLogic {
 
     constructor() {
-        this.emailsData = null;
+        this.emailData = null;
     }
 
     async run() {
@@ -26,13 +26,13 @@ class SendLogic {
         logUtils.logMagentaStatus('INITIATE THE SERVICES');
         applicationService.initiate(settings, Status.INITIATE);
         sendEmailService.initiate();
-        countsLimitsService.initiate(settings);
+        countLimitService.initiate(settings);
         await mongoDatabaseService.initiate(settings);
-        pathsService.initiate(settings);
-        await logsService.initiate(settings);
-        await accountsService.initiate();
-        templatesService.initiate();
-        this.emailsData = await createEmailsService.initiate(settings);
+        pathService.initiate(settings);
+        await logService.initiate(settings);
+        await accountService.initiate();
+        templateService.initiate();
+        this.emailData = await createEmailService.initiate(settings);
     }
 
     async validateGeneralSettings() {
@@ -52,18 +52,18 @@ class SendLogic {
         // Initiate.
         applicationService.applicationData.startDateTime = new Date();
         if (!applicationService.applicationData.isLogMode) {
-            logsService.startLogProgress();
+            logService.startLogProgress();
         }
         await this.pause();
         // Loop the emails and process them.
-        for (let i = 0; i < this.emailsData.emailsList.length; i++) {
+        for (let i = 0; i < this.emailData.emailsList.length; i++) {
             // Start the process of sending email.
             applicationService.applicationData.currentEmailIndex = i;
-            const emailData = this.emailsData.emailsList[i];
-            const { isRetrySend, exitProgramStatus } = await this.send(emailData);
+            const email = this.emailData.emailsList[i];
+            const { isRetrySend, exitProgramStatus } = await this.send(email);
             // Log results.
-            this.log(emailData);
-            await logsService.logResult(emailData);
+            this.log(email);
+            await logService.logResult(email);
             // Pause between each emails here.
             await this.pause();
             // Exit the program if needed.
@@ -73,22 +73,23 @@ class SendLogic {
             }
             // Check if need to retry to send the email.
             if (isRetrySend) {
-                this.emailsData.emailsList[i] = createEmailsService.resetEmail(emailData);
+                this.emailData.emailsList[i] = createEmailService.resetEmail(email);
                 i--;
                 applicationService.applicationData.currentEmailIndex = i;
             }
         }
+        applicationService.applicationData.currentEmailIndex = this.emailData.emailsList.length;
         await this.exit(Status.FINISH, Color.GREEN);
     }
 
     async sleep() {
-        await globalUtils.sleep(countsLimitsService.countsLimitsData.millisecondsSendEmailDelayCount);
+        await globalUtils.sleep(countLimitService.countLimitData.millisecondsSendEmailDelayCount);
     }
 
-    async send(emailData) {
+    async send(email) {
         applicationService.applicationData.status = Status.SEND;
         await this.sleep();
-        return await sendEmailService.runEmailProcess(emailData);
+        return await sendEmailService.runEmailProcess(email);
     }
 
     async pause() {
@@ -96,16 +97,16 @@ class SendLogic {
         await this.sleep();
     }
 
-    log(emailData) {
+    log(email) {
         if (applicationService.applicationData.isLogMode) {
-            logUtils.log(logsService.createEmailTemplate(emailData, false));
+            logUtils.log(logService.createEmailTemplate(email, false));
         }
     }
 
     // Let the user confirm all the IMPORTANT settings before the process start.
     async confirm() {
         if (!await confirmationService.confirm(settings)) {
-            this.exit('EXIT: ABORTED BY THE USER', Color.RED);
+            await this.exit(Status.ABORT_BY_THE_USER, Color.RED);
         }
     }
 
@@ -113,7 +114,7 @@ class SendLogic {
         if (applicationService.applicationData) {
             applicationService.applicationData.status = status;
             await this.sleep();
-            logsService.close();
+            logService.close();
         }
         systemUtils.exit(status, color);
     }

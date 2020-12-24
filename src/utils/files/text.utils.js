@@ -184,6 +184,20 @@ class TextUtils {
         }
         return text.substring(0, text.length - 1);
     }
+
+    removeAllCharacters(text, target) {
+        if (!text) {
+            return '';
+        }
+        return text.split(target).join('');
+    }
+
+    getAsteriskCharactersString(charactersCount) {
+        if (!validationUtils.isValidNumber(charactersCount)) {
+            return '';
+        }
+        return Array(charactersCount).join('*');
+    }
 }
 
 module.exports = new TextUtils();

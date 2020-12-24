@@ -1,19 +1,19 @@
-const accountsService = require('./files/accounts.service');
+const accountService = require('./files/account.service');
 const applicationService = require('./files/application.service');
 const confirmationService = require('./files/confirmation.service');
-const countsLimitsService = require('./files/countsLimits.service');
-const createEmailsService = require('./files/createEmails.service');
-const filesService = require('./files/files.service');
-const logsService = require('./files/logs.service');
+const countLimitService = require('./files/countLimit.service');
+const createEmailService = require('./files/createEmail.service');
+const fileService = require('./files/file.service');
+const logService = require('./files/log.service');
 const mongoDatabaseService = require('./files/mongoDatabase.service');
-const pathsService = require('./files/paths.service');
+const pathService = require('./files/path.service');
 const sendEmailService = require('./files/sendEmail.service');
 const sendgridService = require('./files/sendgrid.service');
-const templatesService = require('./files/templates.service');
+const templateService = require('./files/template.service');
 const validationService = require('./files/validation.service');
 
 module.exports = {
-    accountsService, applicationService, confirmationService, countsLimitsService,
-    createEmailsService, filesService, logsService, mongoDatabaseService, pathsService,
-    sendEmailService, sendgridService, templatesService, validationService
+    accountService, applicationService, confirmationService, countLimitService,
+    createEmailService, fileService, logService, mongoDatabaseService, pathService,
+    sendEmailService, sendgridService, templateService, validationService
 };

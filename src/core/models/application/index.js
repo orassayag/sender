@@ -1,30 +1,30 @@
+const Account = require('./files/Account');
 const AccountData = require('./files/AccountData');
-const AccountsData = require('./files/AccountsData');
 const ApplicationData = require('./files/ApplicationData');
 const BackupData = require('./files/BackupData');
 const BackupDirectory = require('./files/BackupDirectory');
-const CountsLimitsData = require('./files/CountsLimitsData');
+const CountLimitData = require('./files/CountLimitData');
 const CVData = require('./files/CVData');
-const EmailData = require('./files/EmailData');
+const Email = require('./files/Email');
 const EmailProcessResult = require('./files/EmailProcessResult');
-const EmailsData = require('./files/EmailsData');
-const LogsData = require('./files/LogsData');
+const EmailData = require('./files/EmailData');
+const LogData = require('./files/LogData');
 const MongoDatabaseData = require('./files/MongoDatabaseData');
 const MongoDatabaseResult = require('./files/MongoDatabaseResult');
-const PathsData = require('./files/PathsData');
-const SendEmailsData = require('./files/SendEmailsData');
+const PathData = require('./files/PathData');
+const SendEmailData = require('./files/SendEmailData');
 const SendGridCode = require('./files/SendGridCode');
 const SendGridResult = require('./files/SendGridResult');
-const SourcesData = require('./files/SourcesData');
+const SourceData = require('./files/SourceData');
 const SubjectData = require('./files/SubjectData');
+const Template = require('./files/Template');
 const TemplateData = require('./files/TemplateData');
-const TemplatesData = require('./files/TemplatesData');
 const TextData = require('./files/TextData');
 
 module.exports = {
-    AccountData, AccountsData, ApplicationData, BackupData, BackupDirectory,
-    CountsLimitsData, CVData, EmailData, EmailProcessResult, EmailsData, LogsData,
-    MongoDatabaseData, MongoDatabaseResult, PathsData, SendEmailsData,
-    SendGridCode, SendGridResult, SourcesData, SubjectData, TemplateData,
-    TemplatesData, TextData
+    Account, AccountData, ApplicationData, BackupData, BackupDirectory,
+    CountLimitData, CVData, Email, EmailProcessResult, EmailData, LogData,
+    MongoDatabaseData, MongoDatabaseResult, PathData, SendEmailData,
+    SendGridCode, SendGridResult, SourceData, SubjectData, Template,
+    TemplateData, TextData
 };

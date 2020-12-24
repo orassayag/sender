@@ -1,6 +1,6 @@
 const readline = require('readline');
 const { logUtils } = require('../../utils');
-const logsService = require('./logs.service');
+const logService = require('./log.service');
 
 class ConfirmationService {
 
@@ -11,13 +11,12 @@ class ConfirmationService {
             return true;
         }
         const readLine = readline.createInterface(process.stdin, process.stdout);
-        logUtils.log(logsService.createConfirmSettingsTemplate(settings));
+        logUtils.log(logService.createConfirmSettingsTemplate(settings));
         return new Promise((resolve, reject) => {
             try {
                 readLine.on('line', (line) => {
                     switch (line) {
                         case 'y': resolve(true); break;
-                        case 'n': resolve(false); break;
                         default: resolve(false); break;
                     }
                     readLine.close();

@@ -2,7 +2,7 @@ const pathUtils = require('../utils/files/path.utils');
 const { EmailAddressesSourceType } = require('../core/enums');
 
 const settings = {
-    // ===FLAGS=== //
+    // ===FLAG=== //
     // Determine if to load local sources (dummy email addresses) in development mode (=this value false) or to do real
     // email sent process within the production mode (=this value true).
     IS_PRODUCTION_MODE: true,
@@ -19,24 +19,22 @@ const settings = {
     // Determine if to active the monitor logic, to send emails to verify that the process works and get
     // a copy of the email the sender sent.
     IS_MONITOR_LOGIC: false,
-    // Determine if to log results for each email to a TXT file.
-    IS_LOG_RESULTS: true,
     // Determine if to display the log console status (false) or to display the email results one by one (true).
     IS_LOG_MODE: false,
 
-    // ===SOURCES=== //
+    // ===SOURCE=== //
     // Determine the type of source to fetch the email addresses from in order to send them.
     // Can be DIRECTORY / FILE / ARRAY. Please not that the logic only support scanning TXT
     // files with email addresses seperated by comma.
     EMAIL_ADDRESSES_SOURCE_TYPE: EmailAddressesSourceType.ARRAY,
     // Determine the path of the development source in case 'DIRECTORY' or 'FILE' options selected.
-    // In case of 'ARRAY', option selected, the array located in sources.service file.
+    // In case of 'ARRAY', option selected, the array located in source.service file.
     EMAIL_ADDRESSES_DEVELOPMENT_SOURCE_PATH: pathUtils.getJoinPath({
         targetPath: __dirname,
         targetName: '../../misc/data/development_sources/production/'
     }),
     // Determine the path of the development source in case 'DIRECTORY' or 'FILE' options selected.
-    // In case of 'ARRAY', option selected, the array located in sources.service file.
+    // In case of 'ARRAY', option selected, the array located in source.service file.
     EMAIL_ADDRESSES_PRODUCTION_SOURCE_PATH: pathUtils.getJoinPath({
         targetPath: __dirname,
         targetName: '../../misc/data/development_sources/'
@@ -46,13 +44,17 @@ const settings = {
     // There is no option to scan all the TXT files.
     EMAIL_ADDRESSES_INCLUDE_FILE_NAME: 'email_addresses_',
 
+    // ===LOG=== //
+    // Determine if to log results for each email to a TXT file.
+    IS_LOG_RESULTS: true,
+
     // ===SENDGRID=== //
     // Determine the name of the sender of the email.
     EMAIL_SENDER_NAME: 'Billy Ravid',
     // Determine the path of the JSON file from which all the SendGrid accounts will be fetched. Must be a JSON file.
     ACCOUNTS_FILE_PATH: pathUtils.getJoinPath({
         targetPath: __dirname,
-        targetName: '../../../../../../SendGrid/accounts.json'
+        targetName: '../../../../../../Accounts/SendGrid/accounts.json'
     }),
     // Determine the path of the JSON file from which all the templates will be fetched. Must be a JSON file.
     TEMPLATES_FILE_PATH: pathUtils.getJoinPath({
@@ -70,7 +72,7 @@ const settings = {
         targetName: '../../misc/data/cv/CV Billy Ravid.doc'
     }),
 
-    // ===COUNTS & LIMITS=== //
+    // ===COUNT & LIMIT=== //
     // Determine the maximum number of emails to send during the process. If there are more email addresses fetched
     // than the maximum of this parameter, random email addresses will be selected.
     MAXIMUM_SEND_EMAILS: 2000,
@@ -120,43 +122,43 @@ const settings = {
     // if in FILE mode will throw error.
     MAXIMUM_FILE_SIZE_MEGABYTES: 5,
 
-    // ===ROOT PATHS=== //
+    // ===ROOT PATH=== //
     // Determine the application name used for some of the calculated paths.
-    APPLICATION_NAME: 'Sender',
-    // Determine the path for the outer application, where other directories located, such as backups, sources, etc..
-    // (Working example: 'C:\\Or\\Web\\Sender\\').
+    APPLICATION_NAME: 'sender',
+    // Determine the path for the outer application, where other directories located, such as backups, sources, etc...
+    // (Working example: 'C:\\Or\\Web\\sender\\').
     OUTER_APPLICATION_PATH: pathUtils.getJoinPath({
         targetPath: __dirname,
         targetName: '../../../'
     }),
     // Determine the inner application path where all the source of the application is located.
-    // (Working example: 'C:\\Or\\Web\\Sender\\Sender\\').
+    // (Working example: 'C:\\Or\\Web\\sender\\sender\\').
     INNER_APPLICATION_PATH: pathUtils.getJoinPath({
         targetPath: __dirname,
         targetName: '../../'
     }),
 
-    // ===DYNAMIC PATHS=== //
+    // ===DYNAMIC PATH=== //
     // All the these paths will be calculated during runtime in the initiate service.
     // DON'T REMOVE THE KEYS, THEY WILL BE CALCULATED TO PATHS DURING RUNTIME.
     // Determine the application path where all the source of the application is located.
-    // (Working example: 'C:\\Or\\Web\\Sender\\Sender').
-    APPLICATION_PATH: 'Sender',
+    // (Working example: 'C:\\Or\\Web\\sender\\sender').
+    APPLICATION_PATH: 'sender',
     // Determine the backups directory which all the local backup will be created to.
-    // (Working example: 'C:\\Or\\Web\\Sender\\Backups').
-    BACKUPS_PATH: 'Backups',
+    // (Working example: 'C:\\Or\\Web\\sender\\backups').
+    BACKUPS_PATH: 'backups',
     // Determine the dist directory path which there, all the outcome of the crawling will be created.
-    // (Working example: 'C:\\Or\\Web\\Sender\\Sender\\dist').
+    // (Working example: 'C:\\Or\\Web\\sender\\sender\\dist').
     DIST_PATH: 'dist',
     // Determine the directory path of the node_modules, do refresh each time switching from development and production modes.
-    // (Working example: 'C:\\Or\\Web\\Sender\\Sender\\node_modules').
+    // (Working example: 'C:\\Or\\Web\\sender\\sender\\node_modules').
     NODE_MODULES_PATH: 'node_modules',
     // Determine the directory of the package.json to update each time switching
     // from development and production modes (add/remove Puppeeter.js NPM package).
-    // (Working example: 'C:\\Or\\Web\\Sender\\Sender\\package.json').
+    // (Working example: 'C:\\Or\\Web\\sender\\sender\\package.json').
     PACKAGE_JSON_PATH: 'package.json',
     // Determine the path of the package-lock.json to remove it each time switching from development and production modes.
-    // (Working example: 'C:\\Or\\Web\\Sender\\Sender\\package-lock.json').
+    // (Working example: 'C:\\Or\\Web\\sender\\sender\\package-lock.json').
     PACKAGE_LOCK_JSON_PATH: 'package-lock.json',
 
     // ===BACKUP=== //
@@ -209,7 +211,7 @@ const settings = {
     // Determine the default error code when manually exception has been throwen.
     DEFAULT_ERROR_CODE: 500,
 
-    // ===UNCHANGED SETTINGS=== //
+    // ===UNCHANGED SETTING=== //
     // ========================================
     // DON'T CHANGE THESE SETTINGS IN ANY CASE!
     // ========================================

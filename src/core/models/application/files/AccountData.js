@@ -1,11 +1,11 @@
 class AccountData {
 
-    constructor(data) {
-        const { id, username, apiKey } = data;
-        this.id = id;
-        this.username = username;
-        this.apiKey = apiKey;
-        this.sentCount = 0;
+    constructor(settings) {
+        const { ACCOUNTS_FILE_PATH } = settings;
+        this.accountsFilePath = ACCOUNTS_FILE_PATH;
+        this.accountsList = [];
+        this.availableSendsCount = 0;
+        this.currentAccountIndex = 0;
     }
 }
 

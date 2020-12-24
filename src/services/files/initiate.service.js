@@ -2,14 +2,18 @@ const settings = require('../../settings/settings');
 const globalUtils = require('../../utils/files/global.utils');
 const pathUtils = require('../../utils/files/path.utils');
 const validationUtils = require('../../utils/files/validation.utils');
-const { EmailAddressesSourceType } = require('../../core/enums');
-const { exit } = require('../../utils/files/system.utils');
+const { EmailAddressesSourceType, ScriptType } = require('../../core/enums');
 
 class InitiateService {
 
-	constructor() { }
+	constructor() {
+		this.scriptType = null;
+	}
 
-	initiate() {
+	initiate(scriptType) {
+		// Validate the script type.
+		this.scriptType = scriptType;
+		this.validateScriptType();
 		// First, setup handle errors and promises.
 		this.setup();
 		// The second important thing to to it to validate all the parameters of the settings.js file.
@@ -20,6 +24,15 @@ class InitiateService {
 		this.validateDirectories();
 		// Validate that certain directories exists, and if not, create them.
 		this.createDirectories();
+	}
+
+	validateScriptType() {
+		if (!validationUtils.isValidEnum({
+			enum: ScriptType,
+			value: this.scriptType
+		})) {
+			throw new Error('Invalid or no ScriptType parameter was found (1000023)');
+		}
 	}
 
 	setup() {
@@ -43,7 +56,7 @@ class InitiateService {
 	validateSettings() {
 		// Validate the settings object existence.
 		if (!settings) {
-			throw new Error('Invalid or no settings object was found (1000019)');
+			throw new Error('Invalid or no settings object was found (1000024)');
 		}
 		this.validatePositiveNumbers();
 		this.validateStrings();
@@ -56,9 +69,11 @@ class InitiateService {
 	calculateSettings() {
 		const { OUTER_APPLICATION_PATH, INNER_APPLICATION_PATH, APPLICATION_PATH, BACKUPS_PATH, DIST_PATH,
 			NODE_MODULES_PATH, PACKAGE_JSON_PATH, PACKAGE_LOCK_JSON_PATH } = settings;
-		// ===DYNAMIC PATHS=== //
+		// ===DYNAMIC PATH=== //
 		settings.APPLICATION_PATH = pathUtils.getJoinPath({ targetPath: OUTER_APPLICATION_PATH, targetName: APPLICATION_PATH });
-		settings.BACKUPS_PATH = pathUtils.getJoinPath({ targetPath: OUTER_APPLICATION_PATH, targetName: BACKUPS_PATH });
+		if (this.scriptType === ScriptType.BACKUP) {
+			settings.BACKUPS_PATH = pathUtils.getJoinPath({ targetPath: OUTER_APPLICATION_PATH, targetName: BACKUPS_PATH });
+		}
 		settings.DIST_PATH = pathUtils.getJoinPath({ targetPath: INNER_APPLICATION_PATH, targetName: DIST_PATH });
 		settings.NODE_MODULES_PATH = pathUtils.getJoinPath({ targetPath: INNER_APPLICATION_PATH, targetName: NODE_MODULES_PATH });
 		settings.PACKAGE_JSON_PATH = pathUtils.getJoinPath({ targetPath: INNER_APPLICATION_PATH, targetName: PACKAGE_JSON_PATH });
@@ -67,7 +82,7 @@ class InitiateService {
 
 	validatePositiveNumbers() {
 		[
-			// ===COUNTS & LIMITS=== //
+			// ===COUNT & LIMIT=== //
 			'MAXIMUM_SEND_EMAILS', 'MILLISECONDS_SEND_EMAIL_DELAY_COUNT', 'MILLISECONDS_SEND_TIMEOUT',
 			'MILLISECONDS_INTERVAL_COUNT', 'MAXIMUM_SAVE_EMAIL_ADDRESS_RETRIES_COUNT', 'MAXIMUM_UNIQUE_DOMAIN_COUNT',
 			'MONITOR_EMAILS_SEND_COUNT', 'MAXIMUM_MONITOR_EMAIL_ADDRESSES', 'MAXIMUM_DISPLAY_TEMPLATE_CHARACTERS_COUNT',
@@ -81,25 +96,27 @@ class InitiateService {
 			'MONGO_DATABASE_KEEP_ALIVE_MILLISECONDS_COUNT',
 			// ===VALIDATION=== //
 			'DEFAULT_ERROR_CODE',
-			// ===UNCHANGED SETTINGS=== //
+			// ===UNCHANGED SETTING=== //
 			'MAXIMUM_SENDGRID_DAILY_EMAILS_COUNT'
 		].map(key => {
 			const value = settings[key];
 			if (!validationUtils.isPositiveNumber(value)) {
-				throw new Error(`Invalid or no ${key} parameter was found: Excpected a number but received: ${value} (1000020)`);
+				throw new Error(`Invalid or no ${key} parameter was found: Excpected a number but received: ${value} (1000025)`);
 			}
 		});
 	}
 
 	validateStrings() {
+		const keys = this.scriptType === ScriptType.BACKUP ? ['BACKUPS_PATH'] : [];
 		[
+			...keys,
 			// ===SENDGRID=== //
 			'EMAIL_SENDER_NAME', 'ACCOUNTS_FILE_PATH', 'TEMPLATES_FILE_PATH', 'MONITOR_FILE_PATH',
 			'CV_FILE_PATH',
-			// ===ROOT PATHS=== //
+			// ===ROOT PATH=== //
 			'APPLICATION_NAME', 'OUTER_APPLICATION_PATH', 'INNER_APPLICATION_PATH',
-			// ===DYNAMIC PATHS=== //
-			'APPLICATION_PATH', 'BACKUPS_PATH', 'DIST_PATH', 'NODE_MODULES_PATH', 'PACKAGE_JSON_PATH',
+			// ===DYNAMIC PATH=== //
+			'APPLICATION_PATH', 'DIST_PATH', 'NODE_MODULES_PATH', 'PACKAGE_JSON_PATH',
 			'PACKAGE_LOCK_JSON_PATH',
 			// ===MONGO DATABASE=== //
 			'MONGO_DATABASE_CONNECTION_STRING', 'MONGO_DATABASE_NAME', 'MONGO_DATABASE_COLLECTION_NAME',
@@ -108,23 +125,25 @@ class InitiateService {
 		].map(key => {
 			const value = settings[key];
 			if (!validationUtils.isExists(value)) {
-				throw new Error(`Invalid or no ${key} parameter was found: Excpected a string but received: ${value} (1000021)`);
+				throw new Error(`Invalid or no ${key} parameter was found: Excpected a string but received: ${value} (1000026)`);
 			}
 		});
 	}
 
 	validateBooleans() {
 		[
-			// ===FLAGS=== //
+			// ===LOG=== //
+			'IS_LOG_RESULTS',
+			// ===FLAG=== //
 			'IS_PRODUCTION_MODE', 'IS_SEND_EMAILS', 'IS_SAVE_EMAILS', 'IS_DROP_COLLECTION', 'IS_SKIP_LOGIC', 'IS_MONITOR_LOGIC',
-			'IS_LOG_RESULTS', 'IS_LOG_MODE',
+			'IS_LOG_MODE',
 			// ===MONGO DATABASE=== //
 			'IS_MONGO_DATABASE_USE_UNIFILED_TOPOLOGY', 'IS_MONGO_DATABASE_USE_NEW_URL_PARSER', 'IS_MONGO_DATABASE_USE_CREATE_INDEX',
 			'IS_MONGO_DATABASE_SSL', 'IS_MONGO_DATABASE_SSL_VALIDATE'
 		].map(key => {
 			const value = settings[key];
 			if (!validationUtils.isValidBoolean(value)) {
-				throw new Error(`Invalid or no ${key} parameter was found: Excpected a boolean but received: ${value} (1000022)`);
+				throw new Error(`Invalid or no ${key} parameter was found: Excpected a boolean but received: ${value} (1000027)`);
 			}
 		});
 	}
@@ -136,19 +155,19 @@ class InitiateService {
 		].map(key => {
 			const value = settings[key];
 			if (!validationUtils.isValidArray(value)) {
-				throw new Error(`Invalid or no ${key} parameter was found: Excpected a array but received: ${value} (1000023)`);
+				throw new Error(`Invalid or no ${key} parameter was found: Excpected a array but received: ${value} (1000028)`);
 			}
 		});
 	}
 
 	validateEnums() {
 		const { EMAIL_ADDRESSES_SOURCE_TYPE } = settings;
-		// ===SOURCES=== //
+		// ===SOURCE=== //
 		if (!validationUtils.isValidEnum({
 			enum: EmailAddressesSourceType,
 			value: EMAIL_ADDRESSES_SOURCE_TYPE
 		})) {
-			throw new Error('Invalid or no EMAIL_ADDRESSES_SOURCE_TYPE parameter was found (1000024)');
+			throw new Error('Invalid or no EMAIL_ADDRESSES_SOURCE_TYPE parameter was found (1000029)');
 		}
 	}
 
@@ -156,20 +175,22 @@ class InitiateService {
 		const { MONGO_DATABASE_CONNECTION_STRING, VALIDATION_CONNECTION_LINK } = settings;
 		// ===MONGO DATABASE=== //
 		if (!validationUtils.isValidMongoConnectionString(MONGO_DATABASE_CONNECTION_STRING)) {
-			throw new Error('Invalid or no MONGO_DATABASE_CONNECTION_STRING parameter was found (1000025)');
+			throw new Error('Invalid or no MONGO_DATABASE_CONNECTION_STRING parameter was found (1000030)');
 		}
 		// ===VALIDATION=== //
 		if (!validationUtils.isValidLink(VALIDATION_CONNECTION_LINK)) {
-			throw new Error('No VALIDATION_CONNECTION_LINK parameter was found (1000026)');
+			throw new Error('No VALIDATION_CONNECTION_LINK parameter was found (1000031)');
 		}
 	}
 
 	validateDirectories() {
+		const keys = this.scriptType === ScriptType.BACKUP ? ['BACKUPS_PATH'] : [];
 		[
-			// ===ROOT PATHS=== //
+			...keys,
+			// ===ROOT PATH=== //
 			'OUTER_APPLICATION_PATH', 'INNER_APPLICATION_PATH',
-			// ===DYNAMIC PATHS===
-			'APPLICATION_PATH', 'BACKUPS_PATH', 'PACKAGE_JSON_PATH'
+			// ===DYNAMIC PATH===
+			'APPLICATION_PATH', 'PACKAGE_JSON_PATH'
 		].map(key => {
 			const value = settings[key];
 			// Verify that the dist and the sources paths exists.
@@ -181,7 +202,7 @@ class InitiateService {
 
 	createDirectories() {
 		[
-			// ===DYNAMIC PATHS===
+			// ===DYNAMIC PATH===
 			'DIST_PATH', 'NODE_MODULES_PATH'
 		].map(key => {
 			const value = settings[key];

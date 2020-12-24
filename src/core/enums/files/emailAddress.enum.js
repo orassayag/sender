@@ -1,4 +1,5 @@
 const enumUtils = require('../enum.utils');
+const textUtils = require('../text.utils');
 
 const EmailAddressStatus = enumUtils.createEnum([
     ['TOTAL', 'total'], // Not email address status de facto.
@@ -23,6 +24,10 @@ const EmailAddressStatus = enumUtils.createEnum([
     ['IDENTICAL_STATUS', 'identicalStatus'],
     ['UNEXPECTED_FIELD', 'unexpectedField']
 ]);
+
+const EmailAddressStatusLog = enumUtils.createEnum(Object.keys(EmailAddressStatus).map(k => {
+    return [EmailAddressStatus[k], textUtils.replaceCharacter(k, '_', ' ')];
+}));
 
 const EmailAddressType = enumUtils.createEnum([
     ['STANDARD', 'STANDARD'],
@@ -51,4 +56,4 @@ const SendGridReason = enumUtils.createEnum([
     ['SERVICE_NOT_AVAILABLE', 'SERVICE NOT AVAILABLE']
 ]);
 
-module.exports = { EmailAddressStatus, EmailAddressType, SendEmailStepName, SendGridReason };
+module.exports = { EmailAddressStatus, EmailAddressStatusLog, EmailAddressType, SendEmailStepName, SendGridReason };

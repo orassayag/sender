@@ -1,6 +1,6 @@
 const { EmailAddressStatus } = require('../../../enums/files/emailAddress.enum');
 
-class SendEmailsData {
+class SendEmailData {
 
 	constructor() {
 		const keysList = Object.values(EmailAddressStatus);
@@ -12,9 +12,9 @@ class SendEmailsData {
 	updateCount(isAdd, counterName, count) {
 		const fieldName = `${counterName}Count`;
 		if (Object.prototype.hasOwnProperty.call(this, fieldName)) {
-			isAdd ? this[fieldName] += count : this[fieldName] -= count;
+			if (isAdd) { this[fieldName] += count; } else { this[fieldName] -= count; }
 		}
 	}
 }
 
-module.exports = SendEmailsData;
+module.exports = SendEmailData;

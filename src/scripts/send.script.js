@@ -1,4 +1,4 @@
-require('../services/files/initiate.service').initiate();
+require('../services/files/initiate.service').initiate('send');
 const SendLogic = require('../logics/send.logic');
 
 (async () => {

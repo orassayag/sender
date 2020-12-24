@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const countsLimitsService = require('./countsLimits.service');
+const countLimitService = require('./countLimit.service');
 const { globalUtils, systemUtils, textUtils } = require('../../utils');
 const { EmailAddressStatus, Status } = require('../../core/enums');
 const EmailAddressModel = require('../../core/models/mongo/EmailAddressModel');
@@ -42,9 +42,9 @@ class MongoDatabaseService {
     async createConnection() {
         // Connect to the Mongo database.
         this.client = await mongoose.connect(this.mongoConnectionString, this.mongoConnectionOptions)
-            .catch(error => { throw new Error(`Failed to connect to MongoDB: ${error} (1000027)`); });
+            .catch(error => { throw new Error(`Failed to connect to MongoDB: ${error} (1000032)`); });
         if (!this.client) {
-            throw new Error('Failed to connect to MongoDB: Client is null or empty (1000028)');
+            throw new Error('Failed to connect to MongoDB: Client is null or empty (1000033)');
         }
     }
 
@@ -115,7 +115,7 @@ class MongoDatabaseService {
             });
         }
         let saveResult = null;
-        for (let i = 0; i < countsLimitsService.countsLimitsData.maximumSaveEmailAddressesRetriesCount; i++) {
+        for (let i = 0; i < countLimitService.countLimitData.maximumSaveEmailAddressesRetriesCount; i++) {
             try {
                 // Save the email address to the Mongo database.
                 await new EmailAddressModel({ emailAddress: emailAddress }).save();
@@ -167,13 +167,13 @@ class MongoDatabaseService {
             this.saveErrorInARowCount++;
         }
         // Send result accordingly.
-        return this.saveErrorInARowCount >= countsLimitsService.countsLimitsData.maximumSaveErrorInARowCount ? Status.SAVE_ERROR_IN_A_ROW : null;
+        return this.saveErrorInARowCount >= countLimitService.countLimitData.maximumSaveErrorInARowCount ? Status.SAVE_ERROR_IN_A_ROW : null;
     }
 
     async simulate() {
         // Simulate result.
         let saveResult = null;
-        const isSave = textUtils.getRandomByPercentage(countsLimitsService.countsLimitsData.simulateSaveSuccessPercentage);
+        const isSave = textUtils.getRandomByPercentage(countLimitService.countLimitData.simulateSaveSuccessPercentage);
         if (isSave) {
             saveResult = this.setMongoDatabaseSaveResult({
                 status: EmailAddressStatus.SAVE,
@@ -189,7 +189,7 @@ class MongoDatabaseService {
             });
         }
         // Simulate delay of save process / error.
-        await globalUtils.sleep(countsLimitsService.countsLimitsData.millisecondsSimulateDelaySaveProcessCount);
+        await globalUtils.sleep(countLimitService.countLimitData.millisecondsSimulateDelaySaveProcessCount);
         return saveResult;
     }
 }

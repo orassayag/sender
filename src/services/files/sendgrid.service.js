@@ -1,6 +1,6 @@
 const sgMail = require('@sendgrid/mail');
 const applicationService = require('./application.service');
-const countsLimitsService = require('./countsLimits.service');
+const countLimitService = require('./countLimit.service');
 const { Status } = require('../../core/enums');
 const { SendGridResult } = require('../../core/models/application');
 const { globalUtils, sendgridUtils, textUtils } = require('../../utils');
@@ -11,22 +11,22 @@ class SendGridService {
     this.sendErrorInARowCount = 0;
   }
 
-  async send(emailData, templatesData, cvData) {
+  async send(email, templateData, cvData) {
     return await new Promise(async (resolve, reject) => {
       if (reject) { }
       // Limit the runtime of this function in case of email send process get stuck.
       const abortTimeout = setTimeout(() => {
         resolve(this.setSendGridErrorResult(null, 'Send email process exceeded timeout limit.'));
         return;
-      }, countsLimitsService.countsLimitsData.millisecondsSendTimeout);
-      const { accountApiKey, toEmailAddress, fromEmailAddress, subject, text } = emailData;
-      const { emailSenderName } = templatesData;
+      }, countLimitService.countLimitData.millisecondsSendTimeout);
+      const { accountApiKey, toEmailAddress, fromEmailAddress, subject, text } = email;
+      const { emailSenderName } = templateData;
       const { fileName, attachmentBase64, type, disposition } = cvData;
       // Set the api key.
       sgMail.setApiKey(accountApiKey);
-      sgMail.setTimeout(countsLimitsService.countsLimitsData.millisecondsSendTimeout);
-      // Create the email object.
-      const email = {
+      sgMail.setTimeout(countLimitService.countLimitData.millisecondsSendTimeout);
+      // Create the message object.
+      const message = {
         to: toEmailAddress,
         from: {
           email: fromEmailAddress,
@@ -46,7 +46,7 @@ class SendGridService {
       // Send the email.
       let sendgridResult = null;
       try {
-        const sendResult = await sgMail.send(email);
+        const sendResult = await sgMail.send(message);
         sendgridResult = this.setSendGridSendResult(sendResult);
       }
       catch (error) {
@@ -110,7 +110,7 @@ class SendGridService {
   async simulate() {
     // Simulate result.
     let sendgridResult = null;
-    const isSent = textUtils.getRandomByPercentage(countsLimitsService.countsLimitsData.simulateSendSuccessPercentage);
+    const isSent = textUtils.getRandomByPercentage(countLimitService.countLimitData.simulateSendSuccessPercentage);
     if (isSent) {
       const code = textUtils.getRandomKeyFromArray(sendgridUtils.sentCodesList);
       sendgridResult = this.setSendGridSendResult([{ statusCode: code }]);
@@ -122,7 +122,7 @@ class SendGridService {
       sendgridResult = this.setSendGridErrorResult(error, null);
     }
     // Simulate delay of send process / error.
-    await globalUtils.sleep(countsLimitsService.countsLimitsData.millisecondsSimulateDelaySendProcessCount);
+    await globalUtils.sleep(countLimitService.countLimitData.millisecondsSimulateDelaySendProcessCount);
     return sendgridResult;
   }
 
@@ -137,7 +137,7 @@ class SendGridService {
       this.sendErrorInARowCount = 0;
     }
     // Send result accordingly.
-    return this.sendErrorInARowCount >= countsLimitsService.countsLimitsData.maximumSendErrorInARowCount ? Status.SEND_ERROR_IN_A_ROW : null;
+    return this.sendErrorInARowCount >= countLimitService.countLimitData.maximumSendErrorInARowCount ? Status.SEND_ERROR_IN_A_ROW : null;
   }
 }
 

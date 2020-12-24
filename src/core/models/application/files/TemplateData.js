@@ -1,15 +1,12 @@
 class TemplateData {
 
-    constructor(data) {
-        const { subject, text } = data;
-        this.subjectId = subject.id,
-            this.subject = subject.subject;
-        this.subjectLine = subject.subjectLine;
-        this.subjectLineDisplay = subject.subjectLineDisplay;
-        this.textId = text.id,
-            this.text = text.text;
-        this.textLine = text.textLine;
-        this.textLineDisplay = text.textLineDisplay;
+    constructor(settings) {
+        const { EMAIL_SENDER_NAME, TEMPLATES_FILE_PATH, CV_FILE_PATH } = settings;
+        this.emailSenderName = EMAIL_SENDER_NAME;
+        this.templatesFilePath = TEMPLATES_FILE_PATH;
+        this.cvFilePath = CV_FILE_PATH;
+        this.subjectsList = [];
+        this.textsList = [];
     }
 }
 

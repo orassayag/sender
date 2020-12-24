@@ -1,10 +1,11 @@
-const { EmailAddressStatus, EmailAddressType, SendEmailStepName, SendGridReason } = require('./files/emailAddress.enum');
+const { EmailAddressStatus, EmailAddressStatusLog, EmailAddressType, SendEmailStepName, SendGridReason } = require('./files/emailAddress.enum');
 const { Placeholder } = require('./files/placeholder.enum');
-const { EmailAddressesSourceType } = require('./files/sources.enum');
-const { Mode, Status, Method } = require('./files/system.enum');
-const { StatusIcon, Color, ColorCode } = require('./files/text.enum');
+const { EmailAddressesSourceType } = require('./files/source.enum');
+const { Method, Mode, ScriptType, Status } = require('./files/system.enum');
+const { Color, ColorCode, StatusIcon } = require('./files/text.enum');
 
 module.exports = {
-    Color, ColorCode, EmailAddressStatus, EmailAddressType, EmailAddressesSourceType, Method,
-    Mode, Placeholder, SendEmailStepName, SendGridReason, Status, StatusIcon
+    Color, ColorCode, EmailAddressStatus, EmailAddressStatusLog, EmailAddressType,
+    EmailAddressesSourceType, Method, Mode, Placeholder, ScriptType, SendEmailStepName,
+    SendGridReason, Status, StatusIcon
 };

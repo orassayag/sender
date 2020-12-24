@@ -1,96 +1,96 @@
 const applicationService = require('./application.service');
-const countsLimitsService = require('./countsLimits.service');
+const countLimitService = require('./countLimit.service');
 const mongoDatabaseService = require('./mongoDatabase.service');
 const sendEmailService = require('./sendEmail.service');
 const { EmailAddressesSourceType, EmailAddressStatus, EmailAddressType, Method } = require('../../core/enums');
-const { EmailData, EmailsData, SourcesData } = require('../../core/models/application');
+const { Email, EmailData, SourceData } = require('../../core/models/application');
 const { fileUtils, pathUtils, textUtils, validationUtils } = require('../../utils');
 const { invalidDomains, filterEmailAddressDomains, filterEmailAddresses,
     commonEmailAddressDomainsList } = require('../../configurations/emailAddress.configuration');
 
-const emailAddressesFromArray = ['ronitzilber4983739@gmail.com'];
+const emailAddressesFromArray = [];
 
-class CreateEmailsService {
+class CreateEmailService {
 
     constructor() {
-        this.sourcesData = null;
-        this.lastEmailDataId = 0;
+        this.sourceData = null;
+        this.lastEmailId = 0;
     }
 
     async initiate(settings) {
-        this.sourcesData = new SourcesData(settings);
+        this.sourceData = new SourceData(settings);
         // Get the email addresses from the specific source,
-        // and create the EmailData instances inside EmailsData instance.
-        let emailsData = await this.getEmailAddresses();
+        // and create the Email instances inside EmailData instance.
+        let emailData = await this.getEmailAddresses();
         // Add extra logic the emails.
-        emailsData = await this.finalizeEmailsData(emailsData);
+        emailData = await this.finalizeEmailData(emailData);
         // Update counts.
-        sendEmailService.sendEmailsData.updateCount(true, EmailAddressStatus.PENDING, emailsData.emailsList.length);
-        sendEmailService.sendEmailsData.updateCount(true, EmailAddressStatus.TOTAL_PENDING, emailsData.emailsList.length);
-        sendEmailService.sendEmailsData.updateCount(true, EmailAddressStatus.DATABASE, await mongoDatabaseService.getEmailAddressesCount());
-        return emailsData;
+        sendEmailService.sendEmailData.updateCount(true, EmailAddressStatus.PENDING, emailData.emailsList.length);
+        sendEmailService.sendEmailData.updateCount(true, EmailAddressStatus.TOTAL_PENDING, emailData.emailsList.length);
+        sendEmailService.sendEmailData.updateCount(true, EmailAddressStatus.DATABASE, await mongoDatabaseService.getEmailAddressesCount());
+        return emailData;
     }
 
-    async finalizeEmailsData(emailsData) {
+    async finalizeEmailData(emailData) {
         // Check for skip domains.
         if (applicationService.applicationData.isSkipLogic) {
-            emailsData = this.skipDomains(emailsData);
+            emailData = this.skipDomains(emailData);
         }
         // Add monitor emails if needed.
         if (applicationService.applicationData.isMonitorLogic) {
-            emailsData = await this.addMonitorEmails(emailsData);
+            emailData = await this.addMonitorEmails(emailData);
         }
-        return emailsData;
+        return emailData;
     }
 
     async getEmailAddresses() {
         // Get the emails data from the relevant source.
-        let emailsData = null;
-        switch (this.sourcesData.emailAddressesSourceType) {
+        let emailData = null;
+        switch (this.sourceData.emailAddressesSourceType) {
             case EmailAddressesSourceType.DIRECTORY: {
                 const { path, parameterName } = this.getPath();
-                emailsData = await this.getEmailAddressesDirectory({
+                emailData = await this.getEmailAddressesDirectory({
                     path: path,
                     parameterName: parameterName,
-                    emailsData: emailsData
+                    emailData: emailData
                 });
                 break;
             }
             case EmailAddressesSourceType.FILE: {
                 const { path, parameterName } = this.getPath();
-                emailsData = await this.getEmailAddressesFile({
+                emailData = await this.getEmailAddressesFile({
                     path: path,
                     parameterName: parameterName,
-                    emailsData: emailsData
+                    emailData: emailData
                 });
                 break;
             }
             case EmailAddressesSourceType.ARRAY: {
-                emailsData = this.getEmailAddressesArray(emailsData);
+                emailData = this.getEmailAddressesArray(emailData);
                 break;
             }
         }
-        return emailsData;
+        return emailData;
     }
 
-    async addMonitorEmails(emailsData) {
-        emailsData = await this.getEmailAddressesFile({
-            path: this.sourcesData.monitorFilePath,
-            parameterName: pathUtils.getBasename(this.sourcesData.monitorFilePath),
-            emailsData: emailsData
+    async addMonitorEmails(emailData) {
+        emailData = await this.getEmailAddressesFile({
+            path: this.sourceData.monitorFilePath,
+            parameterName: pathUtils.getBasename(this.sourceData.monitorFilePath),
+            emailData: emailData
         });
-        return emailsData;
+        return emailData;
     }
 
     getPath() {
         let path = null;
         let parameterName = null;
         if (applicationService.applicationData.isProductionMode) {
-            path = this.sourcesData.emailAddressesProductionSourcePath;
+            path = this.sourceData.emailAddressesProductionSourcePath;
             parameterName = 'EMAIL_ADDRESSES_PRODUCTION_SOURCE_PATH';
         }
         else {
-            path = this.sourcesData.emailAddressesDevelopmentSourcePath;
+            path = this.sourceData.emailAddressesDevelopmentSourcePath;
             parameterName = 'EMAIL_ADDRESSES_DEVELOPMENT_SOURCE_PATH';
         }
         return {
@@ -101,12 +101,12 @@ class CreateEmailsService {
 
     async fetchEmailAddresses(path) {
         const fileSize = fileUtils.getFileSize(path);
-        if (fileSize > countsLimitsService.countsLimitsData.maximumFileSizeMegabytes) {
-            switch (this.sourcesData.emailAddressesSourceType) {
+        if (fileSize > countLimitService.countLimitData.maximumFileSizeMegabytes) {
+            switch (this.sourceData.emailAddressesSourceType) {
                 case EmailAddressesSourceType.DIRECTORY:
                     return [];
                 case EmailAddressesSourceType.FILE:
-                    throw new Error(`File exceeded the maximum size of ${countsLimitsService.countsLimitsData.maximumFileSizeMegabytes}MB: ${fileSize}MB (1000012)`);
+                    throw new Error(`File exceeded the maximum size of ${countLimitService.countLimitData.maximumFileSizeMegabytes}MB: ${fileSize}MB (1000012)`);
             }
         }
         const content = await fileUtils.readFile(path);
@@ -114,7 +114,7 @@ class CreateEmailsService {
     }
 
     async getEmailAddressesDirectory(data) {
-        const { path, parameterName, emailsData } = data;
+        const { path, parameterName, emailData } = data;
         if (!fileUtils.isPathExists(path)) {
             throw new Error(`Invalid or no ${parameterName} parameter was found: Excpected a number but received: ${path} (1000013)`);
         }
@@ -139,20 +139,20 @@ class CreateEmailsService {
             const file = files[i];
             const fileName = pathUtils.getBasename(file);
             // Scan only files that starts with specific file name.
-            if (fileName.indexOf(this.sourcesData.emailAddressesIncludeFileName) === 0) {
+            if (fileName.indexOf(this.sourceData.emailAddressesIncludeFileName) === 0) {
                 // Fetch the email addresses.
                 const tempEmailAddressesList = await this.fetchEmailAddresses(file);
                 emailAddressesList = [...emailAddressesList, ...tempEmailAddressesList];
             }
         }
-        return this.createEmailsData({
+        return this.createEmailData({
             emailAddressesList: emailAddressesList,
-            emailsData: emailsData
+            emailData: emailData
         });
     }
 
     async getEmailAddressesFile(data) {
-        const { path, parameterName, emailsData } = data;
+        const { path, parameterName, emailData } = data;
         if (!fileUtils.isPathExists(path)) {
             throw new Error(`Invalid or no ${parameterName} parameter was found: Excpected a number but received: ${path} (1000016)`);
         }
@@ -161,16 +161,16 @@ class CreateEmailsService {
         }
         // Fetch the email addresses.
         const emailAddressesList = await this.fetchEmailAddresses(path);
-        return this.createEmailsData({
+        return this.createEmailData({
             emailAddressesList: emailAddressesList,
-            emailsData: emailsData
+            emailData: emailData
         });
     }
 
-    getEmailAddressesArray(emailsData) {
-        return this.createEmailsData({
+    getEmailAddressesArray(emailData) {
+        return this.createEmailData({
             emailAddressesList: emailAddressesFromArray,
-            emailsData: emailsData
+            emailData: emailData
         });
     }
 
@@ -183,9 +183,9 @@ class CreateEmailsService {
     // Validate if exceeded from the configured number,
     // take random email addresses from the list.
     validateRandomExceeded(emailAddressesList) {
-        if (emailAddressesList.length <= countsLimitsService.countsLimitsData.maximumSendEmails) {
-            if (!sendEmailService.sendEmailsData.totalCount) {
-                sendEmailService.sendEmailsData.updateCount(true, EmailAddressStatus.TOTAL, emailAddressesList.length);
+        if (emailAddressesList.length <= countLimitService.countLimitData.maximumSendEmails) {
+            if (!sendEmailService.sendEmailData.totalCount) {
+                sendEmailService.sendEmailData.updateCount(true, EmailAddressStatus.TOTAL, emailAddressesList.length);
                 applicationService.applicationData.method = Method.STANDARD;
             }
             return emailAddressesList;
@@ -193,27 +193,27 @@ class CreateEmailsService {
         const total = emailAddressesList.length;
         emailAddressesList = this.getRandomUniqueKeysFromArray({
             list: emailAddressesList,
-            itemsCount: countsLimitsService.countsLimitsData.maximumSendEmails,
+            itemsCount: countLimitService.countLimitData.maximumSendEmails,
             isSkipLogic: false
         });
         const pending = emailAddressesList.length;
-        if (!sendEmailService.sendEmailsData.totalCount) {
-            sendEmailService.sendEmailsData.updateCount(true, EmailAddressStatus.TOTAL, total);
+        if (!sendEmailService.sendEmailData.totalCount) {
+            sendEmailService.sendEmailData.updateCount(true, EmailAddressStatus.TOTAL, total);
             applicationService.applicationData.method = total !== pending ? Method.RANDOM_EXCEEDED : Method.STANDARD;
         }
         return emailAddressesList;
     }
 
-    createEmailsData(data) {
-        let { emailAddressesList, emailsData } = data;
+    createEmailData(data) {
+        let { emailAddressesList, emailData } = data;
         // Validate the existence of at least 1 email address.
         this.validateEmailAddressesCount(emailAddressesList);
         let isMonitorList = false;
-        if (emailsData) {
+        if (emailData) {
             isMonitorList = true;
         }
         else {
-            emailsData = new EmailsData();
+            emailData = new EmailData();
         }
         // Validate random exceeded.
         emailAddressesList = this.validateRandomExceeded(emailAddressesList);
@@ -224,101 +224,101 @@ class CreateEmailsService {
             if (!emailAddress) {
                 continue;
             }
-            this.lastEmailDataId++;
+            this.lastEmailId++;
             const lowerEmailAddress = textUtils.toLowerCaseTrim(emailAddress);
-            let emailData = new EmailData({
-                id: this.lastEmailDataId,
+            let email = new Email({
+                id: this.lastEmailId,
                 toEmailAddress: emailAddress.trim(),
                 type: isMonitorList ? EmailAddressType.MONITOR : EmailAddressType.STANDARD
             });
             // Validate the email.
-            emailData = this.basicValidateEmail(emailData);
+            email = this.basicValidateEmail(email);
             // Validate if duplicate.
-            emailData = this.duplicateValidateEmail({
-                emailData: emailData,
+            email = this.duplicateValidateEmail({
+                email: email,
                 lowerEmailAddress: lowerEmailAddress,
                 existsEmailAddressesList: existsEmailAddressesList
             });
             if (isMonitorList) {
-                if (monitorEmailsCount >= countsLimitsService.countsLimitsData.monitorEmailsSendCount) {
+                if (monitorEmailsCount >= countLimitService.countLimitData.monitorEmailsSendCount) {
                     break;
                 }
                 // Pick a remaining element.
-                const randomIndex = textUtils.getRandomNumber(0, emailsData.emailsList.length);
+                const randomIndex = textUtils.getRandomNumber(0, emailData.emailsList.length);
                 // And swap it with the current element.
-                const temporaryValue = emailsData.emailsList[randomIndex];
-                emailsData.emailsList[randomIndex] = emailData;
-                emailsData.emailsList.push(temporaryValue);
+                const temporaryValue = emailData.emailsList[randomIndex];
+                emailData.emailsList[randomIndex] = email;
+                emailData.emailsList.push(temporaryValue);
                 monitorEmailsCount++;
             }
             else {
-                emailsData.emailsList.push(emailData);
+                emailData.emailsList.push(email);
             }
             existsEmailAddressesList.push(lowerEmailAddress);
         }
-        return emailsData;
+        return emailData;
     }
 
-    basicValidateEmail(emailData) {
+    basicValidateEmail(email) {
         // Validate the email address.
-        emailData = this.validateEmailAddress(emailData);
+        email = this.validateEmailAddress(email);
         // Filter the email address.
-        emailData = this.filterEmailAddress(emailData);
-        return emailData;
+        email = this.filterEmailAddress(email);
+        return email;
     }
 
     duplicateValidateEmail(data) {
-        const { emailData, lowerEmailAddress, existsEmailAddressesList } = data;
-        if (!emailData.status) {
-            return emailData;
+        const { email, lowerEmailAddress, existsEmailAddressesList } = data;
+        if (!email.status) {
+            return email;
         }
         if (existsEmailAddressesList.indexOf(lowerEmailAddress) > -1) {
-            emailData.status = EmailAddressStatus.DUPLICATE;
+            email.status = EmailAddressStatus.DUPLICATE;
         }
-        return emailData;
+        return email;
     }
 
-    validateEmailAddress(emailData) {
-        if (!validationUtils.validateEmailAddress(emailData.toEmailAddress)) {
-            emailData.status = EmailAddressStatus.INVALID;
+    validateEmailAddress(email) {
+        if (!validationUtils.validateEmailAddress(email.toEmailAddress)) {
+            email.status = EmailAddressStatus.INVALID;
         }
-        return emailData;
+        return email;
     }
 
-    filterEmailAddress(emailData) {
-        if (!emailData.status) {
-            return emailData;
+    filterEmailAddress(email) {
+        if (!email.status) {
+            return email;
         }
-        const domainPart = textUtils.getEmailAddressParts(emailData.toEmailAddress)[1];
+        const domainPart = textUtils.getEmailAddressParts(email.toEmailAddress)[1];
         if (filterEmailAddressDomains.includes(domainPart)) {
-            emailData.status = EmailAddressStatus.FILTER;
-            return emailData;
+            email.status = EmailAddressStatus.FILTER;
+            return email;
         }
         const emailAddressIndex = filterEmailAddresses.findIndex(emailAddressItem =>
-            textUtils.toLowerCaseTrim(emailAddressItem) === textUtils.toLowerCaseTrim(emailData.toEmailAddress));
+            textUtils.toLowerCaseTrim(emailAddressItem) === textUtils.toLowerCaseTrim(email.toEmailAddress));
         if (emailAddressIndex > -1) {
-            emailData.status = EmailAddressStatus.FILTER;
-            return emailData;
+            email.status = EmailAddressStatus.FILTER;
+            return email;
         }
         for (let i = 0; i < invalidDomains.length; i++) {
             if (domainPart.indexOf(invalidDomains[i]) > -1) {
-                emailData.status = EmailAddressStatus.FILTER;
-                return emailData;
+                email.status = EmailAddressStatus.FILTER;
+                return email;
             }
         }
-        return emailData;
+        return email;
     }
 
-    skipDomains(emailsData) {
-        const maximumUniqueDomainCount = countsLimitsService.countsLimitsData.maximumUniqueDomainCount;
-        if (!maximumUniqueDomainCount || emailsData.emailsList.length <= maximumUniqueDomainCount) {
-            return emailsData;
+    skipDomains(emailData) {
+        const maximumUniqueDomainCount = countLimitService.countLimitData.maximumUniqueDomainCount;
+        if (!maximumUniqueDomainCount || emailData.emailsList.length <= maximumUniqueDomainCount) {
+            return emailData;
         }
-        const emailsDataGroupsList = [];
-        const updatedEmailsDataList = [];
-        for (let i = 0; i < emailsData.emailsList.length; i++) {
-            const emailData = emailsData.emailsList[i];
-            const splitResult = textUtils.getEmailAddressParts(emailData.toEmailAddress);
+        const emailDataGroupsList = [];
+        const updatedEmailDataList = [];
+        for (let i = 0; i < emailData.emailsList.length; i++) {
+            const email = emailData.emailsList[i];
+            const splitResult = textUtils.getEmailAddressParts(email.toEmailAddress);
             if (!splitResult || splitResult.length < 2) {
                 continue;
             }
@@ -328,38 +328,38 @@ class CreateEmailsService {
             }
             // Check if the domain is common domain. Not relevant is true.
             if (commonEmailAddressDomainsList.findIndex(domain => domain === domainPart) > -1) {
-                updatedEmailsDataList.push(emailData);
+                updatedEmailDataList.push(email);
                 continue;
             }
-            const groupIndex = emailsDataGroupsList.findIndex(d => d.domainPart === domainPart);
+            const groupIndex = emailDataGroupsList.findIndex(d => d.domainPart === domainPart);
             // Insert / update the list.
             if (groupIndex > -1) {
-                emailsDataGroupsList[groupIndex].emailsList.push(emailData);
+                emailDataGroupsList[groupIndex].emailsList.push(email);
             }
             else {
-                emailsDataGroupsList.push({
+                emailDataGroupsList.push({
                     domainPart: domainPart,
-                    emailsList: [emailData]
+                    emailsList: [email]
                 });
             }
         }
-        for (let i = 0; i < emailsDataGroupsList.length; i++) {
-            const group = emailsDataGroupsList[i];
-            let emailsDataGroup = group.emailsList;
-            if (emailsDataGroup.length >= maximumUniqueDomainCount) {
-                for (let y = 0; y < emailsDataGroup.length; y++) {
-                    emailsDataGroup[y].status = EmailAddressStatus.SKIP;
+        for (let i = 0; i < emailDataGroupsList.length; i++) {
+            const group = emailDataGroupsList[i];
+            let emailDataGroup = group.emailsList;
+            if (emailDataGroup.length >= maximumUniqueDomainCount) {
+                for (let y = 0; y < emailDataGroup.length; y++) {
+                    emailDataGroup[y].status = EmailAddressStatus.SKIP;
                 }
-                emailsDataGroupsList[i].emailsList = this.getRandomUniqueKeysFromArray({
-                    list: emailsDataGroup,
+                emailDataGroupsList[i].emailsList = this.getRandomUniqueKeysFromArray({
+                    list: emailDataGroup,
                     itemsCount: maximumUniqueDomainCount,
                     isSkipLogic: true
                 });
             }
-            updatedEmailsDataList.push(...emailsDataGroupsList[i].emailsList);
+            updatedEmailDataList.push(...emailDataGroupsList[i].emailsList);
         }
-        emailsData.emailsList = updatedEmailsDataList;
-        return emailsData;
+        emailData.emailsList = updatedEmailDataList;
+        return emailData;
     }
 
     getRandomUniqueKeysFromArray(data) {
@@ -388,16 +388,16 @@ class CreateEmailsService {
     }
 
     // When retry to send email, need to reset it's previous data.
-    resetEmail(emailData) {
-        const { id, toEmailAddress, type, retriesCount } = emailData;
-        emailData = new EmailData({
+    resetEmail(email) {
+        const { id, toEmailAddress, type, retriesCount } = email;
+        email = new Email({
             id: id,
             toEmailAddress: toEmailAddress,
             type: type
         });
-        emailData.retriesCount = retriesCount + 1;
-        return emailData;
+        email.retriesCount = retriesCount + 1;
+        return email;
     }
 }
 
-module.exports = new CreateEmailsService();
+module.exports = new CreateEmailService();

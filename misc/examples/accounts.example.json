@@ -1,10 +1,12 @@
 [
     {
         "username": "test1@email.com",
+        "password": "sndfjk#$Vvds#@DSA",
         "APIKey": "SG.XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
     },
     {
         "username": "test2@email.com",
+        "password": "sndfjk#$Vvds#@DSA",
         "APIKey": "SG.XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
     }
 ]

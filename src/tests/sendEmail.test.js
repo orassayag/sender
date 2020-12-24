@@ -1,13 +1,13 @@
 /* cSpell:disable */
 require('../services/files/initiate.service').initiate();
 const settings = require('../settings/settings');
-const { countsLimitsService, sendgridService } = require('../services');
+const { countLimitService, sendgridService } = require('../services');
 const { fileUtils, logUtils, pathUtils } = require('../utils');
 const { EmailAddressStatus, EmailAddressType } = require('../core/enums');
-const { CVData, EmailData } = require('../core/models/application');
+const { CVData, Email } = require('../core/models/application');
 
 (async () => {
-    countsLimitsService.initiate(settings);
+    countLimitService.initiate(settings);
     // Email fields.
     const id = 1;
     const createDateTime = new Date();
@@ -46,32 +46,32 @@ const { CVData, EmailData } = require('../core/models/application');
         type: fileType,
         disposition: disposition
     });
-    const emailData = new EmailData({
+    const email = new Email({
         id: id,
         toEmailAddress: toEmailAddress,
         type: type
     });
-    emailData.createDateTime = createDateTime;
-    emailData.accountId = accountId;
-    emailData.accountApiKey = accountApiKey;
-    emailData.fromEmailAddress = fromEmailAddress;
-    emailData.subjectId = subjectId;
-    emailData.subject = subject;
-    emailData.subjectLine = subjectLine;
-    emailData.subjectLineDisplay = subjectLineDisplay;
-    emailData.textId = textId;
-    emailData.text = text;
-    emailData.textLine = textLine;
-    emailData.textLineDisplay = textLineDisplay;
-    emailData.status = status;
-    emailData.step = step;
-    emailData.resultDateTime = resultDateTime;
-    emailData.resultDetails = resultDetails;
-    emailData.resultCode = resultCode;
-    emailData.retriesCount = retriesCount;
+    email.createDateTime = createDateTime;
+    email.accountId = accountId;
+    email.accountApiKey = accountApiKey;
+    email.fromEmailAddress = fromEmailAddress;
+    email.subjectId = subjectId;
+    email.subject = subject;
+    email.subjectLine = subjectLine;
+    email.subjectLineDisplay = subjectLineDisplay;
+    email.textId = textId;
+    email.text = text;
+    email.textLine = textLine;
+    email.textLineDisplay = textLineDisplay;
+    email.status = status;
+    email.step = step;
+    email.resultDateTime = resultDateTime;
+    email.resultDetails = resultDetails;
+    email.resultCode = resultCode;
+    email.retriesCount = retriesCount;
     if (!accountApiKey || !toEmailAddress || !fromEmailAddress || !subject || !text) {
-        throw new Error('One of the required fields are missing (1000035)');
+        throw new Error('One of the required fields are missing (1000039)');
     }
-    const sendResult = await sendgridService.send(emailData, cvData);
+    const sendResult = await sendgridService.send(email, cvData);
     logUtils.log(sendResult);
 })();

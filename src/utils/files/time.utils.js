@@ -6,21 +6,49 @@ class TimeUtils {
     constructor() { }
 
     getFullTime(date) {
-        return `${textUtils.addLeadingZero(date.getHours())}:${textUtils.addLeadingZero(date.getMinutes())}:${textUtils.addLeadingZero(date.getSeconds())}`;
+        return `${this.getHours(date)}:${this.getMinutes(date)}:${this.getSeconds(date)}`;
     }
 
     getDateNoSpaces() {
         const date = new Date();
-        return [textUtils.addLeadingZero(date.getDate()), (textUtils.addLeadingZero(date.getMonth() + 1)), date.getFullYear()].join('');
+        return [textUtils.addLeadingZero(date.getDate()), this.getMonth(date), this.getYear(date)].join('');
     }
 
     getFullDateNoSpaces() {
         const date = new Date();
-        return `${[textUtils.addLeadingZero(date.getDate()), (textUtils.addLeadingZero(date.getMonth() + 1)), date.getFullYear()].join('')}_${[textUtils.addLeadingZero(date.getHours()), textUtils.addLeadingZero(date.getMinutes()), textUtils.addLeadingZero(date.getSeconds())].join('')}`;
+        return `${[this.getDay(date), this.getMonth(date), this.getYear(date)].join('')}_${[this.getHours(date), this.getMinutes(date), this.getSeconds(date)].join('')}`;
     }
 
     getFullDateTime(date) {
-        return `${[textUtils.addLeadingZero(date.getDate()), (textUtils.addLeadingZero(date.getMonth() + 1)), date.getFullYear()].join('/')} ${textUtils.addLeadingZero(date.getHours())}:${textUtils.addLeadingZero(date.getMinutes())}:${textUtils.addLeadingZero(date.getSeconds())}:${textUtils.addLeadingZero(date.getMilliseconds())}`;
+        return `${[this.getDay(date), this.getMonth(date), this.getYear(date)].join('/')} ${this.getHours(date)}:${this.getMinutes(date)}:${this.getSeconds(date)}:${this.getMilliseconds(date)}`;
+    }
+
+    getMilliseconds(date) {
+        return textUtils.addLeadingZero(date.getMilliseconds());
+    }
+
+    getSeconds(date) {
+        return textUtils.addLeadingZero(date.getSeconds());
+    }
+
+    getMinutes(date) {
+        return textUtils.addLeadingZero(date.getMinutes());
+    }
+
+    getHours(date) {
+        return textUtils.addLeadingZero(date.getHours());
+    }
+
+    getDay(date) {
+        return textUtils.addLeadingZero(date.getDate());
+    }
+
+    getMonth(date) {
+        return textUtils.addLeadingZero(date.getMonth() + 1);
+    }
+
+    getYear(date) {
+        return date.getFullYear();
     }
 
     getDifferenceTimeBetweenDates(data) {
@@ -50,4 +78,5 @@ class TimeUtils {
         };
     }
 }
+
 module.exports = new TimeUtils();

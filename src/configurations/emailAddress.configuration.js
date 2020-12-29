@@ -11,7 +11,8 @@ const invalidDomains = [
 	'template.index',
 	'template.product',
 	'template.account.plans',
-	'sentry.wixpress.com'
+	'sentry.wixpress.com',
+	'posting.google.com'
 ];
 
 const filterEmailAddressDomains = [

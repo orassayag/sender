@@ -220,6 +220,7 @@ class LogService {
 				[Color.YELLOW, Color.YELLOW, Color.YELLOW, Color.YELLOW, Color.YELLOW, Color.YELLOW, Color.YELLOW],
 				[]
 			],
+			nonNumericKeys: { 'Id': 'Id' },
 			statusColor: Color.CYAN
 		});
 	}

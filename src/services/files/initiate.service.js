@@ -1,5 +1,6 @@
 const settings = require('../../settings/settings');
 const globalUtils = require('../../utils/files/global.utils');
+const fileUtils = require('../../utils/files/file.utils');
 const pathUtils = require('../../utils/files/path.utils');
 const validationUtils = require('../../utils/files/validation.utils');
 const { EmailAddressesSourceType, ScriptType } = require('../../core/enums');
@@ -197,6 +198,17 @@ class InitiateService {
 			globalUtils.isPathExistsError(value);
 			// Verify that the dist and the sources paths accessible.
 			globalUtils.isPathAccessible(value);
+		});
+		[
+			...keys,
+			// ===ROOT PATH=== //
+			'OUTER_APPLICATION_PATH', 'INNER_APPLICATION_PATH'
+		].map(key => {
+			const value = settings[key];
+			// Verify that the paths are of directory and not a file.
+			if (!fileUtils.isDirectoryPath(value)) {
+				throw new Error(`The parameter path ${key} marked as directory but it's a path of a file: ${value} (1000052)`);
+			}
 		});
 	}
 

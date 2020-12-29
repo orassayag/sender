@@ -52,7 +52,7 @@
     "eslint": "^7.16.0",
     "fs-extra": "^9.0.1",
     "is-reachable": "^5.0.0",
-    "mongoose": "^5.11.8",
+    "mongoose": "^5.11.9",
     "slice-ansi": "^4.0.0",
     "wrap-ansi": "^7.0.0"
   }

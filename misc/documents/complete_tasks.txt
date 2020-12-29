@@ -1,3 +1,13 @@
+Complete / canceled tasks:
+==========================
+-Update packages.
+-Add to filter: posting.google.com. *
+-Copy the logic of validation of isDirectory in the initiate servrvice from 'crawler' project. *
+-Copy the logic of checking that mongo service active from 'crawler' project. *
+-Copy the logic of nonNumeric in logProgress funcion. *
+-Add 	constructor() { *
+		this.scriptType = null; *
+	} *
 -Convert the log emailAddress status log to be like the in the 'udemy-courses' project. Copy the logic from there. *
 -Copy all the logic from 'udemy-courses' project of running the project after downloaded from GitHub. *
 -Add 'validateScriptType' in the initiate service from the 'crawl' project. *

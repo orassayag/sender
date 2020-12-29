@@ -8,7 +8,7 @@ const { fileUtils, pathUtils, textUtils, validationUtils } = require('../../util
 const { invalidDomains, filterEmailAddressDomains, filterEmailAddresses,
     commonEmailAddressDomainsList } = require('../../configurations/emailAddress.configuration');
 
-const emailAddressesFromArray = [];
+const emailAddressesFromArray = ['test@gmail.com'];
 
 class CreateEmailService {
 

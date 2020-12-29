@@ -28,10 +28,17 @@ class MongoDatabaseService {
             ssl: this.mongoDatabaseData.isMongoDatabaseSSL,
             sslValidate: this.mongoDatabaseData.isMongoDatabaseSSLValidate
         };
+        await this.validateProcess();
         await this.createConnection();
         await this.testMongoDatabase();
         if (this.mongoDatabaseData.isDropCollection) {
             await this.dropCollection();
+        }
+    }
+
+    async validateProcess() {
+        if (!await systemUtils.isProcessRunning('mongod.exe')) {
+            throw new Error('The process mongod.exe no running (1000053)');
         }
     }
 

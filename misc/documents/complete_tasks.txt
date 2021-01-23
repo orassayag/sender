@@ -1,8 +1,43 @@
 Complete / canceled tasks:
 ==========================
--Update packages.
+-Update packages. *
+-Take updated 'Misc' section from 'crawler' project for npmignore and gitignore files. *
+-In .eslintrc file - set "no-unused-vars": 1. *
+-Add .eslintignore file from 'crawler' project. *
+-Add .jsbeautifyrc file from 'crawler' project. *
+-Check if comments of all backup parmeters in settings.js relevant to this project. *
+-Take backup.logic.js file from 'mbox-crawler' project. *
+-Change the 'initiate.service' according to 'mbox-crawler' changes (load all utils in one line + also in all places load 'fs-extra' instead of 'fs'). *
+-Make sure all functions cleared with empty lines. *
+-Fix description in package.json + README.MD + re-create package.json-lock file. *
+-Add catch to all promises. *
+-Change the function name from 'getRandomByPercentage' to 'getRandomBooleanByPercentage'. *
+-Update packages npm outdated --depth 9999. *
+-Re-check all imports in the entire project (check for duplicate imports paths). *
+-Sort alphabetically all imports: external packages, settings, (containers, components, store, assert) data, models, enums, services, utils. *
+-Sort alphabetically by https://alphabetizer.flap.tv/. *
+-Make sure spaces in all files between bottom, need to fix cases like this: *
+} *
+module.exports *
+} *
+export default *
+-Add 'Misc.' section to gitignore and npmignore files (include tasks txt files + backups directory). *
+-Replace all 'let' to 'const' and where no bugs - change it. *
+-Remove all unused files, functions, and variables. *
+-Clear all comments. *
+-Fix TXT files spell mistakes. *
+-Fix all spell mistakes in all TXT files. *
+-Fix spell mistakes in all txt files. *
+-Rewrite error numbers. *
+-Remove all debugger. *
+-Make sure all comments ends with . *
+-Format all files. *
+-Verify all works (include sending email). *
+-Move all complete tasks from here to complete_tasks.txt. *
+-Upload to GitHub. *
+-Update packages. *
 -Add to filter: posting.google.com. *
--Copy the logic of validation of isDirectory in the initiate servrvice from 'crawler' project. *
+-Copy the logic of validation of isDirectory in the initiate service from 'crawler' project. *
 -Copy the logic of checking that mongo service active from 'crawler' project. *
 -Copy the logic of nonNumeric in logProgress funcion. *
 -Add 	constructor() { *

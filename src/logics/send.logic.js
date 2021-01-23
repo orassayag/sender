@@ -1,9 +1,10 @@
 const settings = require('../settings/settings');
-const { accountService, applicationService, confirmationService, countLimitService,
-    createEmailService, logService, mongoDatabaseService, pathService, templateService,
-    sendEmailService, validationService } = require('../services');
 const { Color, Status } = require('../core/enums');
-const { globalUtils, logUtils, systemUtils } = require('../utils');
+const { accountService, applicationService, confirmationService, countLimitService,
+    createEmailService, logService, mongoDatabaseService, pathService, sendEmailService,
+    templateService, validationService } = require('../services');
+const globalUtils = require('../utils/files/global.utils');
+const { logUtils, systemUtils } = require('../utils');
 
 class SendLogic {
 
@@ -14,9 +15,9 @@ class SendLogic {
     async run() {
         // Validate all settings are fit to the user needs.
         await this.confirm();
-        // Initiate all the settings, configurations, services, ect.
+        // Initiate all the settings, configurations, services, ect...
         await this.initiate();
-        // Validate general settings
+        // Validate general settings.
         await this.validateGeneralSettings();
         // Start the sending emails processes.
         await this.startSession();
@@ -44,7 +45,7 @@ class SendLogic {
         await validationService.validateInternetConnection();
         // Validate that the mode is PRODUCTION and both send and save emails flags marked as true.
         if (!applicationService.applicationData.isSendEmails || !applicationService.applicationData.isSaveEmails) {
-            throw new Error('Production mode but isSendEmails or isSaveEmails flags are false (1000004)');
+            throw new Error('Production mode but isSendEmails or isSaveEmails flags are false (1000003)');
         }
     }
 

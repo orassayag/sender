@@ -1,18 +1,21 @@
 /* cSpell:disable */
-const invalidDomains = [
-	'ingest.sentry.io',
-	'sentry.indeed.com',
-	'sentrylabs.indeed.com',
-	'app.getsentry.com',
-	'sentry.io',
-	'sentry.issuu.com',
-	'1000xbetslots.xyz',
-	'group.calendar.google.com',
-	'template.index',
-	'template.product',
-	'template.account.plans',
-	'sentry.wixpress.com',
-	'posting.google.com'
+const commonEmailAddressDomainsList = [
+	'gmail.com',
+	'hotmail.com',
+	'yahoo.com',
+	'outlook.com',
+	'walla.co.il',
+	'walla.com',
+	'bezeqint.net',
+	'netvision.net.il'
+];
+
+const filterEmailAddresses = [
+	'nurit.fadida@gmail.com',
+	'amit@amit-segal.com',
+	'your.name@provider.com',
+	'email@email.com',
+	'your@friend.email'
 ];
 
 const filterEmailAddressDomains = [
@@ -40,23 +43,20 @@ const filterEmailAddressDomains = [
 	'knesset.tv'
 ];
 
-const filterEmailAddresses = [
-	'nurit.fadida@gmail.com',
-	'amit@amit-segal.com',
-	'your.name@provider.com',
-	'email@email.com',
-	'your@friend.email'
+const invalidDomains = [
+	'ingest.sentry.io',
+	'sentry.indeed.com',
+	'sentrylabs.indeed.com',
+	'app.getsentry.com',
+	'sentry.io',
+	'sentry.issuu.com',
+	'1000xbetslots.xyz',
+	'group.calendar.google.com',
+	'template.index',
+	'template.product',
+	'template.account.plans',
+	'sentry.wixpress.com',
+	'posting.google.com'
 ];
 
-const commonEmailAddressDomainsList = [
-	'gmail.com',
-	'hotmail.com',
-	'yahoo.com',
-	'outlook.com',
-	'walla.co.il',
-	'walla.com',
-	'bezeqint.net',
-	'netvision.net.il'
-];
-
-module.exports = { invalidDomains, filterEmailAddressDomains, filterEmailAddresses, commonEmailAddressDomainsList };
+module.exports = { commonEmailAddressDomainsList, filterEmailAddresses, filterEmailAddressDomains, invalidDomains };

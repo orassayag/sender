@@ -1,10 +1,10 @@
 /* cSpell:disable */
 require('../services/files/initiate.service').initiate();
 const settings = require('../settings/settings');
-const { countLimitService, sendgridService } = require('../services');
-const { fileUtils, logUtils, pathUtils } = require('../utils');
-const { EmailAddressStatus, EmailAddressType } = require('../core/enums');
 const { CVData, Email } = require('../core/models/application');
+const { EmailAddressStatus, EmailAddressType } = require('../core/enums');
+const { countLimitService, sendgridService } = require('../services');
+const { fileUtils, pathUtils, logUtils } = require('../utils');
 
 (async () => {
     countLimitService.initiate(settings);
@@ -70,7 +70,7 @@ const { CVData, Email } = require('../core/models/application');
     email.resultCode = resultCode;
     email.retriesCount = retriesCount;
     if (!accountApiKey || !toEmailAddress || !fromEmailAddress || !subject || !text) {
-        throw new Error('One of the required fields are missing (1000039)');
+        throw new Error('One of the required fields are missing (1000040)');
     }
     const sendResult = await sendgridService.send(email, cvData);
     logUtils.log(sendResult);

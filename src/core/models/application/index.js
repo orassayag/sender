@@ -22,9 +22,7 @@ const TemplateData = require('./files/TemplateData');
 const TextData = require('./files/TextData');
 
 module.exports = {
-    Account, AccountData, ApplicationData, BackupData, BackupDirectory,
-    CountLimitData, CVData, Email, EmailProcessResult, EmailData, LogData,
-    MongoDatabaseData, MongoDatabaseResult, PathData, SendEmailData,
-    SendGridCode, SendGridResult, SourceData, SubjectData, Template,
-    TemplateData, TextData
+    Account, AccountData, ApplicationData, BackupData, BackupDirectory, CountLimitData, CVData, Email, EmailProcessResult,
+    EmailData, LogData, MongoDatabaseData, MongoDatabaseResult, PathData, SendEmailData, SendGridCode, SendGridResult,
+    SourceData, SubjectData, Template, TemplateData, TextData
 };

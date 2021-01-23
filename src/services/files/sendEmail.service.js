@@ -1,10 +1,10 @@
+const { EmailProcessResult, SendEmailData } = require('../../core/models/application');
+const { EmailAddressStatus, EmailAddressType, SendEmailStepName, Status } = require('../../core/enums');
 const accountService = require('./account.service');
 const applicationService = require('./application.service');
 const mongoDatabaseService = require('./mongoDatabase.service');
-const templateService = require('./template.service');
 const sendgridService = require('./sendgrid.service');
-const { EmailAddressStatus, EmailAddressType, SendEmailStepName, Status } = require('../../core/enums');
-const { EmailProcessResult, SendEmailData } = require('../../core/models/application');
+const templateService = require('./template.service');
 const { systemUtils } = require('../../utils');
 
 class SendEmailService {
@@ -212,8 +212,7 @@ class SendEmailService {
     }
 
     setProcessResults(data) {
-        let { resultDetails, code } = data;
-        const { status } = data;
+        let { status, resultDetails, code } = data;
         if (status) {
             // Compare here the statuses and log of some how the statuses.
             if (this.email.status === status) {

@@ -1,8 +1,8 @@
+const { Color } = require('../../core/enums');
 const logUpdate = require('../../log-update');
 const colorUtils = require('./color.utils');
 const textUtils = require('./text.utils');
 const validationUtils = require('./validation.utils');
-const { Color } = require('../../core/enums');
 
 class LogUtils {
 

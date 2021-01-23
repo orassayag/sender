@@ -1,7 +1,6 @@
 const applicationUtils = require('./files/application.utils');
 const colorUtils = require('./files/color.utils');
 const fileUtils = require('./files/file.utils');
-const globalUtils = require('./files/global.utils');
 const logUtils = require('./files/log.utils');
 const mongoDatabaseUtils = require('./files/mongoDatabase.utils');
 const pathUtils = require('./files/path.utils');
@@ -13,7 +12,6 @@ const timeUtils = require('./files/time.utils');
 const validationUtils = require('./files/validation.utils');
 
 module.exports = {
-    applicationUtils, colorUtils, fileUtils, globalUtils, logUtils, mongoDatabaseUtils,
-    pathUtils, regexUtils, sendgridUtils, systemUtils, textUtils, timeUtils,
-    validationUtils
+    applicationUtils, colorUtils, fileUtils, logUtils, mongoDatabaseUtils, pathUtils,
+    regexUtils, sendgridUtils, systemUtils, textUtils, timeUtils, validationUtils
 };

@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
-const countLimitService = require('./countLimit.service');
-const { globalUtils, systemUtils, textUtils } = require('../../utils');
-const { EmailAddressStatus, Status } = require('../../core/enums');
 const EmailAddressModel = require('../../core/models/mongo/EmailAddressModel');
 const { MongoDatabaseData, MongoDatabaseResult } = require('../../core/models/application');
+const { EmailAddressStatus, Status } = require('../../core/enums');
+const countLimitService = require('./countLimit.service');
+const globalUtils = require('../../utils/files/global.utils');
+const { systemUtils, textUtils } = require('../../utils');
 
 class MongoDatabaseService {
 
@@ -38,7 +39,7 @@ class MongoDatabaseService {
 
     async validateProcess() {
         if (!await systemUtils.isProcessRunning('mongod.exe')) {
-            throw new Error('The process mongod.exe no running (1000053)');
+            throw new Error('The process mongod.exe no running (1000032)');
         }
     }
 
@@ -49,9 +50,9 @@ class MongoDatabaseService {
     async createConnection() {
         // Connect to the Mongo database.
         this.client = await mongoose.connect(this.mongoConnectionString, this.mongoConnectionOptions)
-            .catch(error => { throw new Error(`Failed to connect to MongoDB: ${error} (1000032)`); });
+            .catch(error => { throw new Error(`Failed to connect to MongoDB: ${error} (1000033)`); });
         if (!this.client) {
-            throw new Error('Failed to connect to MongoDB: Client is null or empty (1000033)');
+            throw new Error('Failed to connect to MongoDB: Client is null or empty (1000034)');
         }
     }
 
@@ -180,7 +181,7 @@ class MongoDatabaseService {
     async simulate() {
         // Simulate result.
         let saveResult = null;
-        const isSave = textUtils.getRandomByPercentage(countLimitService.countLimitData.simulateSaveSuccessPercentage);
+        const isSave = textUtils.getRandomBooleanByPercentage(countLimitService.countLimitData.simulateSaveSuccessPercentage);
         if (isSave) {
             saveResult = this.setMongoDatabaseSaveResult({
                 status: EmailAddressStatus.SAVE,

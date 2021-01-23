@@ -1,5 +1,5 @@
-const pathUtils = require('../utils/files/path.utils');
 const { EmailAddressesSourceType } = require('../core/enums');
+const pathUtils = require('../utils/files/path.utils');
 
 const settings = {
     // ===FLAG=== //
@@ -88,7 +88,7 @@ const settings = {
     MAXIMUM_SAVE_EMAIL_ADDRESS_RETRIES_COUNT: 2,
     // Determine the maximum unique domain count in a single page process per domain.
     // If exceeded, the rest of the email addresses with the domain are skipped.
-    // (This, of course, not include common domains like gmail, hotmail, ect.)
+    // (This, of course, not include common domains like gmail, hotmail, ect...)
     MAXIMUM_UNIQUE_DOMAIN_COUNT: 3,
     // Determine how many monitor emails to send durring a single process of sending emails.
     // Will work only if IS_MONITOR_LOGIC is true. It will be sent in a random place in the emails list.
@@ -150,14 +150,10 @@ const settings = {
     // Determine the dist directory path which there, all the outcome of the crawling will be created.
     // (Working example: 'C:\\Or\\Web\\sender\\sender\\dist').
     DIST_PATH: 'dist',
-    // Determine the directory path of the node_modules, do refresh each time switching from development and production modes.
     // (Working example: 'C:\\Or\\Web\\sender\\sender\\node_modules').
     NODE_MODULES_PATH: 'node_modules',
-    // Determine the directory of the package.json to update each time switching
-    // from development and production modes (add/remove Puppeeter.js NPM package).
     // (Working example: 'C:\\Or\\Web\\sender\\sender\\package.json').
     PACKAGE_JSON_PATH: 'package.json',
-    // Determine the path of the package-lock.json to remove it each time switching from development and production modes.
     // (Working example: 'C:\\Or\\Web\\sender\\sender\\package-lock.json').
     PACKAGE_LOCK_JSON_PATH: 'package-lock.json',
 

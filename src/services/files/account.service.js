@@ -1,8 +1,8 @@
 const settings = require('../../settings/settings');
 const { Account, AccountData } = require('../../core/models/application');
-const { textUtils, validationUtils } = require('../../utils');
 const countLimitService = require('./countLimit.service');
 const fileService = require('./file.service');
+const { textUtils, validationUtils } = require('../../utils');
 
 class AccountService {
 
@@ -29,7 +29,7 @@ class AccountService {
                 i: i
             });
             if (this.accountData.accountsList.findIndex(a => a.emailAddress === validationResult.username) > -1) {
-                throw new Error(`Duplicate accounts detected with the username: ${validationResult.username} (1000005)`);
+                throw new Error(`Duplicate accounts detected with the username: ${validationResult.username} (1000004)`);
             }
             this.lastAccountId++;
             this.accountData.accountsList.push(new Account({
@@ -47,19 +47,19 @@ class AccountService {
     validateAccount(data) {
         let { username, password, apiKey, i } = data;
         if (!username) {
-            throw new Error(`Missing username of account index: ${i} (1000006)`);
+            throw new Error(`Missing username of account index: ${i} (1000005)`);
         }
         if (!validationUtils.validateEmailAddress(textUtils.toLowerCase(username))) {
-            throw new Error(`Invalid username of account index: ${i} (1000007)`);
+            throw new Error(`Invalid username of account index: ${i} (1000006)`);
         }
         if (!password) {
-            throw new Error(`Missing password of account index: ${i} (1000008)`);
+            throw new Error(`Missing password of account index: ${i} (1000007)`);
         }
         if (!apiKey) {
-            throw new Error(`Missing api key of account index: ${i} (1000009)`);
+            throw new Error(`Missing api key of account index: ${i} (1000008)`);
         }
         if (!validationUtils.isValidSendGridApiKey(apiKey)) {
-            throw new Error(`Invalid api key of account index: ${i} (1000010)`);
+            throw new Error(`Invalid api key of account index: ${i} (1000009)`);
         }
         username = username.trim();
         password = password.trim();
@@ -96,7 +96,7 @@ class AccountService {
         // Update exists account data in the accountData list.
         const accountIndex = this.accountData.accountsList.findIndex(a => a.id === this.account.id);
         if (accountIndex <= -1) {
-            throw new Error(`Account id ${this.account.id} not exists in the accountsList (1000011)`);
+            throw new Error(`Account id ${this.account.id} not exists in the accountsList (1000010)`);
         }
         this.accountData.accountsList[accountIndex] = this.account;
         // Check if need to switch account due to the limit exceeded of send count per day.

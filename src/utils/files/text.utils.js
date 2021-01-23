@@ -136,7 +136,7 @@ class TextUtils {
     }
 
     // X% (first) this will be true, Y% false (second).
-    getRandomByPercentage(percentage) {
+    getRandomBooleanByPercentage(percentage) {
         return Math.random() < percentage;
     }
 

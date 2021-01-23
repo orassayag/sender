@@ -1,9 +1,9 @@
 
 const settings = require('../../settings/settings');
-const { CVData, SubjectData, Template, TemplateData, TextData } = require('../../core/models/application');
-const { fileUtils, pathUtils, textUtils, validationUtils } = require('../../utils');
+const { CVData, Template, TemplateData, TextData, SubjectData } = require('../../core/models/application');
 const countLimitService = require('./countLimit.service');
 const fileService = require('./file.service');
+const { fileUtils, pathUtils, textUtils, validationUtils } = require('../../utils');
 
 class TemplateService {
 
@@ -51,20 +51,20 @@ class TemplateService {
             }
         }
         if (this.templateData.subjectsList.length <= 0) {
-            throw new Error('No subjects found in the templates.json file. (1000034)');
+            throw new Error('No subjects found in the templates.json file. (1000035)');
         }
         if (this.templateData.textsList.length <= 0) {
-            throw new Error('No texts found in the templates.json file. (1000035)');
+            throw new Error('No texts found in the templates.json file. (1000036)');
         }
     }
 
     async initiateCVFile() {
         if (!await fileUtils.isPathExists(this.templateData.cvFilePath)) {
-            throw new Error('CV file path not exists (1000036)');
+            throw new Error('CV file path not exists (1000037)');
         }
         const extension = pathUtils.getExtension(this.templateData.cvFilePath);
         if (extension !== '.doc') {
-            throw new Error(`The CV file need to be a doc file. Found a ${extension} file (1000037)`);
+            throw new Error(`The CV file need to be a doc file. Found a ${extension} file (1000038)`);
         }
         this.cvData = new CVData({
             fileName: pathUtils.getBasename(this.templateData.cvFilePath),

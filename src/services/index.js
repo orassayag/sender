@@ -13,7 +13,7 @@ const templateService = require('./files/template.service');
 const validationService = require('./files/validation.service');
 
 module.exports = {
-    accountService, applicationService, confirmationService, countLimitService,
-    createEmailService, fileService, logService, mongoDatabaseService, pathService,
-    sendEmailService, sendgridService, templateService, validationService
+    accountService, applicationService, confirmationService, countLimitService, createEmailService,
+    fileService, logService, mongoDatabaseService, pathService, sendEmailService, sendgridService,
+    templateService, validationService
 };

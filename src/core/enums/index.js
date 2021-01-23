@@ -1,4 +1,5 @@
-const { EmailAddressStatus, EmailAddressStatusLog, EmailAddressType, SendEmailStepName, SendGridReason } = require('./files/emailAddress.enum');
+const { EmailAddressStatus, EmailAddressStatusLog, EmailAddressType,
+    SendEmailStepName, SendGridReason } = require('./files/emailAddress.enum');
 const { Placeholder } = require('./files/placeholder.enum');
 const { EmailAddressesSourceType } = require('./files/source.enum');
 const { Method, Mode, ScriptType, Status } = require('./files/system.enum');

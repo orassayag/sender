@@ -11,7 +11,7 @@ class ValidationService {
             isConnected = await isReachable(applicationService.applicationData.validationConnectionLink);
         } catch (error) { isConnected = false; }
         if (!isConnected) {
-            throw new Error(`${applicationService.applicationData.validationConnectionLink} is not available (1000038)`);
+            throw new Error(`${applicationService.applicationData.validationConnectionLink} is not available (1000039)`);
         }
     }
 }

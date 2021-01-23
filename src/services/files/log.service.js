@@ -1,6 +1,5 @@
-const { fileUtils, pathUtils, logUtils, mongoDatabaseUtils, textUtils, timeUtils, validationUtils } = require('../../utils');
-const { Color, EmailAddressStatusLog, StatusIcon, Placeholder } = require('../../core/enums');
 const { LogData } = require('../../core/models/application');
+const { Color, EmailAddressStatusLog, StatusIcon, Placeholder } = require('../../core/enums');
 const accountService = require('./account.service');
 const applicationService = require('./application.service');
 const countLimitService = require('./countLimit.service');
@@ -9,6 +8,8 @@ const pathService = require('./path.service');
 const sendEmailService = require('./sendEmail.service');
 const sendgridService = require('./sendgrid.service');
 const templateService = require('./template.service');
+const { fileUtils, pathUtils, logUtils, mongoDatabaseUtils,
+	textUtils, timeUtils, validationUtils } = require('../../utils');
 
 class LogService {
 

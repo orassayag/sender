@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs = require('fs-extra');
 const path = require('path');
 
 class GlobalUtils {
@@ -16,11 +16,11 @@ class GlobalUtils {
     isPathExistsError(targetPath) {
         // Check if the path parameter was received.
         if (!targetPath) {
-            throw new Error(`targetPath not received: ${targetPath} (1000043)`);
+            throw new Error(`targetPath not received: ${targetPath} (1000044)`);
         }
         // Check if the path parameter exists.
         if (!fs.existsSync(targetPath)) {
-            throw new Error(`targetPath not exists: ${targetPath} (1000044)`);
+            throw new Error(`targetPath not exists: ${targetPath} (1000045)`);
         }
     }
 
@@ -30,11 +30,11 @@ class GlobalUtils {
         this.isPathExistsError(targetPath);
         // Check if the path is readable.
         if (fs.accessSync(targetPath, fs.constants.R_OK)) {
-            throw new Error(`targetPath not readable: ${targetPath} (1000045)`);
+            throw new Error(`targetPath not readable: ${targetPath} (1000046)`);
         }
         // Check if the path is writable.
         if (fs.accessSync(targetPath, fs.constants.W_OK)) {
-            throw new Error(`targetPath not writable: ${targetPath} (1000046)`);
+            throw new Error(`targetPath not writable: ${targetPath} (1000047)`);
         }
     }
 

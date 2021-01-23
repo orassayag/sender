@@ -1,9 +1,7 @@
 const settings = require('../../settings/settings');
-const globalUtils = require('../../utils/files/global.utils');
-const fileUtils = require('../../utils/files/file.utils');
-const pathUtils = require('../../utils/files/path.utils');
-const validationUtils = require('../../utils/files/validation.utils');
 const { EmailAddressesSourceType, ScriptType } = require('../../core/enums');
+const globalUtils = require('../../utils/files/global.utils');
+const { fileUtils, pathUtils, validationUtils } = require('../../utils');
 
 class InitiateService {
 
@@ -32,7 +30,7 @@ class InitiateService {
 			enum: ScriptType,
 			value: this.scriptType
 		})) {
-			throw new Error('Invalid or no ScriptType parameter was found (1000023)');
+			throw new Error('Invalid or no ScriptType parameter was found (1000022)');
 		}
 	}
 
@@ -57,7 +55,7 @@ class InitiateService {
 	validateSettings() {
 		// Validate the settings object existence.
 		if (!settings) {
-			throw new Error('Invalid or no settings object was found (1000024)');
+			throw new Error('Invalid or no settings object was found (1000023)');
 		}
 		this.validatePositiveNumbers();
 		this.validateStrings();
@@ -102,7 +100,7 @@ class InitiateService {
 		].map(key => {
 			const value = settings[key];
 			if (!validationUtils.isPositiveNumber(value)) {
-				throw new Error(`Invalid or no ${key} parameter was found: Excpected a number but received: ${value} (1000025)`);
+				throw new Error(`Invalid or no ${key} parameter was found: Excpected a number but received: ${value} (1000024)`);
 			}
 		});
 	}
@@ -126,7 +124,7 @@ class InitiateService {
 		].map(key => {
 			const value = settings[key];
 			if (!validationUtils.isExists(value)) {
-				throw new Error(`Invalid or no ${key} parameter was found: Excpected a string but received: ${value} (1000026)`);
+				throw new Error(`Invalid or no ${key} parameter was found: Excpected a string but received: ${value} (1000025)`);
 			}
 		});
 	}
@@ -144,7 +142,7 @@ class InitiateService {
 		].map(key => {
 			const value = settings[key];
 			if (!validationUtils.isValidBoolean(value)) {
-				throw new Error(`Invalid or no ${key} parameter was found: Excpected a boolean but received: ${value} (1000027)`);
+				throw new Error(`Invalid or no ${key} parameter was found: Excpected a boolean but received: ${value} (1000026)`);
 			}
 		});
 	}
@@ -156,7 +154,7 @@ class InitiateService {
 		].map(key => {
 			const value = settings[key];
 			if (!validationUtils.isValidArray(value)) {
-				throw new Error(`Invalid or no ${key} parameter was found: Excpected a array but received: ${value} (1000028)`);
+				throw new Error(`Invalid or no ${key} parameter was found: Excpected a array but received: ${value} (1000027)`);
 			}
 		});
 	}
@@ -168,7 +166,7 @@ class InitiateService {
 			enum: EmailAddressesSourceType,
 			value: EMAIL_ADDRESSES_SOURCE_TYPE
 		})) {
-			throw new Error('Invalid or no EMAIL_ADDRESSES_SOURCE_TYPE parameter was found (1000029)');
+			throw new Error('Invalid or no EMAIL_ADDRESSES_SOURCE_TYPE parameter was found (1000028)');
 		}
 	}
 
@@ -176,11 +174,11 @@ class InitiateService {
 		const { MONGO_DATABASE_CONNECTION_STRING, VALIDATION_CONNECTION_LINK } = settings;
 		// ===MONGO DATABASE=== //
 		if (!validationUtils.isValidMongoConnectionString(MONGO_DATABASE_CONNECTION_STRING)) {
-			throw new Error('Invalid or no MONGO_DATABASE_CONNECTION_STRING parameter was found (1000030)');
+			throw new Error('Invalid or no MONGO_DATABASE_CONNECTION_STRING parameter was found (1000029)');
 		}
 		// ===VALIDATION=== //
 		if (!validationUtils.isValidLink(VALIDATION_CONNECTION_LINK)) {
-			throw new Error('No VALIDATION_CONNECTION_LINK parameter was found (1000031)');
+			throw new Error('No VALIDATION_CONNECTION_LINK parameter was found (1000030)');
 		}
 	}
 
@@ -190,7 +188,7 @@ class InitiateService {
 			...keys,
 			// ===ROOT PATH=== //
 			'OUTER_APPLICATION_PATH', 'INNER_APPLICATION_PATH',
-			// ===DYNAMIC PATH===
+			// ===DYNAMIC PATH=== //
 			'APPLICATION_PATH', 'PACKAGE_JSON_PATH'
 		].map(key => {
 			const value = settings[key];
@@ -207,14 +205,14 @@ class InitiateService {
 			const value = settings[key];
 			// Verify that the paths are of directory and not a file.
 			if (!fileUtils.isDirectoryPath(value)) {
-				throw new Error(`The parameter path ${key} marked as directory but it's a path of a file: ${value} (1000052)`);
+				throw new Error(`The parameter path ${key} marked as directory but it's a path of a file: ${value} (1000031)`);
 			}
 		});
 	}
 
 	createDirectories() {
 		[
-			// ===DYNAMIC PATH===
+			// ===DYNAMIC PATH=== //
 			'DIST_PATH', 'NODE_MODULES_PATH'
 		].map(key => {
 			const value = settings[key];

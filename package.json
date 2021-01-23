@@ -2,11 +2,13 @@
   "name": "sender",
   "version": "1.0.0",
   "private": true,
-  "description": "",
+  "description": "The goal of the send script if to fetch bulk of email addresses from different sources and to send them via SendGird.",
   "keywords": [
     "send",
     "emails",
-    "email addresses"
+    "email addresses",
+    "sendgrid",
+    "templates"
   ],
   "license": "UNLICENSED",
   "author": "Or Assayag <orassayag@gmail.com>",
@@ -45,14 +47,14 @@
     "not op_mini all"
   ],
   "dependencies": {
-    "@sendgrid/mail": "^7.4.0",
+    "@sendgrid/mail": "^7.4.2",
     "ansi-escapes": "^4.3.1",
     "babel-eslint": "^10.1.0",
     "cli-cursor": "^3.1.0",
-    "eslint": "^7.16.0",
-    "fs-extra": "^9.0.1",
+    "eslint": "^7.18.0",
+    "fs-extra": "^9.1.0",
     "is-reachable": "^5.0.0",
-    "mongoose": "^5.11.9",
+    "mongoose": "^5.11.13",
     "slice-ansi": "^4.0.0",
     "wrap-ansi": "^7.0.0"
   }

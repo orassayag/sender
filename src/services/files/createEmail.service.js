@@ -1,14 +1,14 @@
+const { Email, EmailData, SourceData } = require('../../core/models/application');
+const { EmailAddressesSourceType, EmailAddressStatus, EmailAddressType, Method } = require('../../core/enums');
 const applicationService = require('./application.service');
 const countLimitService = require('./countLimit.service');
 const mongoDatabaseService = require('./mongoDatabase.service');
 const sendEmailService = require('./sendEmail.service');
-const { EmailAddressesSourceType, EmailAddressStatus, EmailAddressType, Method } = require('../../core/enums');
-const { Email, EmailData, SourceData } = require('../../core/models/application');
 const { fileUtils, pathUtils, textUtils, validationUtils } = require('../../utils');
-const { invalidDomains, filterEmailAddressDomains, filterEmailAddresses,
-    commonEmailAddressDomainsList } = require('../../configurations/emailAddress.configuration');
+const { commonEmailAddressDomainsList, filterEmailAddresses, filterEmailAddressDomains,
+    invalidDomains } = require('../../configurations/emailAddress.configuration');
 
-const emailAddressesFromArray = ['test@gmail.com'];
+const emailAddressesFromArray = [];
 
 class CreateEmailService {
 
@@ -106,7 +106,7 @@ class CreateEmailService {
                 case EmailAddressesSourceType.DIRECTORY:
                     return [];
                 case EmailAddressesSourceType.FILE:
-                    throw new Error(`File exceeded the maximum size of ${countLimitService.countLimitData.maximumFileSizeMegabytes}MB: ${fileSize}MB (1000012)`);
+                    throw new Error(`File exceeded the maximum size of ${countLimitService.countLimitData.maximumFileSizeMegabytes}MB: ${fileSize}MB (1000011)`);
             }
         }
         const content = await fileUtils.readFile(path);
@@ -116,10 +116,10 @@ class CreateEmailService {
     async getEmailAddressesDirectory(data) {
         const { path, parameterName, emailData } = data;
         if (!fileUtils.isPathExists(path)) {
-            throw new Error(`Invalid or no ${parameterName} parameter was found: Excpected a number but received: ${path} (1000013)`);
+            throw new Error(`Invalid or no ${parameterName} parameter was found: Excpected a number but received: ${path} (1000012)`);
         }
         if (fileUtils.isFilePath(path)) {
-            throw new Error(`The parameter path ${parameterName} marked as directory but it's a path of a file: ${path} (1000014)`);
+            throw new Error(`The parameter path ${parameterName} marked as directory but it's a path of a file: ${path} (1000013)`);
         }
         // Fetch the email addresses.
         let files = await fileUtils.getFilesRecursive(path);
@@ -131,7 +131,7 @@ class CreateEmailService {
             });
         });
         if (!validationUtils.isExists(files)) {
-            throw new Error(`No TXT files exists in ${path} (1000015)`);
+            throw new Error(`No TXT files exists in ${path} (1000014)`);
         }
         // Filter relevant files and scan them.
         let emailAddressesList = [];
@@ -154,10 +154,10 @@ class CreateEmailService {
     async getEmailAddressesFile(data) {
         const { path, parameterName, emailData } = data;
         if (!fileUtils.isPathExists(path)) {
-            throw new Error(`Invalid or no ${parameterName} parameter was found: Excpected a number but received: ${path} (1000016)`);
+            throw new Error(`Invalid or no ${parameterName} parameter was found: Excpected a number but received: ${path} (1000015)`);
         }
         if (fileUtils.isDirectoryPath(path)) {
-            throw new Error(`The parameter path ${parameterName} marked as file but it's a path of a directory: ${path} (1000017)`);
+            throw new Error(`The parameter path ${parameterName} marked as file but it's a path of a directory: ${path} (1000016)`);
         }
         // Fetch the email addresses.
         const emailAddressesList = await this.fetchEmailAddresses(path);
@@ -176,7 +176,7 @@ class CreateEmailService {
 
     validateEmailAddressesCount(emailAddressesList) {
         if (!validationUtils.isExists(emailAddressesList)) {
-            throw new Error('No email addresses found in the source (1000018)');
+            throw new Error('No email addresses found in the source (1000017)');
         }
     }
 
@@ -345,7 +345,7 @@ class CreateEmailService {
         }
         for (let i = 0; i < emailDataGroupsList.length; i++) {
             const group = emailDataGroupsList[i];
-            let emailDataGroup = group.emailsList;
+            const emailDataGroup = group.emailsList;
             if (emailDataGroup.length >= maximumUniqueDomainCount) {
                 for (let y = 0; y < emailDataGroup.length; y++) {
                     emailDataGroup[y].status = EmailAddressStatus.SKIP;

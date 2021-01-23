@@ -1,9 +1,10 @@
 const sgMail = require('@sendgrid/mail');
-const applicationService = require('./application.service');
-const countLimitService = require('./countLimit.service');
 const { Status } = require('../../core/enums');
 const { SendGridResult } = require('../../core/models/application');
-const { globalUtils, sendgridUtils, textUtils } = require('../../utils');
+const applicationService = require('./application.service');
+const countLimitService = require('./countLimit.service');
+const globalUtils = require('../../utils/files/global.utils');
+const { sendgridUtils, textUtils } = require('../../utils');
 
 class SendGridService {
 
@@ -110,7 +111,7 @@ class SendGridService {
   async simulate() {
     // Simulate result.
     let sendgridResult = null;
-    const isSent = textUtils.getRandomByPercentage(countLimitService.countLimitData.simulateSendSuccessPercentage);
+    const isSent = textUtils.getRandomBooleanByPercentage(countLimitService.countLimitData.simulateSendSuccessPercentage);
     if (isSent) {
       const code = textUtils.getRandomKeyFromArray(sendgridUtils.sentCodesList);
       sendgridResult = this.setSendGridSendResult([{ statusCode: code }]);

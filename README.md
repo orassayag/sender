@@ -13,12 +13,11 @@ Steps to view the solution:
 2. Terminal: npm i
 3. Terminal: npm start
 
-Search email addresses script:
-==============================
+Send emails via SendGrid script:
+================================
 READ THE FOLLOWING SETTINGS BEFORE YOU BEGIN:
 
 -Instructions & How to use:
-
 In terminal: npm start
 
 Happy testing! :)

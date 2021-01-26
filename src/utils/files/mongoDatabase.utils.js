@@ -10,4 +10,5 @@ class MongoDatabaseUtils {
         return `${MONGO_DATABASE_NAME}_${textUtils.toLowerCase(applicationUtils.getApplicationMode(IS_PRODUCTION_MODE))}`;
     }
 }
+
 module.exports = new MongoDatabaseUtils();

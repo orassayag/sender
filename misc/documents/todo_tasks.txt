@@ -10,6 +10,15 @@ d. Keep the backup update - Every change you do - Update in iOmega (each couple 
 
 ToDo tasks:
 ===========
+-Fix compilation error: Cannot find module '../core/models/files/BackupData'. *
+-Take the initiate service from 'crawler' project. *
+-Add .catch(e => console.log(e)); to all (async () => { - Take the logic from 'crawler' project. *
+-Check for empty lines inside functions / models with regular expression: ^\s*$. *
+-Format all files. *
+-Fix uneeded formats with: "formatFiles.excludePattern": "**/node_modules,**/.vscode,**/dist/**,**/.chrome,**/misc". *
+-Verify all works on production.
+-Upload to GitHub.
+-Move all complete tasks to complete_tasks.txt.
 
 Complete / canceled tasks:
 ==========================

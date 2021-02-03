@@ -1,5 +1,14 @@
 Complete / canceled tasks:
 ==========================
+-Fix compilation error: Cannot find module '../core/models/files/BackupData'. *
+-Take the initiate service from 'crawler' project. *
+-Add .catch(e => console.log(e)); to all (async () => { - Take the logic from 'crawler' project. *
+-Check for empty lines inside functions / models with regular expression: ^\s*$. *
+-Format all files. *
+-Fix uneeded formats with: "formatFiles.excludePattern": "**/node_modules,**/.vscode,**/dist/**,**/.chrome,**/misc". *
+-Verify all works on production. *
+-Upload to GitHub. *
+-Move all complete tasks to complete_tasks.txt. *
 -Update packages. *
 -Take updated 'Misc' section from 'crawler' project for npmignore and gitignore files. *
 -In .eslintrc file - set "no-unused-vars": 1. *

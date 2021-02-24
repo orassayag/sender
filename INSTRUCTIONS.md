@@ -8,14 +8,13 @@ FAST & BASIC START.
 3. Search for the first setting - 'IS_PRODUCTION_MODE' - Make sure it is on true.
 4. Next - Time to install the NPM packages. On the terminal run 'npm i'.
    It will install automatically all the required NPM packages.
-5. Open once again the Open the following file in the src/settings/settings.js file.
-6. On terminal run 'npm start'. If everything goes well, you will start to see
+5. On terminal run 'npm start'. If everything goes well, you will start to see
    the console status line appear.
-7. If you see any error - Need to check what's change. Current to 01/12/2020,
+6. If you see any error - Need to check what's change. Current to 01/12/2020,
    It works fine.
-8. If you see the console status line but the 'Sent' or 'Total' not progressing
+7. If you see the console status line but the 'Sent' or 'Total' not progressing
 	- Need to check what's wrong.
-9. If no errors and the progress works OK, make sure to check on
+8. If no errors and the progress works OK, make sure to check on
    dist/production/date of today (Example: 1_20200316_222124)/ That the TXT
    file was created successfully.
 

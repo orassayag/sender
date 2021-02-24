@@ -81,14 +81,14 @@ const settings = {
     // Determine the number of milliseconds until to manually timeout the SendGrid send email process
     // and to continue to the next email.
     MILLISECONDS_SEND_TIMEOUT: 60000,
-    // Determine how much milliseconds interval to run to calculate the time of the
+    // Determine how much milliseconds interval to calculate the time of the
     // status line in the console.
     MILLISECONDS_INTERVAL_COUNT: 500,
     // Determine the maximum number of times to retry to save the email address to the Mongo database.
     MAXIMUM_SAVE_EMAIL_ADDRESS_RETRIES_COUNT: 2,
     // Determine the maximum unique domain count in a single page process per domain.
-    // If exceeded, the rest of the email addresses with the domain are skipped.
-    // (This, of course, not include common domains like gmail, hotmail, ect...)
+    // If exceeded, the rest of the email addresses with the domain are skipped
+    // (This, of course, not include common domains like gmail, hotmail, etc...).
     MAXIMUM_UNIQUE_DOMAIN_COUNT: 3,
     // Determine how many monitor emails to send durring a single process of sending emails.
     // Will work only if IS_MONITOR_LOGIC is true. It will be sent in a random place in the emails list.

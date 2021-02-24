@@ -12,7 +12,8 @@ const Mode = enumUtils.createEnum([
 
 const ScriptType = enumUtils.createEnum([
     ['BACKUP', 'backup'],
-    ['SEND', 'send']
+    ['SEND', 'send'],
+    ['TEST', 'test']
 ]);
 
 const Status = enumUtils.createEnum([

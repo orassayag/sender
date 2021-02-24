@@ -1,9 +1,6 @@
-# Server
+# Sender
 
-Start to be built in November 2020.
--Goal:
-The goal of the send script if to fetch bulk of email
-addresses from different sources and to send them via SendGird.
+Built in November 2020. An Node.js application to send bulk of email addresses from different sources via SendGird.
 
 ## Getting Started
 
@@ -11,7 +8,7 @@ Clone the application to your computer.
 Steps to view the solution:
 1. Open server application on IDE (I use VSCode).
 2. Terminal: npm i
-3. Terminal: npm start
+3. In terminal: npm start
 
 Send emails via SendGrid script:
 ================================

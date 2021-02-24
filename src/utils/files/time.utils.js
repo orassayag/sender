@@ -11,7 +11,7 @@ class TimeUtils {
 
     getDateNoSpaces() {
         const date = new Date();
-        return [textUtils.addLeadingZero(date.getDate()), this.getMonth(date), this.getYear(date)].join('');
+        return [this.getDay(date), this.getMonth(date), this.getYear(date)].join('');
     }
 
     getFullDateNoSpaces() {

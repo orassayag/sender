@@ -44,7 +44,7 @@ class InitiateService {
 	}
 
 	validateScriptType() {
-		if (!validationUtils.isValidEnum({
+		if (!this.scriptType || !validationUtils.isValidEnum({
 			enum: ScriptType,
 			value: this.scriptType
 		})) {
@@ -131,11 +131,11 @@ class InitiateService {
 
 	validateBooleans() {
 		[
-			// ===LOG=== //
-			'IS_LOG_RESULTS',
 			// ===FLAG=== //
 			'IS_PRODUCTION_MODE', 'IS_SEND_EMAILS', 'IS_SAVE_EMAILS', 'IS_DROP_COLLECTION', 'IS_SKIP_LOGIC', 'IS_MONITOR_LOGIC',
 			'IS_LOG_MODE',
+			// ===LOG=== //
+			'IS_LOG_RESULTS',
 			// ===MONGO DATABASE=== //
 			'IS_MONGO_DATABASE_USE_UNIFILED_TOPOLOGY', 'IS_MONGO_DATABASE_USE_NEW_URL_PARSER', 'IS_MONGO_DATABASE_USE_CREATE_INDEX',
 			'IS_MONGO_DATABASE_SSL', 'IS_MONGO_DATABASE_SSL_VALIDATE'

@@ -1,5 +1,5 @@
 /* cSpell:disable */
-require('../services/files/initiate.service').initiate();
+require('../services/files/initiate.service').initiate('test');
 const settings = require('../settings/settings');
 const { CVData, Email } = require('../core/models/application');
 const { EmailAddressStatus, EmailAddressType } = require('../core/enums');

@@ -1,5 +1,30 @@
 Complete / canceled tasks:
 ==========================
+-Update packages. *
+-Check the order of the parameters in the initiate.service.js (Titles order identical to settings.js order). *
+-Add script name to tests and add validation for empty script name in initiate.service.js. *
+-Go over timeUtils and make sure all local "this.getDay" are being used, and not "date.getDate()" for example. *
+-Fix comment in settings.js 'interval to run to calculate' => 'interval to calculate'. *
+-Fix comment:         // Get the backup title from the console.s *
+-Fix the INSTRUCTIONS.md file - 5 is not needed. *
+-Fix all README.me + package.json from 'create-react-up' to 'create-react-app'. *
+-Change all ect => etc - In all projects. *
+-Verify package.json project name. *
+-Change all README.md files to the title of the project as first line (Only one #). *
+-Change from 'Start to be built' to 'Built in', and remove space lines, and the *
+"-Goal:", and remove the 'This project was bootstrapped with [Create React App] *
+(https://github.com/facebook/create-react-app).' line under to the description *
+with line space,  all fixes in README.md. *
+-Clear all comments. *
+-Format all documents. *
+-Move all complete tasks to complete_tasks.txt. *
+-Verify all works good. *
+-Upload to GitHub. *
+-Backup iOmega. *
+-Update packages + re-create package.json file. *
+-Fix the 'replaceCharacter' function (if exists), according to the logic in 'udemy-courses' project - canceled *
+and replace it in all places (where don't need flag, pass '': regexUtils.createRegex(origin, '') - canceled. *
+-Check for duplicate 'createDirectory' - remove it from global, and use the one from fileUtils. Take it from 'udemy-courses' project. *
 -Fix compilation error: Cannot find module '../core/models/files/BackupData'. *
 -Take the initiate service from 'crawler' project. *
 -Add .catch(e => console.log(e)); to all (async () => { - Take the logic from 'crawler' project. *

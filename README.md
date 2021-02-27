@@ -10,8 +10,8 @@ Steps to view the solution:
 2. Terminal: npm i
 3. In terminal: npm start
 
-Send emails via SendGrid script:
-================================
+### Send emails via SendGrid script:
+
 READ THE FOLLOWING SETTINGS BEFORE YOU BEGIN:
 
 -Instructions & How to use:

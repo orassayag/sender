@@ -51,10 +51,10 @@
     "ansi-escapes": "^4.3.1",
     "babel-eslint": "^10.1.0",
     "cli-cursor": "^3.1.0",
-    "eslint": "^7.20.0",
+    "eslint": "^7.21.0",
     "fs-extra": "^9.1.0",
     "is-reachable": "^5.0.0",
-    "mongoose": "^5.11.18",
+    "mongoose": "^5.11.19",
     "slice-ansi": "^4.0.0",
     "wrap-ansi": "^7.0.0"
   }

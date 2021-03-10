@@ -114,7 +114,7 @@ class MongoDatabaseService {
 
     async saveEmailAddress(emailAddress) {
         emailAddress = emailAddress.trim();
-        // Validate for the second time that the email address not already exists in the Mongo database.
+        // Validate for the second time that the email address does not already exist in the Mongo database.
         if (await this.isEmailAddressExists(emailAddress)) {
             return this.setMongoDatabaseErrorResult({
                 saveError: null,

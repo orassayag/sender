@@ -8,7 +8,7 @@ const { fileUtils, pathUtils, textUtils, validationUtils } = require('../../util
 const { commonEmailAddressDomainsList, filterEmailAddresses, filterEmailAddressDomains,
     invalidDomains } = require('../../configurations/emailAddress.configuration');
 
-const emailAddressesFromArray = [];
+const emailAddressesFromArray = ['test@gmail.com'];
 
 class CreateEmailService {
 
@@ -17,12 +17,17 @@ class CreateEmailService {
         this.lastEmailId = 0;
     }
 
-    async initiate(settings) {
+    async basicInitiate(settings, isEmailAddressesOnly) {
         this.sourceData = new SourceData(settings);
         // Get the email addresses from the specific source,
-        // and create the Email instances inside EmailData instance.
-        let emailData = await this.getEmailAddresses();
-        // Add extra logic the emails.
+        // and create the Email instances inside the EmailData instance.
+        // If isEmailAddressesOnly=true, will get only the email addresses
+        // without any additional data.
+        return await this.getEmailAddresses(isEmailAddressesOnly);
+    }
+
+    async initiate(settings) {
+        let emailData = await this.basicInitiate(settings, false);
         emailData = await this.finalizeEmailData(emailData);
         // Update counts.
         sendEmailService.sendEmailData.updateCount(true, EmailAddressStatus.PENDING, emailData.emailsList.length);
@@ -43,7 +48,11 @@ class CreateEmailService {
         return emailData;
     }
 
-    async getEmailAddresses() {
+    async getEmailAddressesOnly(settings) {
+        return await this.basicInitiate(settings, true);
+    }
+
+    async getEmailAddresses(isEmailAddressesOnly) {
         // Get the emails data from the relevant source.
         let emailData = null;
         switch (this.sourceData.emailAddressesSourceType) {
@@ -52,7 +61,8 @@ class CreateEmailService {
                 emailData = await this.getEmailAddressesDirectory({
                     path: path,
                     parameterName: parameterName,
-                    emailData: emailData
+                    emailData: emailData,
+                    isEmailAddressesOnly: isEmailAddressesOnly
                 });
                 break;
             }
@@ -61,12 +71,16 @@ class CreateEmailService {
                 emailData = await this.getEmailAddressesFile({
                     path: path,
                     parameterName: parameterName,
-                    emailData: emailData
+                    emailData: emailData,
+                    isEmailAddressesOnly: isEmailAddressesOnly
                 });
                 break;
             }
             case EmailAddressesSourceType.ARRAY: {
-                emailData = this.getEmailAddressesArray(emailData);
+                emailData = this.getEmailAddressesArray({
+                    emailData: emailData,
+                    isEmailAddressesOnly: isEmailAddressesOnly
+                });
                 break;
             }
         }
@@ -114,9 +128,9 @@ class CreateEmailService {
     }
 
     async getEmailAddressesDirectory(data) {
-        const { path, parameterName, emailData } = data;
+        const { path, parameterName, emailData, isEmailAddressesOnly } = data;
         if (!fileUtils.isPathExists(path)) {
-            throw new Error(`Invalid or no ${parameterName} parameter was found: Excpected a number but received: ${path} (1000012)`);
+            throw new Error(`Invalid or no ${parameterName} parameter was found: Expected a number but received: ${path} (1000012)`);
         }
         if (fileUtils.isFilePath(path)) {
             throw new Error(`The parameter path ${parameterName} marked as directory but it's a path of a file: ${path} (1000013)`);
@@ -138,37 +152,38 @@ class CreateEmailService {
         for (let i = 0; i < files.length; i++) {
             const file = files[i];
             const fileName = pathUtils.getBasename(file);
-            // Scan only files that starts with specific file name.
+            // Scan only files that starts with a specific file name.
             if (fileName.indexOf(this.sourceData.emailAddressesIncludeFileName) === 0) {
                 // Fetch the email addresses.
                 const tempEmailAddressesList = await this.fetchEmailAddresses(file);
                 emailAddressesList = [...emailAddressesList, ...tempEmailAddressesList];
             }
         }
-        return this.createEmailData({
+        return isEmailAddressesOnly ? emailAddressesList : this.createEmailData({
             emailAddressesList: emailAddressesList,
             emailData: emailData
         });
     }
 
     async getEmailAddressesFile(data) {
-        const { path, parameterName, emailData } = data;
+        const { path, parameterName, emailData, isEmailAddressesOnly } = data;
         if (!fileUtils.isPathExists(path)) {
-            throw new Error(`Invalid or no ${parameterName} parameter was found: Excpected a number but received: ${path} (1000015)`);
+            throw new Error(`Invalid or no ${parameterName} parameter was found: Expected a number but received: ${path} (1000015)`);
         }
         if (fileUtils.isDirectoryPath(path)) {
             throw new Error(`The parameter path ${parameterName} marked as file but it's a path of a directory: ${path} (1000016)`);
         }
         // Fetch the email addresses.
         const emailAddressesList = await this.fetchEmailAddresses(path);
-        return this.createEmailData({
+        return isEmailAddressesOnly ? emailAddressesList : this.createEmailData({
             emailAddressesList: emailAddressesList,
             emailData: emailData
         });
     }
 
-    getEmailAddressesArray(emailData) {
-        return this.createEmailData({
+    getEmailAddressesArray(data) {
+        const { emailData, isEmailAddressesOnly } = data;
+        return isEmailAddressesOnly ? emailAddressesFromArray : this.createEmailData({
             emailAddressesList: emailAddressesFromArray,
             emailData: emailData
         });
@@ -279,7 +294,7 @@ class CreateEmailService {
     }
 
     validateEmailAddress(email) {
-        if (!validationUtils.validateEmailAddress(email.toEmailAddress)) {
+        if (!validationUtils.isValidEmailAddress(email.toEmailAddress)) {
             email.status = EmailAddressStatus.INVALID;
         }
         return email;
@@ -326,7 +341,7 @@ class CreateEmailService {
             if (!domainPart) {
                 continue;
             }
-            // Check if the domain is common domain. Not relevant is true.
+            // Check if the domain is a common domain. Not relevant is true.
             if (commonEmailAddressDomainsList.findIndex(domain => domain === domainPart) > -1) {
                 updatedEmailDataList.push(email);
                 continue;

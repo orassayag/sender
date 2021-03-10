@@ -24,24 +24,24 @@ class SendLogic {
     }
 
     async initiate() {
-        logUtils.logMagentaStatus('INITIATE THE SERVICES');
+        this.updateStatus('INITIATE THE SERVICES', Status.INITIATE);
         applicationService.initiate(settings, Status.INITIATE);
         sendEmailService.initiate();
         countLimitService.initiate(settings);
         await mongoDatabaseService.initiate(settings);
         pathService.initiate(settings);
-        await logService.initiate(settings);
+        logService.initiate(settings);
         await accountService.initiate();
         templateService.initiate();
         this.emailData = await createEmailService.initiate(settings);
     }
 
     async validateGeneralSettings() {
-        logUtils.logMagentaStatus('VALIDATE GENERAL SETTINGS');
+        this.updateStatus('VALIDATE GENERAL SETTINGS', Status.VALIDATE);
         if (!applicationService.applicationData.isProductionMode) {
             return;
         }
-        // Validate internet connection works.
+        // Validate that the internet connection works.
         await validationService.validateInternetConnection();
         // Validate that the mode is PRODUCTION and both send and save emails flags marked as true.
         if (!applicationService.applicationData.isSendEmails || !applicationService.applicationData.isSaveEmails) {
@@ -65,7 +65,7 @@ class SendLogic {
             // Log results.
             this.log(email);
             await logService.logResult(email);
-            // Pause between each emails here.
+            // Pause between each email here.
             await this.pause();
             // Exit the program if needed.
             if (exitProgramStatus) {
@@ -104,10 +104,17 @@ class SendLogic {
         }
     }
 
-    // Let the user confirm all the IMPORTANT settings before the process start.
+    // Let the user confirm all the IMPORTANT settings before the process starts.
     async confirm() {
         if (!await confirmationService.confirm(settings)) {
             await this.exit(Status.ABORT_BY_THE_USER, Color.RED);
+        }
+    }
+
+    updateStatus(text, status) {
+        logUtils.logMagentaStatus(text);
+        if (applicationService.applicationData) {
+            applicationService.applicationData.status = status;
         }
     }
 

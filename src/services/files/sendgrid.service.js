@@ -4,7 +4,7 @@ const { SendGridResult } = require('../../core/models/application');
 const applicationService = require('./application.service');
 const countLimitService = require('./countLimit.service');
 const globalUtils = require('../../utils/files/global.utils');
-const { sendgridUtils, textUtils } = require('../../utils');
+const { sendgridUtils, textUtils, validationUtils } = require('../../utils');
 
 class SendGridService {
 
@@ -15,7 +15,7 @@ class SendGridService {
   async send(email, templateData, cvData) {
     return await new Promise(async (resolve, reject) => {
       if (reject) { }
-      // Limit the runtime of this function in case of email send process get stuck.
+      // Limit the runtime of this function in case the email send process gets stuck.
       const abortTimeout = setTimeout(() => {
         resolve(this.setSendGridErrorResult(null, 'Send email process exceeded timeout limit.'));
         return;
@@ -88,11 +88,12 @@ class SendGridService {
     if (sendError.code) {
       code = parseInt(sendError.code);
       reason = sendError.message;
-      if (sendError.response.body.errors.length > 0) {
+      if (validationUtils.isExists(sendError.response.body.errors)) {
         description = sendError.response.body.errors[0].message;
       }
       sendError = null;
-      isAccountLimitExceeded = code === sendgridUtils.limitExceededCode;
+      isAccountLimitExceeded = code === sendgridUtils.limitExceededCode ||
+        (description && description.indexOf('exceeded') > -1);
     }
     // Check error in a row.
     // Bad request code, as default for this function.

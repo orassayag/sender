@@ -36,6 +36,7 @@
     "backup": "node src/scripts/backup.script.js",
     "sand": "node src/tests/sandBox.test.js",
     "send": "node src/tests/sendEmail.test.js",
+    "status": "node src/scripts/status.script.js",
     "start": "node src/scripts/send.script.js",
     "stop": "taskkill -f -im node.exe",
     "debug": "node --inspect-brk src/scripts/send.script.js"

@@ -1,13 +1,13 @@
-const { fileUtils, pathUtils } = require('../../utils');
+const { fileUtils, pathUtils, validationUtils } = require('../../utils');
 
 class FileService {
 
     constructor() { }
 
-    async getFileData(data) {
+    async getJsonFileData(data) {
         const { path, parameterName, fileExtension } = data;
         if (!await fileUtils.isPathExists(path)) {
-            throw new Error(`Invalid or no ${parameterName} parameter was found: Excpected a number but received: ${path} (1000018)`);
+            throw new Error(`Invalid or no ${parameterName} parameter was found: Expected a number but received: ${path} (1000018)`);
         }
         if (!fileUtils.isFilePath(path)) {
             throw new Error(`The parameter path ${parameterName} marked as file but it's a path of a directory: ${path} (1000019)`);
@@ -18,7 +18,7 @@ class FileService {
         }
         const fileData = await fileUtils.read(path);
         const jsonData = JSON.parse(fileData);
-        if (jsonData.length <= 0) {
+        if (!validationUtils.isExists(jsonData)) {
             throw new Error('No data found in the file (1000021)');
         }
         return jsonData;

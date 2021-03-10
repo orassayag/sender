@@ -15,7 +15,7 @@ class AccountService {
 
     async initiate() {
         this.accountData = new AccountData(settings);
-        const accounts = await fileService.getFileData({
+        const accounts = await fileService.getJsonFileData({
             path: this.accountData.accountsFilePath,
             parameterName: 'accountsFilePath',
             fileExtension: '.json'
@@ -49,7 +49,7 @@ class AccountService {
         if (!username) {
             throw new Error(`Missing username of account index: ${i} (1000005)`);
         }
-        if (!validationUtils.validateEmailAddress(textUtils.toLowerCase(username))) {
+        if (!validationUtils.isValidEmailAddress(textUtils.toLowerCase(username))) {
             throw new Error(`Invalid username of account index: ${i} (1000006)`);
         }
         if (!password) {
@@ -93,20 +93,20 @@ class AccountService {
         if (this.accountData.availableSendsCount < 0) {
             this.accountData.availableSendsCount = 0;
         }
-        // Update exists account data in the accountData list.
+        // Update existing account data in the accountData list.
         const accountIndex = this.accountData.accountsList.findIndex(a => a.id === this.account.id);
         if (accountIndex <= -1) {
             throw new Error(`Account id ${this.account.id} not exists in the accountsList (1000010)`);
         }
         this.accountData.accountsList[accountIndex] = this.account;
-        // Check if need to switch account due to the limit exceeded of send count per day.
+        // Check if need to switch accounts due to the limit exceeded of send count per day.
         if (this.account.sentCount >= countLimitService.countLimitData.maximumSendGridDailyEmailsCount) {
             this.getAccount();
         }
         return this.isAccountsLeft;
     }
 
-    // Force to switch account.
+    // Force to switch accounts.
     switchAccount() {
         this.accountData.availableSendsCount -= countLimitService.countLimitData.maximumSendGridDailyEmailsCount;
         if (this.accountData.availableSendsCount < 0) {

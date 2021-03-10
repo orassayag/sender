@@ -26,18 +26,18 @@ class LogService {
 		this.logSeperator = '==========';
 	}
 
-	async initiate(settings) {
+	initiate(settings) {
 		this.logData = new LogData(settings);
-		await this.initiateDirectories();
+		this.initiateDirectories();
 	}
 
-	async initiateDirectories() {
+	initiateDirectories() {
 		// ===PATH=== //
 		if (!this.logData.isLogResults) {
 			return;
 		}
-		await this.createModeDirectory();
-		await this.createSessionDirectory();
+		this.createModeDirectory();
+		this.createSessionDirectory();
 		this.emailResultsPath = this.createFilePath(`email_results_${Placeholder.DATE}`);
 	}
 
@@ -72,12 +72,12 @@ class LogService {
 		await fileUtils.createDirectory(this.baseSessionPath);
 	}
 
-	async createSessionDirectory() {
+	createSessionDirectory() {
 		this.sessionDirectoryPath = pathUtils.getJoinPath({
 			targetPath: this.baseSessionPath,
 			targetName: `${this.getNextDirectoryIndex()}_${applicationService.applicationData.logDateTime}`
 		});
-		await fileUtils.createDirectory(this.sessionDirectoryPath);
+		fileUtils.createDirectory(this.sessionDirectoryPath);
 	}
 
 	createFilePath(fileName) {
@@ -134,7 +134,7 @@ class LogService {
 			resultCode = sendEmailService.email.resultCode;
 			status = EmailAddressStatusLog[sendEmailService.email.status];
 			step = sendEmailService.email.step;
-			fromEmailAddress = this.getDisplayEmailAddress(sendEmailService.email.fromEmailAddress);
+			fromEmailAddress = this.getDisplayEmailAddress(sendEmailService.email.fromEmailAddress || accountService.account.username);
 			toEmailAddress = this.getDisplayEmailAddress(sendEmailService.email.toEmailAddress);
 			id = sendEmailService.email.id;
 			type = sendEmailService.email.type;
@@ -253,6 +253,24 @@ class LogService {
 		lines.push(`Result: ${displayResultDetails}`);
 		lines.push(`${this.logSeperator}${isLog ? '\n' : ''}`);
 		return lines.join('\n');
+	}
+
+	createStatusTemplate(data) {
+		const { mongoDatabaseEmailAddressesCount, sourceEmailAddressesCount,
+			sourceEmailAddressesToSendCount, mongoDatabaseEmailAddressesExistsCount } = data;
+		const mongoDatabase = textUtils.getNumberWithCommas(mongoDatabaseEmailAddressesCount);
+		const source = textUtils.getNumberWithCommas(sourceEmailAddressesCount);
+		const toSend = textUtils.getNumberWithCommas(sourceEmailAddressesToSendCount);
+		const mongoDatabaseExists = textUtils.getNumberWithCommas(mongoDatabaseEmailAddressesExistsCount);
+		const percentage = textUtils.calculatePercentageDisplay({
+			partialValue: mongoDatabaseEmailAddressesExistsCount,
+			totalValue: sourceEmailAddressesCount
+		});
+		const sentOfTotal = textUtils.getNumberOfNumber({
+			number1: mongoDatabaseEmailAddressesExistsCount,
+			number2: sourceEmailAddressesCount
+		});
+		return `MONGO DATABASE: ${mongoDatabase} | SOURCE: ${source} | TO SEND: ${toSend} | MONGO DATABASE EXISTS: ${mongoDatabaseExists} | ${sentOfTotal} (${percentage})`;
 	}
 
 	async logResult(email) {

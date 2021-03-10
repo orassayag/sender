@@ -2,14 +2,27 @@
 REMEMBER!
 =========
 Each time you change the logic / update NPM package version, do the following steps:
-a. Perform a backup before any change has been made, by running on termine 'npm run backup' or manually to the backups directory.
-b. After the change, check that everything works OK.
-c. Keep the maintenance - Every change you do - Make sure to update in this document if needed.
-d. Keep the backup update - Every change you do - Update in iOmega (each couple of days do backup there).
+1. Perform a backup before any change has been made, by running on terminal 'npm run backup' or manually to the backups directory.
+2. After the change, check that everything works OK.
+3. Keep the maintenance - Every change you do - Make sure to update in this document if needed.
+4. Do commit + push on Git project repository.
+5. Keep the backup update - Every change you do - Update in iOmega (each couple of days do backup there).
 =================================
 
 ToDo tasks:
 ===========
+18. Accounts re-organization:
+a. Place the "Accounts" directory inside 'C:\Users\Or\Dropbox'.
+b. Refer all the projects to this location.
+c. Make sure that after each path change the project still works.
 
 Complete / canceled tasks:
 ==========================
+-Update packages + re-create package.json files. *
+-Build a script to calculate the remaining email addresses to send within a given source. It will display: *
+MONGO DATABASE: 10,343 | SOURCE: 2,394 | TO SEND: 1,233 | MONGO DATABASE EXISTS: 534 | 1,233/2,394 (72.45%) *
+-Increase the maximum amount of email addresses per process to 10000. *
+-Add all the accounts on KeyPass to the main account.json file. *
+-Fix bug of limit exceeded not switching to the next account. *
+-Add TXT log remaining email addresses: In the end of the running, create a TXT in the *
+ 'dist' directory with the remaining email addresses to send. *

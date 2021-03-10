@@ -16,14 +16,14 @@ class TemplateService {
     }
 
     async initiate() {
-        // Intiate the templates data and the CV file.
+        // Initiate the templates data and the CV file.
         await this.initiateTemplates();
         await this.initiateCVFile();
     }
 
     async initiateTemplates() {
         this.templateData = new TemplateData(settings);
-        const templates = await fileService.getFileData({
+        const templates = await fileService.getJsonFileData({
             path: this.templateData.templatesFilePath,
             parameterName: 'templatesFilePath',
             fileExtension: '.json'
@@ -50,11 +50,11 @@ class TemplateService {
                 }));
             }
         }
-        if (this.templateData.subjectsList.length <= 0) {
-            throw new Error('No subjects found in the templates.json file. (1000035)');
+        if (!validationUtils.isExists(this.templateData.subjectsList)) {
+            throw new Error('No subjects found in the templates.json file (1000035)');
         }
-        if (this.templateData.textsList.length <= 0) {
-            throw new Error('No texts found in the templates.json file. (1000036)');
+        if (!validationUtils.isExists(this.templateData.textsList)) {
+            throw new Error('No texts found in the templates.json file (1000036)');
         }
     }
 
@@ -64,7 +64,7 @@ class TemplateService {
         }
         const extension = pathUtils.getExtension(this.templateData.cvFilePath);
         if (extension !== '.doc') {
-            throw new Error(`The CV file need to be a doc file. Found a ${extension} file (1000038)`);
+            throw new Error(`The CV file needs to be a doc file. Found a ${extension} file (1000038)`);
         }
         this.cvData = new CVData({
             fileName: pathUtils.getBasename(this.templateData.cvFilePath),

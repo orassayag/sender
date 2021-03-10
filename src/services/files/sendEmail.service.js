@@ -49,12 +49,12 @@ class SendEmailService {
     async runEmailInitiateProcess() {
         this.email.step = SendEmailStepName.INITIATE;
         const emailProcessResult = new EmailProcessResult();
-        // Validate that the email's status still relevant to be send (if it's still in pending status).
+        // Validate that the email's status is still relevant to be sent (if it's still in pending status).
         if (this.email.status !== EmailAddressStatus.PENDING) {
             emailProcessResult.isContinueProcess = this.breakProcess(null, SendEmailStepName.INITIATE, `The email in status of ${this.email.status}.`);
             return emailProcessResult;
         }
-        // Validate that the email address not exists in the Mongo database.
+        // Validate that the email address does not exist in the Mongo database.
         if (await mongoDatabaseService.isEmailAddressExists(this.email.toEmailAddress)) {
             emailProcessResult.isContinueProcess = this.breakProcess(EmailAddressStatus.EXISTS, SendEmailStepName.INITIATE, 'Email address exists in the Mongo database.');
             return emailProcessResult;
@@ -68,7 +68,7 @@ class SendEmailService {
     runEmailValidateProcess() {
         this.email.step = SendEmailStepName.VALIDATE;
         const emailProcessResult = new EmailProcessResult();
-        // Security error logic - Verify that somehow the email address not sent already in this session.
+        // Security error logic - Verify that somehow the email address was not sent already in this session.
         if (this.securityEmailsSentList.indexOf(this.email.toEmailAddress) > -1) {
             emailProcessResult.isContinueProcess = this.breakProcess(EmailAddressStatus.SECURITY_ERROR, SendEmailStepName.VALIDATE, 'Email addresses already sent in this session.');
             return emailProcessResult;
@@ -87,7 +87,7 @@ class SendEmailService {
     async runEmailSendProcess() {
         this.email.step = SendEmailStepName.SEND;
         let emailProcessResult = null;
-        // Send the email (sendgridService) or simulate email send process (flag from settings.js) + Random SENT/ERROR status.
+        // Send the email (sendgridService) or simulate the email sending process (flag from settings.js) + Random SENT/ERROR status.
         const sendResult = await this.send();
         emailProcessResult = this.sendResultProcess(sendResult);
         if (!emailProcessResult.isContinueProcess) {
@@ -139,7 +139,7 @@ class SendEmailService {
 
     sendResultProcess(sendResult) {
         let emailProcessResult = new EmailProcessResult();
-        // Advance the send email counter of the account, regardless the result.
+        // Advance the send email counter of the account, regardless of the result.
         if (!sendResult) {
             this.setProcessResults({
                 status: EmailAddressStatus.ERROR,
@@ -191,7 +191,7 @@ class SendEmailService {
         emailProcessResult.isContinueProcess = false;
         // Switch account if needed.
         if (isRetrySend && !exitProgramStatus) {
-            // If no available account left - Exit the program.
+            // If no available account is left - Exit the program.
             if (!accountService.switchAccount()) {
                 isRetrySend = false;
                 exitProgramStatus = Status.LIMIT_EXCEEDED;
@@ -214,7 +214,7 @@ class SendEmailService {
     setProcessResults(data) {
         let { status, resultDetails, code } = data;
         if (status) {
-            // Compare here the statuses and log of some how the statuses.
+            // Compare here the statuses and log of somehow the statuses.
             if (this.email.status === status) {
                 this.email.status = EmailAddressStatus.IDENTICAL_STATUS;
                 resultDetails.push(`Identical statuses of ${status}.`);
@@ -253,7 +253,7 @@ class SendEmailService {
 
     updateSendEmailData() {
         this.sendEmailData.updateCount(true, this.email.status, 1);
-        // Count if the email is monitor.
+        // Count if the email is monitored.
         if (this.email.status === EmailAddressStatus.SENT && this.email.type === EmailAddressType.MONITOR) {
             this.sendEmailData.updateCount(true, EmailAddressStatus.MONITOR_SENT, 1);
         }
@@ -313,7 +313,7 @@ class SendEmailService {
         if (!isContinueProcess) {
             return false;
         }
-        // Validate that the email toEmailAddress and fromEmailAddress not identical.
+        // Validate that the email toEmailAddress and fromEmailAddress are not identical.
         if (this.email.toEmailAddress.trim() === this.email.fromEmailAddress.trim()) {
             return this.breakProcess(EmailAddressStatus.IDENTICAL_ADDRESSES, SendEmailStepName.VALIDATE, 'The from email and the to address identical.');
         }

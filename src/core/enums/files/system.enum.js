@@ -13,11 +13,13 @@ const Mode = enumUtils.createEnum([
 const ScriptType = enumUtils.createEnum([
     ['BACKUP', 'backup'],
     ['SEND', 'send'],
+    ['STATUS', 'status'],
     ['TEST', 'test']
 ]);
 
 const Status = enumUtils.createEnum([
     ['INITIATE', 'INITIATE'],
+    ['VALIDATE', 'VALIDATE'],
     ['SEND', 'SEND'],
     ['PAUSE', 'PAUSE'],
     ['LIMIT_EXCEEDED', 'LIMIT EXCEEDED'],

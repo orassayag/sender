@@ -9,11 +9,12 @@ const mongoDatabaseService = require('./files/mongoDatabase.service');
 const pathService = require('./files/path.service');
 const sendEmailService = require('./files/sendEmail.service');
 const sendgridService = require('./files/sendgrid.service');
+const statusService = require('./files/status.service');
 const templateService = require('./files/template.service');
 const validationService = require('./files/validation.service');
 
 module.exports = {
     accountService, applicationService, confirmationService, countLimitService, createEmailService,
     fileService, logService, mongoDatabaseService, pathService, sendEmailService, sendgridService,
-    templateService, validationService
+    statusService, templateService, validationService
 };

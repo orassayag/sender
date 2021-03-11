@@ -23,7 +23,7 @@ class LogService {
 		this.frames = ['-', '\\', '|', '/'];
 		this.i = 0;
 		this.emptyValue = '##';
-		this.logSeperator = '==========';
+		this.logSeparator = '==========';
 	}
 
 	initiate(settings) {
@@ -186,7 +186,7 @@ class LogService {
 			}, {
 				'Id': accountService.account.id,
 				'Username': accountService.account.username,
-				'Password': accountService.account.asterixsPassword,
+				'Password': accountService.account.asterixPassword,
 				'Sent': accountSentItem,
 				'Accounts': accounts
 			}, {
@@ -251,7 +251,7 @@ class LogService {
 		lines.push(`API Key: ${accountApiKey}`);
 		lines.push(`Subject (Id: ${subjectId}): ${subject} | Text (Id: ${textId}): ${text}`);
 		lines.push(`Result: ${displayResultDetails}`);
-		lines.push(`${this.logSeperator}${isLog ? '\n' : ''}`);
+		lines.push(`${this.logSeparator}${isLog ? '\n' : ''}`);
 		return lines.join('\n');
 	}
 

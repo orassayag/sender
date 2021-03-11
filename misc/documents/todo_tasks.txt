@@ -18,11 +18,3 @@ c. Make sure that after each path change the project still works.
 
 Complete / canceled tasks:
 ==========================
--Update packages + re-create package.json files. *
--Build a script to calculate the remaining email addresses to send within a given source. It will display: *
-MONGO DATABASE: 10,343 | SOURCE: 2,394 | TO SEND: 1,233 | MONGO DATABASE EXISTS: 534 | 1,233/2,394 (72.45%) *
--Increase the maximum amount of email addresses per process to 10000. *
--Add all the accounts on KeyPass to the main account.json file. *
--Fix bug of limit exceeded not switching to the next account. *
--Add TXT log remaining email addresses: In the end of the running, create a TXT in the *
- 'dist' directory with the remaining email addresses to send. *

@@ -1,5 +1,14 @@
 Complete / canceled tasks:
 ==========================
+-Scan all files again for spell mistakes via Gmail. *
+-Update packages + re-create package.json files. *
+-Build a script to calculate the remaining email addresses to send within a given source. It will display: *
+MONGO DATABASE: 10,343 | SOURCE: 2,394 | TO SEND: 1,233 | MONGO DATABASE EXISTS: 534 | 1,233/2,394 (72.45%) *
+-Increase the maximum amount of email addresses per process to 10000. *
+-Add all the accounts on KeyPass to the main account.json file. *
+-Fix bug of limit exceeded not switching to the next account. *
+-Add TXT log remaining email addresses: In the end of the running, create a TXT in the *
+ 'dist' directory with the remaining email addresses to send. *
 -Fix console status log bug not showing 'from' tab if email address exists in the Mongo database. *
 -Fix console status log of ' Pending:  |' in the end. *
 -Add sources to all .gitignore files + backup settings. *
@@ -301,7 +310,7 @@ If exists - Mark as SECURITY_ERROR. *
  If not, exit the process and details about it. *
 (maximum retries 3 - from settings.js) *
 -Clean the sandbox.text.js. *
--Improve enums by convert all enums in the index.js file only. *
+-Improve enums by converting all enums in the index.js file only. *
 -Convert all 'APIKey' to 'apiKey' and 'URLAddress' to 'urlAddress'.
 -Each email finishes the process / break the process, log it. *
 -Add flag to simulate test send with random sent/error with details / send from test list. *
@@ -343,7 +352,7 @@ If exists - Mark as SECURITY_ERROR. *
 -Validate that the skip logic is still working. *
 -Validate that the monitor logic is working. *
 -Add one in each session of sending emails - A monitor email address (from the misc/monitor txt file) - In a *
- random place in the email addresses list send email address to the monitor to verify that the email address was sent successfully. *
+ random place in the email addresses list sends the email address to the monitor to verify that the email address was sent successfully. *
 -Make a file called monitor.txt with all the email addresses that are considered to be monitors. *
 -Validate all the monitor email addresses + Remove duplicates. No need for any errors or notification about it. *
 -Make example file of the monitor.txt file. *
@@ -400,7 +409,7 @@ MONGO_DATABASE_COLLECTION_NAME: 'emailaddresses', *
 -Re-implement relevant settings in initiate service. *
 -Re-implement relevant settings in the confirmation service. *
 -Clean all unneeded files + functions. *
--All while loop that needed convert to for loops. *
+-All while loop that needed converting to for loops. *
 -Clear all unneeded packages. *
 -Clear INSTRUCTIONS.md and README.md and package.json from all packages. *
 -Reload node_modules. *
@@ -418,7 +427,7 @@ MONGO_DATABASE_COLLECTION_NAME: 'emailaddresses', *
 -Create a new file called send_settings.js (copied from existing settings.js - Clear all parameters from there) - Canceled. *
 -Rename the settings.js to crawl_settings - Canceled. *
 -Change in all places from settings.js to crawl.js - Canceled. *
--Add different function to initiate all parameters (execute the 2 functions always) - Canceled. *
+-Add different functions to initiate all parameters (execute the 2 functions always) - Canceled. *
 -Paths: - Canceled. *
 -Change the directory name to Crawler_23_ddmmyyyy_time - Canceled. *
 -Create the directory name to Send_23_ddmmyyyy_time - Canceled. *

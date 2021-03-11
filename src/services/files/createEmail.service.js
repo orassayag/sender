@@ -152,7 +152,7 @@ class CreateEmailService {
         for (let i = 0; i < files.length; i++) {
             const file = files[i];
             const fileName = pathUtils.getBasename(file);
-            // Scan only files that starts with a specific file name.
+            // Scan only files that start with a specific file name.
             if (fileName.indexOf(this.sourceData.emailAddressesIncludeFileName) === 0) {
                 // Fetch the email addresses.
                 const tempEmailAddressesList = await this.fetchEmailAddresses(file);

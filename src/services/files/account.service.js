@@ -36,7 +36,7 @@ class AccountService {
                 id: this.lastAccountId,
                 username: validationResult.username,
                 password: validationResult.password,
-                asterixsPassword: textUtils.getAsteriskCharactersString(validationResult.password.length),
+                asterixPassword: textUtils.getAsteriskCharactersString(validationResult.password.length),
                 apiKey: validationResult.apiKey
             }));
             this.accountData.availableSendsCount += countLimitService.countLimitData.maximumSendGridDailyEmailsCount;

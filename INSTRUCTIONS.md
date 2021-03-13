@@ -43,8 +43,8 @@ y
 ===[PROCESS2] Save: 1 | Invalid: 0 | Duplicate: 0 | Filter: 0 | Skip: 0 | Unsave: 0 | Identical Addresses: 0===
 ===[PROCESS3] Monitor Sent: 0 | Security Error: 0 | Security Exists: 0 | Missing Field: 0 | Invalid Status: 0===
 ===[PROCESS4] Identical Status: 0 | Unexpected Field: 0 | Sent Error In A Row: 0 | Save Error In A Row: 0===
-===[ACCOUNT] Id: 1 | Username: ravidbilly1956@gmail.com | Password: **************** | Sent: 1/100 (01.00%) | Accounts: 1/1===
-===[API KEY] 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===
+===[ACCOUNT] Id: 1 | Username: ################## | Password: **************** | Sent: 1/100 (01.00%) | Accounts: 1/1===
+===[API KEY] SG.####################################################===
 ===[TEMPLATE] Subject (Id: 16): םכנוגריאב הדובע יבגל תקדוב | Text (Id: 16): ,בוט עובשו ייה===
 ===[ATTACHMENT] C:\Or\Web\sender\sender\misc\data\cv\CV Billy Ravid.doc===
 ===[SEND] Code: 202 | Status: SENT | Step: FINALIZE | From: ravidbilly1956@gmail.com | To: orassayag@gmail.com | Id: 1 | Type: STANDARD===

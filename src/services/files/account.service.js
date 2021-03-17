@@ -41,6 +41,10 @@ class AccountService {
             }));
             this.accountData.availableSendsCount += countLimitService.countLimitData.maximumSendGridDailyEmailsCount;
         }
+        debugger;
+        if (this.accountData.isRandomAccounts) {
+            this.accountData.accountsList = textUtils.shuffleArray(this.accountData.accountsList);
+        }
         this.checkAccount(false);
     }
 

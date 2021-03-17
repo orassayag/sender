@@ -21,6 +21,8 @@ const settings = {
     IS_MONITOR_LOGIC: false,
     // Determine if to display the log console status (false) or to display the email results one by one (true).
     IS_LOG_MODE: false,
+    // Determine whether to random the accounts from the JSON file or not.
+    IS_RANDOM_ACCOUNTS: true,
 
     // ===SOURCE=== //
     // Determine the type of source to fetch the email addresses from in order to send them.
@@ -37,9 +39,9 @@ const settings = {
     // In case of 'ARRAY', option selected, the array located in source.service file.
     EMAIL_ADDRESSES_PRODUCTION_SOURCE_PATH: pathUtils.getJoinPath({
         targetPath: __dirname,
-        targetName: '../../sources/email_addresses_20210309_042626.txt'
+        targetName: '../../sources/'
     }),
-    // Determine the part of a name of a file to be scanned in case 'DIRECTORY' option is selected.
+    // Determine the part of a name of a file to be scanned in case the 'DIRECTORY' option is selected.
     // Other files which do not include this part in the file name will not be scanned.
     // There is no option to scan all the TXT files.
     EMAIL_ADDRESSES_INCLUDE_FILE_NAME: 'email_addresses_',
@@ -54,7 +56,7 @@ const settings = {
     // Determine the path of the JSON file from which all the SendGrid accounts will be fetched. Must be a JSON file.
     ACCOUNTS_FILE_PATH: pathUtils.getJoinPath({
         targetPath: __dirname,
-        targetName: '../../../../../../Accounts/SendGrid/accounts.json'
+        targetName: '../../../../../../Users/Or/Dropbox/Accounts/SendGrid/accounts.json'
     }),
     // Determine the path of the JSON file from which all the templates will be fetched. Must be a JSON file.
     TEMPLATES_FILE_PATH: pathUtils.getJoinPath({
@@ -91,10 +93,10 @@ const settings = {
     // (This, of course, does not include common domains like gmail, hotmail, etc...).
     MAXIMUM_UNIQUE_DOMAIN_COUNT: 3,
     // Determine how many monitor emails to send during a single process of sending emails.
-    // Will work only if IS_MONITOR_LOGIC is true. It will be sent in a random place in the emails list.
+    // Will work only if the IS_MONITOR_LOGIC is true. It will be sent in a random place in the emails list.
     MONITOR_EMAILS_SEND_COUNT: 1,
     // Determine the maximum number of monitor email addresses to fetch from monitor.txt file.
-    // If there are more than this number, will take the first ones.
+    // If there are more than this number, it will take the first ones.
     MAXIMUM_MONITOR_EMAIL_ADDRESSES: 10,
     // Determine how many characters of the display subject and text (for each) to display on the console.
     MAXIMUM_DISPLAY_TEMPLATE_CHARACTERS_COUNT: 60,
@@ -143,7 +145,7 @@ const settings = {
     }),
 
     // ===DYNAMIC PATH=== //
-    // All these paths will be calculated during runtime in the initiate service.
+    // All these paths will be calculated during runtime in the initial service.
     // DON'T REMOVE THE KEYS, THEY WILL BE CALCULATED TO PATHS DURING RUNTIME.
     // Determine the application path where all the source of the application is located.
     // (Working example: 'C:\\Or\\Web\\sender\\sender').

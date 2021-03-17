@@ -1,4 +1,3 @@
-
 const settings = require('../../settings/settings');
 const { CVData, Template, TemplateData, TextData, SubjectData } = require('../../core/models/application');
 const countLimitService = require('./countLimit.service');

@@ -134,7 +134,7 @@ class InitiateService {
 		[
 			// ===FLAG=== //
 			'IS_PRODUCTION_MODE', 'IS_SEND_EMAILS', 'IS_SAVE_EMAILS', 'IS_DROP_COLLECTION', 'IS_SKIP_LOGIC', 'IS_MONITOR_LOGIC',
-			'IS_LOG_MODE',
+			'IS_LOG_MODE', 'IS_RANDOM_ACCOUNTS',
 			// ===LOG=== //
 			'IS_LOG_RESULTS',
 			// ===MONGO DATABASE=== //

@@ -72,7 +72,7 @@ class SendLogic {
                 await this.exit(exitProgramStatus, Color.RED);
                 break;
             }
-            // Check if need to retry to send the email.
+            // Check there is a need to retry to send the email.
             if (isRetrySend) {
                 this.emailData.emailsList[i] = createEmailService.resetEmail(email);
                 i--;

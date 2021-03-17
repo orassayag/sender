@@ -198,6 +198,17 @@ class TextUtils {
         }
         return Array(charactersCount).join('*');
     }
+
+    shuffleArray(list) {
+        if (!validationUtils.isExists(list) && list.length > 1) {
+            return list;
+        }
+        for (let i = list.length - 1; i > 0; i--) {
+            const y = Math.floor(Math.random() * (i + 1));
+            [list[i], list[y]] = [list[y], list[i]];
+        }
+        return list;
+    }
 }
 
 module.exports = new TextUtils();

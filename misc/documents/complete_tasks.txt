@@ -1,5 +1,14 @@
 Complete / canceled tasks:
 ==========================
+-Bring back the '###########@gmail.com' account to the 'Accounts.json' file (create a new API key for it + save it on KeyPass). *
+18. Accounts re-organization: *
+a. Place the "Accounts" directory inside 'C:\Users\Or\Dropbox'. *
+b. Refer all the projects to this location. *
+c. Make sure that after each path change the project still works. *
+-Add logic to select random accounts with a flag from settings.js file. *
+-Check spells via Gmail. *
+-Verify all works well. *
+-Update GitHub. *
 -Scan all files again for spell mistakes via Gmail. *
 -Update packages + re-create package.json files. *
 -Build a script to calculate the remaining email addresses to send within a given source. It will display: *
@@ -8,9 +17,9 @@ MONGO DATABASE: 10,343 | SOURCE: 2,394 | TO SEND: 1,233 | MONGO DATABASE EXISTS:
 -Add all the accounts on KeyPass to the main account.json file. *
 -Fix bug of limit exceeded not switching to the next account. *
 -Add TXT log remaining email addresses: In the end of the running, create a TXT in the *
- 'dist' directory with the remaining email addresses to send. *
+ 'dist' directory with the remaining email addresses to send. *
 -Fix console status log bug not showing 'from' tab if email address exists in the Mongo database. *
--Fix console status log of ' Pending:  |' in the end. *
+-Fix console status log of ' Pending:  |' in the end. *
 -Add sources to all .gitignore files + backup settings. *
 20. Update settings.json: *
 "formatFiles.excludePattern": "**/node_modules,**/.vscode,**/dist,**/dist/**,**/.chrome,**/misc,**/misc/**,**/sources,**/sources/**" *
@@ -24,24 +33,24 @@ sources *
 01. Update the 'REMEMBER' section of this document. *
 02. ' all the outcome of the crawling will be created' comment should be updated. *
 03. Add to package.json file the 'INSTRUCTIONS.md' key in the files section (if it exists in the project). *
-04. In the initate.service - const { Mode, ScriptType } = require('../../core/enums/files/system.enum'); - Need to change to ../../core/enums. *
+04. In the initiate.service - const { Mode, ScriptType } = require('../../core/enums/files/system.enum'); - Need to change to ../../core/enums. *
 05. Check if async copyDirectory( is not with line break. *
 06. Fix createDirectory - No need for await in createSessionDirectory method. *
-07. "Validate internet connection works." => "Validate that the internet connection works." *
-08. "sending emails processes." in udemy-courses project. *
+07. 'Validate internet connection works.' => 'Validate that the internet connection works.' *
+08. '...sending emails processes.' in udemy-courses project. *
 09. Rename the function 'getFileData' to 'getJsonFileData'. *
 10. Copy the logic of 'this.updateStatus' to all change statuses in the main script file. *
-11. On udemy-courses project, change the "validate" and "compare" functions to "validateFields" and "compareCourses". *
+11. On udemy-courses project, change the 'validate' and 'compare' functions to 'validateFields' and 'compareCourses'. *
 12. On udemy-courses project, change 'isExpectedFilled' to 'isFilledExpected'. *
 13. Change all function names that return true/false to 'isValidXXX' in validationUtils. *
-14. -In all places change to use isExists instead of .length > 0 or .length <= 0. *
+14. In all places change to use isExists instead of .length > 0 or .length <= 0. *
 15. Copy the logic of retry on check internet connection in all relevant projects (like in the udemy courses project). *
 16. Add 'INSTRUCTIONS.md' file if it does not exist (add it to files in package.json). *
 17. Add to 'INSTRUCTIONS.md' how the console log should be (take the specific sentence from another project) + *
 18. Place this in all "ToDo" documents of all the projects. *
 16. Add 'INSTRUCTIONS.md' file if it does not exist (add it to files in package.json). *
 17. Add to 'INSTRUCTIONS.md' how the console log should be (take the specific sentence from other project) + *
- /* cSpell:disable */ before the console log status example. *
+ /* cSpell:disable */ before the console log status example. *
 -Remove all comments. *
 -Re-format error numbers + update last_error.txt file. *
 -Fix all spell mistakes in all files via Gmail. *
@@ -54,13 +63,13 @@ sources *
 -Clear complete tasks. *
 -Update packages + Re-create package-json files. *
 -Update the instductions.md file to include a view of the console status line and remove the 'License' section. *
--Verify all works good. *
+-Verify all works well. *
 -Update packages. *
 -Check the order of the parameters in the initiate.service.js (Titles order identical to settings.js order). *
 -Add script name to tests and add validation for empty script name in initiate.service.js. *
 -Go over timeUtils and make sure all local "this.getDay" are being used, and not "date.getDate()" for example. *
 -Fix comment in settings.js 'interval to run to calculate' => 'interval to calculate'. *
--Fix comment:         // Get the backup title from the console.s *
+-Fix comment:         // Get the backup title from the console.s *
 -Fix the INSTRUCTIONS.md file - 5 is not needed. *
 -Fix all README.me + package.json from 'create-react-up' to 'create-react-app'. *
 -Change all ect => etc - In all projects. *
@@ -69,11 +78,11 @@ sources *
 -Change from 'Start to be built' to 'Built in', and remove space lines, and the *
 "-Goal:", and remove the 'This project was bootstrapped with [Create React App] *
 (https://github.com/facebook/create-react-app).' line under to the description *
-with line space,  all fixes in README.md. *
+with line space,  all fixes in README.md. *
 -Clear all comments. *
 -Format all documents. *
 -Move all complete tasks to complete_tasks.txt. *
--Verify all works good. *
+-Verify all works well. *
 -Upload to GitHub. *
 -Backup iOmega. *
 -Update packages + re-create package.json file. *
@@ -81,7 +90,7 @@ with line space,  all fixes in README.md. *
 and replace it in all places (where don't need flag, pass '': regexUtils.createRegex(origin, '') - canceled. *
 -Check for duplicate 'createDirectory' - remove it from global, and use the one from fileUtils. Take it from 'udemy-courses' project. *
 -Fix compilation error: Cannot find module '../core/models/files/BackupData'. *
--Take the initiate service from the 'crawler' project. *
+-Take the initial service from the 'crawler' project. *
 -Add .catch(e => console.log(e)); to all (async () => { - Take the logic from 'crawler' project. *
 -Check for empty lines inside functions / models with regular expression: ^\s*$. *
 -Format all files. *
@@ -118,15 +127,15 @@ export default *
 -Fix all spell mistakes in all TXT files. *
 -Fix spell mistakes in all txt files. *
 -Rewrite error numbers. *
--Remove all debugger. *
+-Remove all 'debugger' keywords. *
 -Make sure all comments end with . *
 -Format all files. *
--Verify all works (include sending email). *
+-Verify all works (including sending email). *
 -Move all complete tasks from here to complete_tasks.txt. *
 -Upload to GitHub. *
 -Update packages. *
 -Add to filter: posting.google.com. *
--Copy the logic of validation of isDirectory in the initiate service from 'crawler' project. *
+-Copy the logic of validation of isDirectory in the 'initiate service' from 'crawler' project. *
 -Copy the logic of checking that mongo service active from 'crawler' project. *
 -Copy the logic of nonNumeric in logProgress function. *
 -Add 	constructor() { *
@@ -134,7 +143,7 @@ export default *
 	} *
 -Convert the log emailAddress status log to be like in the 'udemy-courses' project. Copy the logic from there. *
 -Copy all the logic from 'udemy-courses' project of running the project after downloaded from GitHub. *
--Add 'validateScriptType' in the initiate service from the 'crawl' project. *
+-Add 'validateScriptType' in the 'initiate service' from the 'crawl' project. *
 -Move the 'isLogResults' to the logData.js file + Change in all places. *
 -Add logic that if no log flag is true, don't create any directory. *
 -Change the validateInternetConnection like in the 'udemy-courses' project. *
@@ -146,7 +155,7 @@ export default *
 -Remove all unused files, functions, and variables. *
 -Rewrite error numbers. *
 -Update last error number in error_index.txt. *
--Remove all debugger. *
+-Remove all debugger keywords. *
 -Make sure all comments end with . *
 -Format all files. *
 -Return all settings.js to original values. *
@@ -167,7 +176,7 @@ export default *
 -Change the misc directory structure like the 'crawler' project (misc/documents + add complete_tasks.txt). *
 -Copy the logic of backups from the 'crawler' project. *
 -Lower case the backup name. *
--Copy the logic of time utils from the 'crawler' project. *
+-Copy the logic of timeUtils from the 'crawler' project. *
 -Refactor time.utils.js like in the 'crawler' project. *
 -Make sure that in log services there is 'this.emptyValue' parameter. *
 -Change the path to the accounts.json to C:\Accounts\SendGrid\ *
@@ -207,11 +216,11 @@ export default *
 -Return the skip and the monitor logics from the settings.js back to true. *
 -Verify confirmation service works. *
 -Add document txt file of valid test email addresses (all my email addresses in KeePass) *
- to test real sending emails. Don't save them in the Mongo database. *
+ to test real sending emails. Don't save them in the Mongo database. *
 -Update packages. *
 -Add log mode - Instead of the status console log, just log to the console the log result of each email one after another. *
 -Tests: Build a test of sending a single specific email (all fields editable). *
-(validate that the file exists on the initiate step of the script). *
+(validate that the file exists on the initial step of the script). *
 -Add flag for the logs if to log emails results or not. *
 -Logs - Add flag for logs + Convert all the logs into 1 log file: *
 FULL MESSAGE: *
@@ -223,17 +232,17 @@ Subject (Id: 3): "מציעה עצמי לעבודה בחברתכם" | Text (Id: 4
 Result: Sent successfully / Error: Email address has been blocked / Limit exceeded | Duplicate | Already sent. *
 ============ *
 -Add Step status of the email object, updated each step (also updated on the log). *
--Need check - If any restart occurred, when trying to send from limit exceeded account, on the first error, mark the account sentCounter = 100. *
- If the limit is exceeded on the first try, subtract 100 from available emails to send, advance the accounts counter, and retry to send the email. *
+-Need check - If any restart occurred, when trying to send from the exceeded account, on the first error, mark the account sentCounter = 100. *
+ If the limit is exceeded on the first try, subtract 100 from available emails to send, advance the accounts counter, and retry to send the email. *
 -When finish - Change the status of the console as relevant - current mode it's on PAUSE. *
 -Limit the number of characters of the result in the console status. *
 -Fixed bug where 'Available' showed no value. *
--Change all places from unsaved to unsave - And all statuses change without past. *
+-Change all places from unsaved to unsave - And all statuses change without the past. *
 -Add validation of txt file size to fetch email addresses from. Limit the size - Not too big files *
- (If it's in DIRECTORY mode, skip the file, if it's on FILE mode, throw error). *
+ (If it's in DIRECTORY mode, skip the file, if it's in FILE mode, throw error). *
 -Change the 'sendgridService' (search in all applications and change all places) to 'postService', and change all classes names accordingly - Canceled. *
- (like the mongodb is with the name of mongoDatabaseService) - Canceled. *
--Change all post service back to SendGrid Service. *
+ (like the mongodb is with the name of mongoDatabaseService) - Canceled. *
+-Change all post services back to SendGrid Service. *
 -Change all "Sendgrid" to "SendGrid". *
 -Change all databaseService to mongoDataBaseService. *
 -Move EmailAddressStatusKeys to logService. *
@@ -242,7 +251,7 @@ Result: Sent successfully / Error: Email address has been blocked / Limit exceed
 -Add flag to save in the Mongo database or not. Also add validation that if this flag or the SEND_EMAILS flag are false, throw an exception. *
 ===[SETTINGS] Mode: PRODUCTION | Method: Standard/RandomExceeded | Database: send_production | Drop: false=== *
 ===[GENERAL] Time: 00.05:16:58 [-] | Current: 100/500 (31.60%) | Available: 493 | Status: SEND/PAUSE/FINISH/EXCEEDED=== *
-===[PROCESS1] Total: 1,412 | Pending: 500 | Sent: ✅  100 | Error: ❌ 23 | Exists: 11 | Database: 24,235=== *
+===[PROCESS1] Total: 1,412 | Pending: 500 | Sent: ✅  100 | Error: ❌ 23 | Exists: 11 | Database: 24,235=== *
 ===[PROCESS2] Saved: 100 | Invalid: 0 | Duplicates: 1 | Filter: 22 | Skip: 12 | Unsave: 2 | Identical Addresses: 0=== *
 ===[PROCESS3] Monitor Sent: 1 | Security Error: 0 | Security Exists: 0 | Missing Fields: 0 | Invalid Status: 0=== *
 ===[PROCESS4] Identical Status: 0 | Unexpected Field: 0=== *
@@ -258,15 +267,15 @@ Result: Sent successfully / Error: Email address has been blocked / Limit exceed
 -For the resultDetails build array of results, and display it differently for console and log. *
 -(Add flag to save in the Mongo database or not). *
 -Add logic for error-in-a-row for specific error codes by SendGrid, exit the program with 'SEND_ERROR_IN_A_ROW'. *
--Add logic for error-in-a-row for save emails to the Mongo database (including the retries) with 'SAVE_ERROR_IN_A_ROW'. *
+-Add logic for error-in-a-row to save emails to the Mongo database (including the retries) with 'SAVE_ERROR_IN_A_ROW'. *
 -Once finish that, build the logic of limit and switch accounts: *
-1. Try sending an email. If the limit exceeded reached, go to a function to switch the account. *
+1. Try sending an email. If the limit is exceeded, go to a function to switch the account. *
 2. Detect the specific code of limit exceeded. If this is the code, switch the account. *
 3. Retry to send the email after the account switched within the external loop. Subtract 1 from the i in the loop. *
 (Return 'isRetryEmail' true to the internal loop and do there the logic). *
 4. If no accounts left - not enough accounts to send (all accounts with sentCounter = 100) - Exit the program and notify it *
- ("EXIT: LIMIT EXCEEDED"). You will be able to start again tomorrow (if all work as planned). *
- (Add 'LIMIT_EXCEEDED' on the status of the console). *
+ ("EXIT: LIMIT EXCEEDED"). You will be able to start again tomorrow (if all work as planned). *
+ (Add 'LIMIT_EXCEEDED' on the status of the console). *
 -Logic for gracefully switching accounts: (Finalize step). *
 1. In any case, advance the account sent emails monitor, regardless of the result status. *
 2. When reached the limit - Call the checkAccount function. *
@@ -280,13 +289,13 @@ Result: Sent successfully / Error: Email address has been blocked / Limit exceed
 -Add test sent email address js file, to test sending email address - Monitor logic. *
 -Build the logic to switch between accounts once the limit exceeded or if some error occurred. *
 -For each account there will be a daily limit (100 from settings.js) and counter. *
- Once you reach the limit switch the account. *
+ Once you reach the limit switch the account. *
 -Once the account reaches 100 sents, it's automatically switched to the next account (the previous account mark sentCounter = 100). *
 -Before each sent email, check if it exists in the new table (not sending twice to the same email address). *
 -Handle errors to switch accounts if needed. *
 -If no SendGrid emails counter left to be sent - Throw error and exit. *
 -Add logic that if email failed to be saved 2 times in a row (2 different email addresses - *
- from settings.js), throw an exception and exit the process *
+ from settings.js), throw an exception and exit the process *
 to switch account / - Canceled. *
 -In DEVELOPMENT mode, use an external source (from misc folder). *
 -In DEVELOPMENT mode, don't really send emails, just do a timeout of 1 second (form settings.js). *
@@ -299,43 +308,43 @@ to switch account / - Canceled. *
 -Add the save email logic. *
 -Each time email is saved, advance the saved count. *
 -Check that email that is sent will fall on EXISTS status. *
--Add totalPending to count the pending emails to be sent as a static number, and pending as count down number. *
+-Add totalPending to count the pending emails to be sent as a static number, and pending as count down numbers. *
 -Add security check - In the sendEmail service add a list of sent emails array. Before each send check that not exists in this array, *
 If exists - Mark as SECURITY_ERROR. *
 -Add the 'IDENTICAL_STATUS' task. Search ToDo about it: Compare here the statuses. If they are identical, *
- change the email to the status of it as 'IDENTICAL_STATUS'. *
+ change the email to the status of it as 'IDENTICAL_STATUS'. *
 -Refactor SendEmailsData - Loop with enum instead declaring all the fields one by one. *
 -Add the 'UNEXPECTED_FIELD' task. Search ToDo about it: ToDo: Add new status of 'UNEXPECTED_FIELD' - *
- Check all fields of resultDateTime, resultDetails, resultCode and validate that all of them are null. *
- If not, exit the process and details about it. *
+ Check all fields of resultDateTime, resultDetails, resultCode and validate that all of them are null. *
+ If not, exit the process and details about it. *
 (maximum retries 3 - from settings.js) *
 -Clean the sandbox.text.js. *
 -Improve enums by converting all enums in the index.js file only. *
 -Convert all 'APIKey' to 'apiKey' and 'URLAddress' to 'urlAddress'.
--Each email finishes the process / break the process, log it. *
+-Each email finishes the process / breaks the process, log it. *
 -Add flag to simulate test send with random sent/error with details / send from test list. *
 -Report a bug with the SendGrid package on GitHub page. *
 -Handle Error of SendGrid. *
 -Add limit time to send the email. After 60 seconds (from settings.js), *
- break the process and details about it (copy the logic from the Crawler project). *
+ break the process and details about it (copy the logic from the Crawler project). *
 -Add SendGrid timeout also. *
 -Revert the logic of enums - Need specific places of call direct to the enum, not within the index.js. *
 -Refactor all logic - Not the same as the crawler project: *
 1. Each service will hold his own data. *
 2. The different services will communicate with each other, to update and fetch relevant data. *
 3. Log service will log the console status by fetching data from all services, not from send.logic.js file. *
-   The log interval will be handled inside the service, and will be closed by call from send.logic.js, *
-   as the same of the other services when needed to exit. *
+   The log interval will be handled inside the service, and will be closed by call from send.logic.js, *
+   as the same of the other services when needed to exit. *
 4. The send.logic.js file will only run the loop, and the interval to update the console status. *
 5. This will reduce the amount of code, as each service will update his own data and there will *
-   no need to transfer the results and update all data in one place. *
+   no need to transfer the results and update all data in one place. *
 -Start the logic of sending emails and the sendEmail service. *
 -Each email - Random on title and body (after validation). *
 -Add validation on any email address (valid email address) and make sure the from and the to fields are not identical. If so - Mark it as IDENTICAL_ADDRESSES. *
 -If one of the fields missing - Mark it as MISSING. *
 -Validate the status of the email is PENDING. If not - Mark it as INVALID_STATUS. *
 -Before sending email: *
-1. Validate all the fields exists. *
+1. Validate all the fields. *
 2. Make sure the from and the to are not identical. *
 -Don't copy the testing data on backup + Don't copy the CV on backup. *
 -Add flags and options to log sent successfully email addresses and error email addresses (full details about the error) - Canceled. *
@@ -352,12 +361,12 @@ If exists - Mark as SECURITY_ERROR. *
 -Validate that the skip logic is still working. *
 -Validate that the monitor logic is working. *
 -Add one in each session of sending emails - A monitor email address (from the misc/monitor txt file) - In a *
- random place in the email addresses list sends the email address to the monitor to verify that the email address was sent successfully. *
+ a random place in the email addresses list sends the email address to the monitor to verify that the email address was sent successfully. *
 -Make a file called monitor.txt with all the email addresses that are considered to be monitors. *
 -Validate all the monitor email addresses + Remove duplicates. No need for any errors or notification about it. *
 -Make example file of the monitor.txt file. *
 -Add a limit to maximum email addresses to send. Default is 2000, from settings.js. *
- If exceeded, take random email addresses to reach 2000. *
+ If exceeded, take random email addresses to reach 2000. *
 -Change the mode to isRandomExceeded: true - Canceled. *
 -Add Unsave/filter/skip statuses on console status bar. *
 -Add the skip and the filter (specific email addresses and domains) logics (take from crawler). *
@@ -372,9 +381,9 @@ If exists - Mark as SECURITY_ERROR. *
 -Bring the CV to the misc folder (misc/data/cv) - Validate it exists + is doc file (throw exception if not). *
 -Add sentCount to each account (0 is default). *
 -Email addresses and SendGrid accounts will be fetched in the initial step from external *
- txt file that will not be backuped (next to it will be an example of how the file should look like). *
+ txt file that will not be backuped (next to it will be an example of how the file should look like). *
 -Add email addresses service that will return the array of email addresses. *
- If DEVELOPMENT mode, pull from local sources in misc folder / or single file / or array of email addresses. *
+ If DEVELOPMENT mode, pull from local sources in misc folder / or single file / or array of email addresses. *
 -There will be 3 types of sources: *
 1. Crawler production path to search directories. (If no files exist, throw an exception). *
 2. Specific txt file (If file not exists throw exception). *
@@ -391,16 +400,16 @@ If exists - Mark as SECURITY_ERROR. *
 sent exceeded the limit (2000), taking random email addresses") - Canceled. *
 -Add isActive to each account - Canceled. *
 -When finish with the file - Delete it automatically from original destination - Canceled. *
- (only the email addresses txt files, no other log files) - Flag from settings.js - Canceled. *
--In the initiate step: *
--Go to the accounts js file and pull out all the accounts and build array. *
+ (only the email addresses txt files, no other log files) - Flag from settings.js - Canceled. *
+-In the initial step: *
+-Go to the accounts js file and pull out all the accounts and build the array. *
 -If no accounts found, throw error. *
 -Validate all accounts (email addresses + start with SG) (add basic email address validation). *
 -Validate for duplicate accounts by email addresses. *
 -Create this file in misc/accounts and make sure the specific directory (not all misc, just this) is not backuped. *
 -In misc folder create a file example structure of accounts. *
 -Build array of all accounts with all the details (each one will be registered also in the KeyPass). *
--Add accounts service that will return the accountsData object in the initiate step. *
+-Add accounts service that will return the accountsData object in the initial step. *
 -Copy the data from long run crawl and change all the email addresses - For testings. *
 -Verify in all txt files of source that email addresses are like 'test199@example.com'. *
 -In settings, change the comment and add a new field to the sent email addresses. *
@@ -417,9 +426,9 @@ MONGO_DATABASE_COLLECTION_NAME: 'emailaddresses', *
 -Copy this project, rename it to Sender. *
 -Check that the backup works. *
 -Build a simple send task email, POC, to see if it works as expected. *
--Build POC include switch account in the middle of the process. *
+-Build POC includes a switch account in the middle of the process. *
 -The script will search for a text file path. If not found, throw an exception - Canceled. *
--Each send of email address, use random SendGrid account - Canceled. Not need random. *
+-Each send of email address, use random SendGrid account - Canceled. No need to be random. *
 -Add log of all the email addresses sent successfully, and all the email addresses failed to be sent (with the error details) - Canceled. Not needed. *
 -All the new settings: Add title in the settings.js file for the sent email addresses step - Canceled. *
 -Copy the structure from the existing crawl logic. - Canceled. *

@@ -39,7 +39,7 @@ const settings = {
     // In case of 'ARRAY', option selected, the array located in source.service file.
     EMAIL_ADDRESSES_PRODUCTION_SOURCE_PATH: pathUtils.getJoinPath({
         targetPath: __dirname,
-        targetName: '../../sources/'
+        targetName: '../../sources/email_addresses_20210324_003419.txt'
     }),
     // Determine the part of a name of a file to be scanned in case the 'DIRECTORY' option is selected.
     // Other files which do not include this part in the file name will not be scanned.

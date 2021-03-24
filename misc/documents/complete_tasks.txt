@@ -1,5 +1,10 @@
 Complete / canceled tasks:
 ==========================
+-Update packages + Recreate package-lock.json. *
+-Fix TXT files spell mistakes via Gmail. *
+-Move all complete tasks from here to complete_tasks.txt. *
+-Upload to GitHub. *
+-Backup to iOmega. *
 -Bring back the '###########@gmail.com' account to the 'Accounts.json' file (create a new API key for it + save it on KeyPass). *
 18. Accounts re-organization: *
 a. Place the "Accounts" directory inside 'C:\Users\Or\Dropbox'. *

@@ -39,7 +39,7 @@ const settings = {
     // In case of 'ARRAY', option selected, the array located in source.service file.
     EMAIL_ADDRESSES_PRODUCTION_SOURCE_PATH: pathUtils.getJoinPath({
         targetPath: __dirname,
-        targetName: '../../sources/email_addresses_20210324_071305.txt'
+        targetName: '../../sources/email_addresses_20210327_072938.txt'
     }),
     // Determine the part of a name of a file to be scanned in case the 'DIRECTORY' option is selected.
     // Other files which do not include this part in the file name will not be scanned.
@@ -56,7 +56,7 @@ const settings = {
     // Determine the path of the JSON file from which all the SendGrid accounts will be fetched. Must be a JSON file.
     ACCOUNTS_FILE_PATH: pathUtils.getJoinPath({
         targetPath: __dirname,
-        targetName: '../../../../../../Users/Or/Dropbox/Accounts/SendGrid/accounts.json'
+        targetName: '../../../../../../Users/Or/Dropbox/accounts/sendgrid/accounts.json'
     }),
     // Determine the path of the JSON file from which all the templates will be fetched. Must be a JSON file.
     TEMPLATES_FILE_PATH: pathUtils.getJoinPath({
@@ -166,7 +166,7 @@ const settings = {
     // ===BACKUP=== //
     // Determine the directories to ignore when a backup copy is taking place.
     // For example: 'dist'.
-    IGNORE_DIRECTORIES: ['dist', 'node_modules', 'misc\\data', 'sources'],
+    IGNORE_DIRECTORIES: ['.git', 'dist', 'node_modules', 'misc\\data', 'sources'],
     // Determine the files to ignore when the back copy is taking place.
     // For example: 'back_sources_tasks.txt'.
     IGNORE_FILES: [],

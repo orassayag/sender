@@ -22,7 +22,7 @@ class TemplateService {
 
     async initiateTemplates() {
         this.templateData = new TemplateData(settings);
-        const templates = await fileService.getJsonFileData({
+        const templates = await fileService.getJSONFileData({
             path: this.templateData.templatesFilePath,
             parameterName: 'templatesFilePath',
             fileExtension: '.json'

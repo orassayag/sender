@@ -15,13 +15,22 @@ class AccountService {
 
     async initiate() {
         this.accountData = new AccountData(settings);
-        const accounts = await fileService.getJsonFileData({
+        const accounts = await fileService.getJSONFileData({
             path: this.accountData.accountsFilePath,
             parameterName: 'accountsFilePath',
             fileExtension: '.json'
         });
+        if (!validationUtils.isExists(accounts)) {
+            throw new Error('No accounts detected with the JSON file (1000053)');
+        }
         for (let i = 0; i < accounts.length; i++) {
-            const { username, password, apiKey } = accounts[i];
+            const account = accounts[i];
+            if (!validationUtils.isPropertyExists(account, 'username') ||
+                !validationUtils.isPropertyExists(account, 'password') ||
+                !validationUtils.isPropertyExists(account, 'apiKey')) {
+                continue;
+            }
+            const { username, password, apiKey } = account;
             const validationResult = this.validateAccount({
                 username: username,
                 password: password,
@@ -41,7 +50,6 @@ class AccountService {
             }));
             this.accountData.availableSendsCount += countLimitService.countLimitData.maximumSendGridDailyEmailsCount;
         }
-        debugger;
         if (this.accountData.isRandomAccounts) {
             this.accountData.accountsList = textUtils.shuffleArray(this.accountData.accountsList);
         }

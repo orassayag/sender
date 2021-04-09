@@ -64,12 +64,12 @@ class LogService {
 		return Math.max(...directories.map(name => textUtils.getSplitNumber(name))) + 1;
 	}
 
-	async createModeDirectory() {
+	createModeDirectory() {
 		this.baseSessionPath = pathUtils.getJoinPath({
 			targetPath: pathService.pathData.distPath,
 			targetName: textUtils.toLowerCase(applicationService.applicationData.mode)
 		});
-		await fileUtils.createDirectory(this.baseSessionPath);
+		fileUtils.createDirectory(this.baseSessionPath);
 	}
 
 	createSessionDirectory() {

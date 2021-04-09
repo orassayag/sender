@@ -1,5 +1,5 @@
 const { EmailAddressesSourceType } = require('../core/enums');
-const pathUtils = require('../utils/files/path.utils');
+const { pathUtils } = require('../utils');
 
 const settings = {
     // ===FLAG=== //

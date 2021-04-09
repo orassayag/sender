@@ -4,7 +4,7 @@ class FileService {
 
     constructor() { }
 
-    async getJsonFileData(data) {
+    async getJSONFileData(data) {
         const { path, parameterName, fileExtension } = data;
         if (!await fileUtils.isPathExists(path)) {
             throw new Error(`Invalid or no ${parameterName} parameter was found: Expected a number but received: ${path} (1000018)`);

@@ -1,4 +1,4 @@
-class SourceData {
+class SourceDataModel {
 
     constructor(settings) {
         // Set the parameters from the settings file.
@@ -13,4 +13,4 @@ class SourceData {
     }
 }
 
-module.exports = SourceData;
+module.exports = SourceDataModel;

@@ -5,17 +5,21 @@ class TimeUtils {
 
     constructor() { }
 
+    getCurrentDate(value) {
+        return value ? validationUtils.isValidArray(value) ? new Date(...value) : new Date(value) : new Date();
+    }
+
     getFullTime(date) {
         return `${this.getHours(date)}:${this.getMinutes(date)}:${this.getSeconds(date)}`;
     }
 
     getDateNoSpaces() {
-        const date = new Date();
+        const date = this.getCurrentDate();
         return [this.getDay(date), this.getMonth(date), this.getYear(date)].join('');
     }
 
     getFullDateNoSpaces() {
-        const date = new Date();
+        const date = this.getCurrentDate();
         return `${[this.getDay(date), this.getMonth(date), this.getYear(date)].join('')}_${[this.getHours(date), this.getMinutes(date), this.getSeconds(date)].join('')}`;
     }
 

@@ -1,8 +1,8 @@
-class EmailData {
+class EmailDataModel {
 
     constructor() {
         this.emailsList = [];
     }
 }
 
-module.exports = EmailData;
+module.exports = EmailDataModel;

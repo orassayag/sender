@@ -1,4 +1,4 @@
-class CVData {
+class CVDataModel {
 
     constructor(data) {
         const { fileName, filePath, attachmentBase64, type, disposition } = data;
@@ -10,4 +10,4 @@ class CVData {
     }
 }
 
-module.exports = CVData;
+module.exports = CVDataModel;

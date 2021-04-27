@@ -6,12 +6,12 @@ class ConfirmationService {
 
     constructor() { }
 
-    confirm(settings) {
+    confirm(settings, mode) {
         if (!settings.IS_PRODUCTION_MODE) {
             return true;
         }
         const readLine = readline.createInterface(process.stdin, process.stdout);
-        logUtils.log(logService.createConfirmSettingsTemplate(settings));
+        logUtils.log(logService.createConfirmSettingsTemplate(settings, mode));
         return new Promise((resolve, reject) => {
             try {
                 readLine.on('line', (line) => {

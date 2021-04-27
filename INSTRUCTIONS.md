@@ -6,9 +6,9 @@ FAST & BASIC START.
 1. Open the project in IDE (Current to 01/12/2020 I'm using VSCode).
 2. Open the following file in the src/settings/settings.js file.
 3. Search for the first setting - 'IS_PRODUCTION_MODE' - Make sure it is true.
-4. Next - Time to install the NPM packages. On the terminal run 'npm i'.
+4. Next - Time to install the NPM packages. In the terminal run 'npm i'.
    It will install automatically all the required NPM packages.
-5. On terminal run 'npm start'. If everything goes well, you will start to see
+5. In the terminal run 'npm start'. If everything goes well, you will start to see
    the console status line appears.
 6. If you see any error - Need to check what's changed. Current to 01/12/2020,
    It works fine.

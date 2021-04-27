@@ -1,5 +1,5 @@
 const settings = require('../../settings/settings');
-const { CVData, Template, TemplateData, TextData, SubjectData } = require('../../core/models/application');
+const { CVDataModel, TemplateModel, TemplateDataModel, TextDataModel, SubjectDataModel } = require('../../core/models/application');
 const countLimitService = require('./countLimit.service');
 const fileService = require('./file.service');
 const { fileUtils, pathUtils, textUtils, validationUtils } = require('../../utils');
@@ -7,9 +7,9 @@ const { fileUtils, pathUtils, textUtils, validationUtils } = require('../../util
 class TemplateService {
 
     constructor() {
-        this.template = null;
-        this.templateData = null;
-        this.cvData = null;
+        this.templateModel = null;
+        this.templateDataModel = null;
+        this.cvDataModel = null;
         this.lastSubjectId = null;
         this.lastTextId = 0;
     }
@@ -21,9 +21,9 @@ class TemplateService {
     }
 
     async initiateTemplates() {
-        this.templateData = new TemplateData(settings);
+        this.templateDataModel = new TemplateDataModel(settings);
         const templates = await fileService.getJSONFileData({
-            path: this.templateData.templatesFilePath,
+            path: this.templateDataModel.templatesFilePath,
             parameterName: 'templatesFilePath',
             fileExtension: '.json'
         });
@@ -31,7 +31,7 @@ class TemplateService {
             const { subject, text } = templates[i];
             if (subject) {
                 this.lastSubjectId++;
-                this.templateData.subjectsList.push(new SubjectData({
+                this.templateDataModel.subjectsList.push(new SubjectDataModel({
                     id: this.lastSubjectId,
                     subject: subject,
                     subjectLine: subject,
@@ -41,7 +41,7 @@ class TemplateService {
             if (text) {
                 const line = text[0];
                 this.lastTextId++;
-                this.templateData.textsList.push(new TextData({
+                this.templateDataModel.textsList.push(new TextDataModel({
                     id: this.lastTextId,
                     text: text.join('\n'),
                     textLine: line,
@@ -49,26 +49,26 @@ class TemplateService {
                 }));
             }
         }
-        if (!validationUtils.isExists(this.templateData.subjectsList)) {
+        if (!validationUtils.isExists(this.templateDataModel.subjectsList)) {
             throw new Error('No subjects found in the templates.json file (1000035)');
         }
-        if (!validationUtils.isExists(this.templateData.textsList)) {
+        if (!validationUtils.isExists(this.templateDataModel.textsList)) {
             throw new Error('No texts found in the templates.json file (1000036)');
         }
     }
 
     async initiateCVFile() {
-        if (!await fileUtils.isPathExists(this.templateData.cvFilePath)) {
+        if (!await fileUtils.isPathExists(this.templateDataModel.cvFilePath)) {
             throw new Error('CV file path not exists (1000037)');
         }
-        const extension = pathUtils.getExtension(this.templateData.cvFilePath);
+        const extension = pathUtils.getExtension(this.templateDataModel.cvFilePath);
         if (extension !== '.doc') {
             throw new Error(`The CV file needs to be a doc file. Found a ${extension} file (1000038)`);
         }
-        this.cvData = new CVData({
-            fileName: pathUtils.getBasename(this.templateData.cvFilePath),
-            filePath: this.templateData.cvFilePath,
-            attachmentBase64: await fileUtils.createBase64Path(this.templateData.cvFilePath),
+        this.cvDataModel = new CVDataModel({
+            fileName: pathUtils.getBasename(this.templateDataModel.cvFilePath),
+            filePath: this.templateDataModel.cvFilePath,
+            attachmentBase64: await fileUtils.createBase64Path(this.templateDataModel.cvFilePath),
             type: 'application/doc',
             disposition: 'attachment'
         });
@@ -76,51 +76,51 @@ class TemplateService {
 
     getRandomSubject() {
         let randomSubjectId = -1;
-        if (!this.template?.subjectId) {
-            randomSubjectId = textUtils.getRandomNumber(1, this.templateData.subjectsList.length);
+        if (!this.templateModel?.subjectId) {
+            randomSubjectId = textUtils.getRandomNumber(1, this.templateDataModel.subjectsList.length);
         }
         else {
             for (let i = 0; i < 20; i++) {
-                randomSubjectId = textUtils.getRandomNumber(1, this.templateData.subjectsList.length);
-                if (this.template.subjectId != randomSubjectId) {
+                randomSubjectId = textUtils.getRandomNumber(1, this.templateDataModel.subjectsList.length);
+                if (this.templateModel.subjectId != randomSubjectId) {
                     break;
                 }
             }
         }
-        return this.templateData.subjectsList.find(t => t.id === randomSubjectId);
+        return this.templateDataModel.subjectsList.find(t => t.id === randomSubjectId);
     }
 
     getRandomText() {
         let randomTextId = -1;
-        if (!this.template?.textId) {
-            randomTextId = textUtils.getRandomNumber(1, this.templateData.textsList.length);
+        if (!this.templateModel?.textId) {
+            randomTextId = textUtils.getRandomNumber(1, this.templateDataModel.textsList.length);
         }
         else {
             for (let i = 0; i < 20; i++) {
-                randomTextId = textUtils.getRandomNumber(1, this.templateData.textsList.length);
-                if (this.template.textId != randomTextId) {
+                randomTextId = textUtils.getRandomNumber(1, this.templateDataModel.textsList.length);
+                if (this.templateModel.textId != randomTextId) {
                     break;
                 }
             }
         }
-        return this.templateData.textsList.find(t => t.id === randomTextId);
+        return this.templateDataModel.textsList.find(t => t.id === randomTextId);
     }
 
     getTemplate() {
         let subject, text = null;
-        if (this.templateData.subjectsList.length === 1) {
-            subject = this.templateData.subjectsList[0];
+        if (this.templateDataModel.subjectsList.length === 1) {
+            subject = this.templateDataModel.subjectsList[0];
         }
         else {
             subject = this.getRandomSubject();
         }
-        if (this.templateData.textsList.length === 1) {
-            text = this.templateData.textsList[0];
+        if (this.templateDataModel.textsList.length === 1) {
+            text = this.templateDataModel.textsList[0];
         }
         else {
             text = this.getRandomText();
         }
-        this.template = new Template({
+        this.templateModel = new TemplateModel({
             subject: subject,
             text: text
         });
@@ -138,8 +138,8 @@ class TemplateService {
             }
         });
         displayTemplate = `${validationUtils.isExists(englishKeys) ? `${englishKeys.join(' ')}` : ''} ${hebrewKeys.reverse().join(' ')}`.trim();
-        if (displayTemplate.length > countLimitService.countLimitData.maximumDisplayTemplateCharactersCount) {
-            displayTemplate = displayTemplate.substring(0, countLimitService.countLimitData.maximumDisplayTemplateCharactersCount);
+        if (displayTemplate.length > countLimitService.countLimitDataModel.maximumDisplayTemplateCharactersCount) {
+            displayTemplate = displayTemplate.substring(0, countLimitService.countLimitDataModel.maximumDisplayTemplateCharactersCount);
         }
         return displayTemplate;
     }

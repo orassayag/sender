@@ -1,6 +1,6 @@
 const sgMail = require('@sendgrid/mail');
-const { Status } = require('../../core/enums');
-const { SendGridResult } = require('../../core/models/application');
+const { SendGridResultModel } = require('../../core/models/application');
+const { StatusEnum } = require('../../core/enums');
 const applicationService = require('./application.service');
 const countLimitService = require('./countLimit.service');
 const globalUtils = require('../../utils/files/global.utils');
@@ -12,20 +12,20 @@ class SendGridService {
     this.sendErrorInARowCount = 0;
   }
 
-  async send(email, templateData, cvData) {
+  async send(emailModel, templateDataModel, cvDataModel) {
     return await new Promise(async (resolve, reject) => {
       if (reject) { }
       // Limit the runtime of this function in case the email send process gets stuck.
       const abortTimeout = setTimeout(() => {
         resolve(this.setSendGridErrorResult(null, 'Send email process exceeded timeout limit.'));
         return;
-      }, countLimitService.countLimitData.millisecondsSendTimeout);
-      const { accountApiKey, toEmailAddress, fromEmailAddress, subject, text } = email;
-      const { emailSenderName } = templateData;
-      const { fileName, attachmentBase64, type, disposition } = cvData;
+      }, countLimitService.countLimitDataModel.millisecondsSendTimeout);
+      const { accountApiKey, toEmailAddress, fromEmailAddress, subject, text } = emailModel;
+      const { emailSenderName } = templateDataModel;
+      const { fileName, attachmentBase64, type, disposition } = cvDataModel;
       // Set the api key.
       sgMail.setApiKey(accountApiKey);
-      sgMail.setTimeout(countLimitService.countLimitData.millisecondsSendTimeout);
+      sgMail.setTimeout(countLimitService.countLimitDataModel.millisecondsSendTimeout);
       // Create the message object.
       const message = {
         to: toEmailAddress,
@@ -45,16 +45,16 @@ class SendGridService {
         ]
       };
       // Send the email.
-      let sendgridResult = null;
+      let sendgridResultModel = null;
       try {
         const sendResult = await sgMail.send(message);
-        sendgridResult = this.setSendGridSendResult(sendResult);
+        sendgridResultModel = this.setSendGridSendResult(sendResult);
       }
       catch (error) {
-        sendgridResult = this.setSendGridErrorResult(error, null);
+        sendgridResultModel = this.setSendGridErrorResult(error, null);
       }
       clearTimeout(abortTimeout);
-      resolve(sendgridResult);
+      resolve(sendgridResultModel);
     }).catch();
   }
 
@@ -68,7 +68,7 @@ class SendGridService {
       return this.setSendGridErrorResult(null, `CodeData object was not found in the list for status code ${statusCode}.`);
     }
     this.getErrorInARowResult(null, false);
-    return new SendGridResult({
+    return new SendGridResultModel({
       sendError: null,
       code: statusCode,
       reason: codeData.reason,
@@ -97,8 +97,8 @@ class SendGridService {
     }
     // Check error in a row.
     // Bad request code, as default for this function.
-    const exitProgramStatus = this.getErrorInARowResult(code ? code : applicationService.applicationData.defaultErrorCode, isAccountLimitExceeded);
-    return new SendGridResult({
+    const exitProgramStatus = this.getErrorInARowResult(code ? code : applicationService.applicationDataModel.defaultErrorCode, isAccountLimitExceeded);
+    return new SendGridResultModel({
       sendError: sendError,
       code: code,
       reason: reason,
@@ -111,21 +111,21 @@ class SendGridService {
 
   async simulate() {
     // Simulate result.
-    let sendgridResult = null;
-    const isSent = textUtils.getRandomBooleanByPercentage(countLimitService.countLimitData.simulateSendSuccessPercentage);
+    let sendgridResultModel = null;
+    const isSent = textUtils.getRandomBooleanByPercentage(countLimitService.countLimitDataModel.simulateSendSuccessPercentage);
     if (isSent) {
       const code = textUtils.getRandomKeyFromArray(sendgridUtils.sentCodesList);
-      sendgridResult = this.setSendGridSendResult([{ statusCode: code }]);
+      sendgridResultModel = this.setSendGridSendResult([{ statusCode: code }]);
     }
     else {
       const code = textUtils.getRandomKeyFromArray(sendgridUtils.errorCodesList);
       const codeData = sendgridUtils.resultCodesList[code];
       const error = { code: code, message: codeData.reason, response: { body: { errors: [{ message: codeData.description }] } } };
-      sendgridResult = this.setSendGridErrorResult(error, null);
+      sendgridResultModel = this.setSendGridErrorResult(error, null);
     }
     // Simulate delay of send process / error.
-    await globalUtils.sleep(countLimitService.countLimitData.millisecondsSimulateDelaySendProcessCount);
-    return sendgridResult;
+    await globalUtils.sleep(countLimitService.countLimitDataModel.millisecondsSimulateDelaySendProcessCount);
+    return sendgridResultModel;
   }
 
   getErrorInARowResult(code, isAccountLimitExceeded) {
@@ -139,7 +139,7 @@ class SendGridService {
       this.sendErrorInARowCount = 0;
     }
     // Send result accordingly.
-    return this.sendErrorInARowCount >= countLimitService.countLimitData.maximumSendErrorInARowCount ? Status.SEND_ERROR_IN_A_ROW : null;
+    return this.sendErrorInARowCount >= countLimitService.countLimitDataModel.maximumSendErrorInARowCount ? StatusEnum.SEND_ERROR_IN_A_ROW : null;
   }
 }
 

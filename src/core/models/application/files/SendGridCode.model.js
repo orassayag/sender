@@ -1,4 +1,4 @@
-class SendGridCode {
+class SendGridCodeModel {
 
     constructor(data) {
         const { code, reason, description, isSent } = data;
@@ -9,4 +9,4 @@ class SendGridCode {
     }
 }
 
-module.exports = SendGridCode;
+module.exports = SendGridCodeModel;

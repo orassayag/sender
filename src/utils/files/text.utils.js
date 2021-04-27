@@ -178,13 +178,6 @@ class TextUtils {
         return `${text}\r\n`;
     }
 
-    removeLastCharacter(text) {
-        if (!text) {
-            return '';
-        }
-        return text.substring(0, text.length - 1);
-    }
-
     removeAllCharacters(text, target) {
         if (!text) {
             return '';

@@ -1,4 +1,4 @@
-class EmailProcessResult {
+class EmailProcessResultModel {
 
     constructor() {
         this.isContinueProcess = true;
@@ -7,4 +7,4 @@ class EmailProcessResult {
     }
 }
 
-module.exports = EmailProcessResult;
+module.exports = EmailProcessResultModel;

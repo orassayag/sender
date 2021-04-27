@@ -1,5 +1,5 @@
-const { Color } = require('../../core/enums');
-const logUpdate = require('../../log-update');
+const logUpdate = require('log-update');
+const { ColorEnum } = require('../../core/enums');
 const colorUtils = require('./color.utils');
 const textUtils = require('./text.utils');
 const validationUtils = require('./validation.utils');
@@ -46,7 +46,7 @@ class LogUtils {
         }
         return this.logColorStatus({
             status: text,
-            color: Color.MAGENTA
+            color: ColorEnum.MAGENTA
         });
     }
 

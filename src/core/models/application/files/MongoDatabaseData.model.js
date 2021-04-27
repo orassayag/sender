@@ -1,8 +1,6 @@
-const { mongoDatabaseUtils } = require('../../../../utils');
+class MongoDatabaseDataModel {
 
-class MongoDatabaseData {
-
-	constructor(settings) {
+	constructor(settings, mongoDatabaseModeName) {
 		// Set the parameters from the settings file.
 		const { IS_DROP_COLLECTION, MONGO_DATABASE_CONNECTION_STRING, MONGO_DATABASE_NAME, MONGO_DATABASE_COLLECTION_NAME,
 			MAXIMUM_DROP_COLLECTION_RETRIES_COUNT, IS_MONGO_DATABASE_USE_UNIFILED_TOPOLOGY, IS_MONGO_DATABASE_USE_NEW_URL_PARSER,
@@ -12,7 +10,7 @@ class MongoDatabaseData {
 		this.mongoDatabaseConnectionString = MONGO_DATABASE_CONNECTION_STRING;
 		this.mongoDatabaseName = MONGO_DATABASE_NAME;
 		this.mongoDatabaseCollectionName = MONGO_DATABASE_COLLECTION_NAME;
-		this.mongoDatabaseModeName = mongoDatabaseUtils.getMongoDatabaseModeName(settings);
+		this.mongoDatabaseModeName = mongoDatabaseModeName;
 		this.maximumDropCollectionRetriesCount = MAXIMUM_DROP_COLLECTION_RETRIES_COUNT;
 		this.isMongoDatabaseUseUnifiledTopology = IS_MONGO_DATABASE_USE_UNIFILED_TOPOLOGY;
 		this.isMongoDatabaseUseNewUrlParser = IS_MONGO_DATABASE_USE_NEW_URL_PARSER;
@@ -25,4 +23,4 @@ class MongoDatabaseData {
 	}
 }
 
-module.exports = MongoDatabaseData;
+module.exports = MongoDatabaseDataModel;

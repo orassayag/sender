@@ -1,13 +1,13 @@
-const { CountLimitData } = require('../../core/models/application');
+const { CountLimitDataModel } = require('../../core/models/application');
 
 class CountLimitService {
 
     constructor() {
-        this.countLimitData = null;
+        this.countLimitDataModel = null;
     }
 
     initiate(settings) {
-        this.countLimitData = new CountLimitData(settings);
+        this.countLimitDataModel = new CountLimitDataModel(settings);
     }
 }
 

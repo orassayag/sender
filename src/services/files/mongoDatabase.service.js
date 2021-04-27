@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-const EmailAddressModel = require('../../core/models/mongo/EmailAddressModel');
-const { MongoDatabaseData, MongoDatabaseResult } = require('../../core/models/application');
-const { EmailAddressStatus, Status } = require('../../core/enums');
+const { EmailAddressModel } = require('../../core/models/mongo');
+const { MongoDatabaseDataModel, MongoDatabaseResultModel } = require('../../core/models/application');
+const { EmailAddressStatusEnum, StatusEnum } = require('../../core/enums');
 const countLimitService = require('./countLimit.service');
 const globalUtils = require('../../utils/files/global.utils');
 const { systemUtils, textUtils } = require('../../utils');
@@ -10,29 +10,30 @@ class MongoDatabaseService {
 
     constructor() {
         this.client = null;
-        this.mongoDatabaseData = null;
+        this.mongoDatabaseDataModel = null;
         this.mongoConnectionString = null;
         this.mongoConnectionOptions = null;
         this.saveErrorInARowCount = 0;
     }
 
-    async initiate(settings) {
-        this.mongoDatabaseData = new MongoDatabaseData(settings);
-        this.mongoConnectionString = `${this.mongoDatabaseData.mongoDatabaseConnectionString}${this.mongoDatabaseData.mongoDatabaseModeName}`;
+    async initiate(settings, mode) {
+        const mongoDatabaseModeName = this.getMongoDatabaseModeName(settings, mode);
+        this.mongoDatabaseDataModel = new MongoDatabaseDataModel(settings, mongoDatabaseModeName);
+        this.mongoConnectionString = `${this.mongoDatabaseDataModel.mongoDatabaseConnectionString}${this.mongoDatabaseDataModel.mongoDatabaseModeName}`;
         this.mongoConnectionOptions = {
-            useUnifiedTopology: this.mongoDatabaseData.isMongoDatabaseUseUnifiledTopology,
-            useNewUrlParser: this.mongoDatabaseData.isMongoDatabaseUseNewUrlParser,
-            useCreateIndex: this.mongoDatabaseData.isMongoDatabaseUseCreateIndex,
-            poolSize: this.mongoDatabaseData.mongoDatabasePoolSizeCount,
-            socketTimeoutMS: this.mongoDatabaseData.mongoDatabaseSocketTimeoutMillisecondsCount,
-            keepAlive: this.mongoDatabaseData.mongoDatabaseKeepAliveMillisecondsCount,
-            ssl: this.mongoDatabaseData.isMongoDatabaseSSL,
-            sslValidate: this.mongoDatabaseData.isMongoDatabaseSSLValidate
+            useUnifiedTopology: this.mongoDatabaseDataModel.isMongoDatabaseUseUnifiledTopology,
+            useNewUrlParser: this.mongoDatabaseDataModel.isMongoDatabaseUseNewUrlParser,
+            useCreateIndex: this.mongoDatabaseDataModel.isMongoDatabaseUseCreateIndex,
+            poolSize: this.mongoDatabaseDataModel.mongoDatabasePoolSizeCount,
+            socketTimeoutMS: this.mongoDatabaseDataModel.mongoDatabaseSocketTimeoutMillisecondsCount,
+            keepAlive: this.mongoDatabaseDataModel.mongoDatabaseKeepAliveMillisecondsCount,
+            ssl: this.mongoDatabaseDataModel.isMongoDatabaseSSL,
+            sslValidate: this.mongoDatabaseDataModel.isMongoDatabaseSSLValidate
         };
         await this.validateProcess();
         await this.createConnection();
         await this.testMongoDatabase();
-        if (this.mongoDatabaseData.isDropCollection) {
+        if (this.mongoDatabaseDataModel.isDropCollection) {
             await this.dropCollection();
         }
     }
@@ -92,9 +93,9 @@ class MongoDatabaseService {
     }
 
     async dropCollection() {
-        for (let i = 0; i < this.mongoDatabaseData.maximumDropCollectionRetriesCount; i++) {
+        for (let i = 0; i < this.mongoDatabaseDataModel.maximumDropCollectionRetriesCount; i++) {
             try {
-                await this.client.connection.collection(this.mongoDatabaseData.mongoDatabaseCollectionName).drop();
+                await this.client.connection.collection(this.mongoDatabaseDataModel.mongoDatabaseCollectionName).drop();
                 break;
             }
             catch (error) { }
@@ -102,7 +103,7 @@ class MongoDatabaseService {
     }
 
     async getEmailAddressesCount() {
-        return await mongoose.connection.collection(this.mongoDatabaseData.mongoDatabaseCollectionName).countDocuments();
+        return await mongoose.connection.collection(this.mongoDatabaseDataModel.mongoDatabaseCollectionName).countDocuments();
     }
 
     async isEmailAddressExists(emailAddress) {
@@ -118,17 +119,17 @@ class MongoDatabaseService {
         if (await this.isEmailAddressExists(emailAddress)) {
             return this.setMongoDatabaseErrorResult({
                 saveError: null,
-                status: EmailAddressStatus.SECURITY_EXISTS,
+                status: EmailAddressStatusEnum.SECURITY_EXISTS,
                 description: 'Email address not saved. Validation of security existence in the Mongo database.'
             });
         }
         let saveResult = null;
-        for (let i = 0; i < countLimitService.countLimitData.maximumSaveEmailAddressesRetriesCount; i++) {
+        for (let i = 0; i < countLimitService.countLimitDataModel.maximumSaveEmailAddressesRetriesCount; i++) {
             try {
                 // Save the email address to the Mongo database.
                 await new EmailAddressModel({ emailAddress: emailAddress }).save();
                 saveResult = this.setMongoDatabaseSaveResult({
-                    status: EmailAddressStatus.SAVE,
+                    status: EmailAddressStatusEnum.SAVE,
                     description: 'Email address saved successfully.'
                 });
                 break;
@@ -136,7 +137,7 @@ class MongoDatabaseService {
             catch (error) {
                 saveResult = this.setMongoDatabaseErrorResult({
                     saveError: error,
-                    status: EmailAddressStatus.UNSAVE,
+                    status: EmailAddressStatusEnum.UNSAVE,
                     description: `Email address not saved. ${systemUtils.getErrorDetails(error)}`
                 });
             }
@@ -147,7 +148,7 @@ class MongoDatabaseService {
     setMongoDatabaseErrorResult(data) {
         const { saveError, status, description } = data;
         const exitProgramStatus = this.getErrorInARowResult(false, saveError);
-        return new MongoDatabaseResult({
+        return new MongoDatabaseResultModel({
             status: status,
             description: description,
             isSave: false,
@@ -158,7 +159,7 @@ class MongoDatabaseService {
     setMongoDatabaseSaveResult(data) {
         const { status, description } = data;
         this.getErrorInARowResult(true, null);
-        return new MongoDatabaseResult({
+        return new MongoDatabaseResultModel({
             status: status,
             description: description,
             isSave: true,
@@ -175,16 +176,16 @@ class MongoDatabaseService {
             this.saveErrorInARowCount++;
         }
         // Send result accordingly.
-        return this.saveErrorInARowCount >= countLimitService.countLimitData.maximumSaveErrorInARowCount ? Status.SAVE_ERROR_IN_A_ROW : null;
+        return this.saveErrorInARowCount >= countLimitService.countLimitDataModel.maximumSaveErrorInARowCount ? StatusEnum.SAVE_ERROR_IN_A_ROW : null;
     }
 
     async simulate() {
         // Simulate result.
         let saveResult = null;
-        const isSave = textUtils.getRandomBooleanByPercentage(countLimitService.countLimitData.simulateSaveSuccessPercentage);
+        const isSave = textUtils.getRandomBooleanByPercentage(countLimitService.countLimitDataModel.simulateSaveSuccessPercentage);
         if (isSave) {
             saveResult = this.setMongoDatabaseSaveResult({
-                status: EmailAddressStatus.SAVE,
+                status: EmailAddressStatusEnum.SAVE,
                 description: 'Email address saved successfully.'
             });
         }
@@ -192,13 +193,17 @@ class MongoDatabaseService {
             const error = new Error('Simulate save error of the Mongo database. ');
             saveResult = this.setMongoDatabaseErrorResult({
                 saveError: error,
-                status: EmailAddressStatus.UNSAVE,
+                status: EmailAddressStatusEnum.UNSAVE,
                 description: `Email address not saved. ${systemUtils.getErrorDetails(error)}`
             });
         }
         // Simulate delay of save process / error.
-        await globalUtils.sleep(countLimitService.countLimitData.millisecondsSimulateDelaySaveProcessCount);
+        await globalUtils.sleep(countLimitService.countLimitDataModel.millisecondsSimulateDelaySaveProcessCount);
         return saveResult;
+    }
+
+    getMongoDatabaseModeName(settings, mode) {
+        return `${settings.MONGO_DATABASE_NAME}_${textUtils.toLowerCase(mode)}`;
     }
 }
 

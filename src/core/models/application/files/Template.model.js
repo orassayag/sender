@@ -1,4 +1,4 @@
-class Template {
+class TemplateModel {
 
     constructor(data) {
         const { subject, text } = data;
@@ -13,4 +13,4 @@ class Template {
     }
 }
 
-module.exports = Template;
+module.exports = TemplateModel;

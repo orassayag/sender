@@ -1,4 +1,4 @@
-class TextData {
+class TextDataModel {
 
     constructor(data) {
         const { id, text, textLine, textLineDisplay } = data;
@@ -9,4 +9,4 @@ class TextData {
     }
 }
 
-module.exports = TextData;
+module.exports = TextDataModel;

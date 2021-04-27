@@ -24,14 +24,6 @@ class FileUtils {
         }
     }
 
-    // This method removes all files from a given target path.
-    async emptyDirectory(targetPath) {
-        // Verify that the path exists.
-        globalUtils.isPathExistsError(targetPath);
-        // Empty the directory.
-        await fs.emptyDir(targetPath);
-    }
-
     getAllDirectories(targetPath) {
         return fs.readdirSync(targetPath, { withFileTypes: true })
             .filter(dirent => dirent.isDirectory())
@@ -67,21 +59,6 @@ class FileUtils {
         }
         // Append the message to the file.
         await fs.appendFile(targetPath, message);
-    }
-
-    async removeFile(targetPath) {
-        // Verify that the path exists.
-        globalUtils.isPathExistsError(targetPath);
-        // Remove the file.
-        await fs.unlink(targetPath);
-    }
-
-    async removeFileIfExists(targetPath) {
-        // Check if the file exists.
-        if (await this.isPathExists(targetPath)) {
-            // Remove it.
-            await fs.unlink(targetPath);
-        }
     }
 
     async getFilesRecursive(directory) {

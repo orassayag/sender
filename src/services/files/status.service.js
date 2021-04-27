@@ -1,4 +1,4 @@
-const { StatusResult } = require('../../core/models/application');
+const { StatusResultModel } = require('../../core/models/application');
 const createEmailService = require('./createEmail.service');
 const logService = require('./log.service');
 const mongoDatabaseService = require('./mongoDatabase.service');
@@ -14,26 +14,26 @@ class StatusService {
         // Get all the source email addresses.
         let sourceEmailAddressesList = await createEmailService.getEmailAddressesOnly(settings);
         sourceEmailAddressesList = sourceEmailAddressesList.map(emailAddress => emailAddress && emailAddress.trim());
-        const statusResult = this.getStatusResult({
+        const statusResultModel = this.getStatusResult({
             mongoDatabaseEmailAddressesList: mongoDatabaseEmailAddressesList,
             sourceEmailAddressesList: sourceEmailAddressesList
         });
-        const logMessage = logService.createStatusTemplate(statusResult);
+        const logMessage = logService.createStatusTemplate(statusResultModel);
         logUtils.log(logMessage);
     }
 
     getStatusResult(data) {
-        const statusResult = new StatusResult();
+        const statusResultModel = new StatusResultModel();
         const { mongoDatabaseEmailAddressesList, sourceEmailAddressesList } = data;
-        statusResult.mongoDatabaseEmailAddressesCount = mongoDatabaseEmailAddressesList.length;
-        statusResult.sourceEmailAddressesCount = sourceEmailAddressesList.length;
+        statusResultModel.mongoDatabaseEmailAddressesCount = mongoDatabaseEmailAddressesList.length;
+        statusResultModel.sourceEmailAddressesCount = sourceEmailAddressesList.length;
         for (let i = 0; i < mongoDatabaseEmailAddressesList.length; i++) {
             if (sourceEmailAddressesList.findIndex(emailAddress => emailAddress === mongoDatabaseEmailAddressesList[i].emailAddress) > -1) {
-                statusResult.mongoDatabaseEmailAddressesExistsCount++;
+                statusResultModel.mongoDatabaseEmailAddressesExistsCount++;
             }
         }
-        statusResult.sourceEmailAddressesToSendCount = sourceEmailAddressesList.length - statusResult.mongoDatabaseEmailAddressesExistsCount;
-        return statusResult;
+        statusResultModel.sourceEmailAddressesToSendCount = sourceEmailAddressesList.length - statusResultModel.mongoDatabaseEmailAddressesExistsCount;
+        return statusResultModel;
     }
 }
 

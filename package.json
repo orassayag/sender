@@ -1,8 +1,12 @@
 {
   "name": "sender",
   "version": "1.0.0",
-  "private": true,
+  "private": false,
   "description": "An Node.js application to send bulk of email addresses from different sources via SendGird.",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/orassayag/sender.git"
+  },
   "keywords": [
     "send",
     "emails",
@@ -34,12 +38,13 @@
   ],
   "scripts": {
     "backup": "node src/scripts/backup.script.js",
+    "debug": "node --inspect-brk src/scripts/send.script.js",
     "sand": "node src/tests/sandBox.test.js",
     "send": "node src/tests/sendEmail.test.js",
     "status": "node src/scripts/status.script.js",
     "start": "node src/scripts/send.script.js",
-    "stop": "taskkill -f -im node.exe",
-    "debug": "node --inspect-brk src/scripts/send.script.js"
+    "postinstall": "node src/scripts/initiate.script.js",
+    "stop": "taskkill -f -im node.exe"
   },
   "browserslist": [
     ">0.2%",
@@ -49,14 +54,11 @@
   ],
   "dependencies": {
     "@sendgrid/mail": "^7.4.2",
-    "ansi-escapes": "^4.3.2",
     "babel-eslint": "^10.1.0",
-    "cli-cursor": "^3.1.0",
-    "eslint": "^7.24.0",
+    "eslint": "^7.25.0",
     "fs-extra": "^9.1.0",
     "is-reachable": "^5.0.0",
-    "mongoose": "^5.12.3",
-    "slice-ansi": "^4.0.0",
-    "wrap-ansi": "^7.0.0"
+    "log-update": "^4.0.0",
+    "mongoose": "^5.12.5"
   }
 }

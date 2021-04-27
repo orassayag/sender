@@ -1,5 +1,5 @@
 const settings = require('../../settings/settings');
-const { Account, AccountData } = require('../../core/models/application');
+const { AccountModel, AccountDataModel } = require('../../core/models/application');
 const countLimitService = require('./countLimit.service');
 const fileService = require('./file.service');
 const { textUtils, validationUtils } = require('../../utils');
@@ -8,15 +8,15 @@ class AccountService {
 
     constructor() {
         this.account = null;
-        this.accountData = null;
+        this.accountDataModel = null;
         this.lastAccountId = 0;
         this.isAccountsLeft = true;
     }
 
     async initiate() {
-        this.accountData = new AccountData(settings);
+        this.accountDataModel = new AccountDataModel(settings);
         const accounts = await fileService.getJSONFileData({
-            path: this.accountData.accountsFilePath,
+            path: this.accountDataModel.accountsFilePath,
             parameterName: 'accountsFilePath',
             fileExtension: '.json'
         });
@@ -37,21 +37,21 @@ class AccountService {
                 apiKey: apiKey,
                 i: i
             });
-            if (this.accountData.accountsList.findIndex(a => a.emailAddress === validationResult.username) > -1) {
+            if (this.accountDataModel.accountsList.findIndex(a => a.emailAddress === validationResult.username) > -1) {
                 throw new Error(`Duplicate accounts detected with the username: ${validationResult.username} (1000004)`);
             }
             this.lastAccountId++;
-            this.accountData.accountsList.push(new Account({
+            this.accountDataModel.accountsList.push(new AccountModel({
                 id: this.lastAccountId,
                 username: validationResult.username,
                 password: validationResult.password,
                 asterixPassword: textUtils.getAsteriskCharactersString(validationResult.password.length),
                 apiKey: validationResult.apiKey
             }));
-            this.accountData.availableSendsCount += countLimitService.countLimitData.maximumSendGridDailyEmailsCount;
+            this.accountDataModel.availableSendsCount += countLimitService.countLimitDataModel.maximumSendGridDailyEmailsCount;
         }
-        if (this.accountData.isRandomAccounts) {
-            this.accountData.accountsList = textUtils.shuffleArray(this.accountData.accountsList);
+        if (this.accountDataModel.isRandomAccounts) {
+            this.accountDataModel.accountsList = textUtils.shuffleArray(this.accountDataModel.accountsList);
         }
         this.checkAccount(false);
     }
@@ -84,11 +84,11 @@ class AccountService {
     }
 
     getAccount() {
-        const account = this.accountData.accountsList.find(a => a.sentCount < countLimitService.countLimitData.maximumSendGridDailyEmailsCount);
+        const account = this.accountDataModel.accountsList.find(a => a.sentCount < countLimitService.countLimitDataModel.maximumSendGridDailyEmailsCount);
         this.isAccountsLeft = account !== null && account !== undefined;
         if (account) {
             this.account = account;
-            this.accountData.currentAccountIndex++;
+            this.accountDataModel.currentAccountIndex++;
         }
     }
 
@@ -101,18 +101,18 @@ class AccountService {
             return;
         }
         this.account.sentCount++;
-        this.accountData.availableSendsCount--;
-        if (this.accountData.availableSendsCount < 0) {
-            this.accountData.availableSendsCount = 0;
+        this.accountDataModel.availableSendsCount--;
+        if (this.accountDataModel.availableSendsCount < 0) {
+            this.accountDataModel.availableSendsCount = 0;
         }
         // Update existing account data in the accountData list.
-        const accountIndex = this.accountData.accountsList.findIndex(a => a.id === this.account.id);
+        const accountIndex = this.accountDataModel.accountsList.findIndex(a => a.id === this.account.id);
         if (accountIndex <= -1) {
             throw new Error(`Account id ${this.account.id} not exists in the accountsList (1000010)`);
         }
-        this.accountData.accountsList[accountIndex] = this.account;
+        this.accountDataModel.accountsList[accountIndex] = this.account;
         // Check if need to switch accounts due to the limit exceeded of send count per day.
-        if (this.account.sentCount >= countLimitService.countLimitData.maximumSendGridDailyEmailsCount) {
+        if (this.account.sentCount >= countLimitService.countLimitDataModel.maximumSendGridDailyEmailsCount) {
             this.getAccount();
         }
         return this.isAccountsLeft;
@@ -120,11 +120,11 @@ class AccountService {
 
     // Force to switch accounts.
     switchAccount() {
-        this.accountData.availableSendsCount -= countLimitService.countLimitData.maximumSendGridDailyEmailsCount;
-        if (this.accountData.availableSendsCount < 0) {
-            this.accountData.availableSendsCount = 0;
+        this.accountDataModel.availableSendsCount -= countLimitService.countLimitDataModel.maximumSendGridDailyEmailsCount;
+        if (this.accountDataModel.availableSendsCount < 0) {
+            this.accountDataModel.availableSendsCount = 0;
         }
-        this.account.sentCount = countLimitService.countLimitData.maximumSendGridDailyEmailsCount;
+        this.account.sentCount = countLimitService.countLimitDataModel.maximumSendGridDailyEmailsCount;
         this.getAccount();
         return this.isAccountsLeft;
     }

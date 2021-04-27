@@ -1,11 +1,11 @@
-const { EmailAddressStatus } = require('../../../enums');
+const { EmailAddressStatusEnum } = require('../../../enums');
 
-class Email {
+class EmailModel {
 
     constructor(data) {
-        const { id, toEmailAddress, type } = data;
+        const { id, toEmailAddress, type, createDateTime } = data;
         this.id = id;
-        this.createDateTime = new Date();
+        this.createDateTime = createDateTime;
         this.accountId = null;
         this.accountApiKey = null;
         this.fromEmailAddress = null;
@@ -18,7 +18,7 @@ class Email {
         this.text = null;
         this.textLine = null;
         this.textLineDisplay = null;
-        this.status = EmailAddressStatus.PENDING;
+        this.status = EmailAddressStatusEnum.PENDING;
         this.step = null;
         this.type = type;
         this.resultDateTime = null;
@@ -28,4 +28,4 @@ class Email {
     }
 }
 
-module.exports = Email;
+module.exports = EmailModel;

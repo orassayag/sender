@@ -1,79 +1,79 @@
-const SendGridCode = require('../../core/models/application/files/SendGridCode');
-const { SendGridReason } = require('../../core/enums/files/emailAddress.enum');
+const { SendGridCodeModel } = require('../../core/models/application');
+const { SendGridReasonEnum } = require('../../core/enums');
 
 class SendGridUtils {
 
     constructor() {
         this.resultCodesList = {
-            200: new SendGridCode({
+            200: new SendGridCodeModel({
                 code: 200,
-                reason: SendGridReason.OK,
+                reason: SendGridReasonEnum.OK,
                 description: 'Your message is valid, but it is not queued to be delivered.',
                 isSent: true
             }),
-            202: new SendGridCode({
+            202: new SendGridCodeModel({
                 code: 202,
-                reason: SendGridReason.ACCEPTED,
+                reason: SendGridReasonEnum.ACCEPTED,
                 description: 'Your message is both valid, and queued to be delivered.',
                 isSent: true
             }),
-            400: new SendGridCode({
+            400: new SendGridCodeModel({
                 code: 400,
-                reason: SendGridReason.BAD_REQUEST,
+                reason: SendGridReasonEnum.BAD_REQUEST,
                 description: 'There was a problem with your request.',
                 isSent: false
             }),
-            401: new SendGridCode({
+            401: new SendGridCodeModel({
                 code: 401,
-                reason: SendGridReason.UNAUTHORIZED,
+                reason: SendGridReasonEnum.UNAUTHORIZED,
                 description: 'You do not have authorization to make the request.',
                 isSent: false
             }),
-            403: new SendGridCode({
+            403: new SendGridCodeModel({
                 code: 403,
-                reason: SendGridReason.FORBIDDEN,
+                reason: SendGridReasonEnum.FORBIDDEN,
                 description: 'There was a forbidden problem with your request.',
                 isSent: false
             }),
-            404: new SendGridCode({
+            404: new SendGridCodeModel({
                 code: 404,
-                reason: SendGridReason.NOT_FOUND,
+                reason: SendGridReasonEnum.NOT_FOUND,
                 description: 'The resource you tried to locate could not be found or does not exist.',
                 isSent: false
             }),
-            405: new SendGridCode({
+            405: new SendGridCodeModel({
                 code: 405,
-                reason: SendGridReason.METHOD_NOT_ALLOWED,
+                reason: SendGridReasonEnum.METHOD_NOT_ALLOWED,
                 description: 'There was a method not allowed problem with your request.',
                 isSent: false
             }),
-            413: new SendGridCode({
+            413: new SendGridCodeModel({
                 code: 413,
-                reason: SendGridReason.PAYLOAD_TOO_LARGE,
+                reason: SendGridReasonEnum.PAYLOAD_TOO_LARGE,
                 description: 'The JSON payload you have included in your request is too large.',
                 isSent: false
             }),
-            415: new SendGridCode({
+            415: new SendGridCodeModel({
                 code: 415,
-                reason: SendGridReason.UNSUPPORTED_MEDIA_TYPE,
+                reason: SendGridReasonEnum.UNSUPPORTED_MEDIA_TYPE,
                 description: 'There was a method not unsupported media type problem with your request.',
                 isSent: false
             }),
-            429: new SendGridCode({
+            429: new SendGridCodeModel({
                 code: 429,
-                reason: SendGridReason.TOO_MANY_REQUESTS,
+                reason: SendGridReasonEnum.TOO_MANY_REQUESTS,
                 description: 'The number of requests you have made exceeds SendGrid’s rate limitations.',
                 isSent: false
             }),
-            500: new SendGridCode({
+            500: new SendGridCodeModel({
                 code: 500,
-                reason: SendGridReason.SERVER_UNAVAILABLE,
+                reason: SendGridReasonEnum.SERVER_UNAVAILABLE,
                 description: 'An error occurred on a SendGrid server.',
                 isSent: false
             }),
-            503: new SendGridCode({
+            503: new SendGridCodeModel({
                 code: 503,
-                reason: SendGridReason.SERVICE_NOT_AVAILABLE,
+                reason: SendGridReasonEnum.SERVICE_NOT_AVAILABLE,
                 description: 'The SendGrid v3 Web API is not available.',
                 isSent: false
             })
@@ -97,7 +97,7 @@ class SendGridUtils {
                 this.errorCodesList.push(code);
             }
             // Assign the limit exceeded code.
-            if (!this.limitExceededCode && this.resultCodesList[code].reason === SendGridReason.TOO_MANY_REQUESTS) {
+            if (!this.limitExceededCode && this.resultCodesList[code].reason === SendGridReasonEnum.TOO_MANY_REQUESTS) {
                 this.limitExceededCode = code;
             }
         }

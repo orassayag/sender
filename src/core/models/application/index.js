@@ -1,29 +1,32 @@
-const Account = require('./files/Account');
-const AccountData = require('./files/AccountData');
-const ApplicationData = require('./files/ApplicationData');
-const BackupData = require('./files/BackupData');
-const BackupDirectory = require('./files/BackupDirectory');
-const CountLimitData = require('./files/CountLimitData');
-const CVData = require('./files/CVData');
-const Email = require('./files/Email');
-const EmailProcessResult = require('./files/EmailProcessResult');
-const EmailData = require('./files/EmailData');
-const LogData = require('./files/LogData');
-const MongoDatabaseData = require('./files/MongoDatabaseData');
-const MongoDatabaseResult = require('./files/MongoDatabaseResult');
-const PathData = require('./files/PathData');
-const SendEmailData = require('./files/SendEmailData');
-const SendGridCode = require('./files/SendGridCode');
-const SendGridResult = require('./files/SendGridResult');
-const SourceData = require('./files/SourceData');
-const StatusResult = require('./files/StatusResult');
-const SubjectData = require('./files/SubjectData');
-const Template = require('./files/Template');
-const TemplateData = require('./files/TemplateData');
-const TextData = require('./files/TextData');
+const AccountModel = require('./files/Account.model');
+const AccountDataModel = require('./files/AccountData.model');
+const ApplicationDataModel = require('./files/ApplicationData.model');
+const BackupDataModel = require('./files/BackupData.model');
+const BackupDirectoryModel = require('./files/BackupDirectory.model');
+const CountLimitDataModel = require('./files/CountLimitData.model');
+const CVDataModel = require('./files/CVData.model');
+const EmailModel = require('./files/Email.model');
+const EmailProcessResultModel = require('./files/EmailProcessResult.model');
+const EmailDataModel = require('./files/EmailData.model');
+const LogDataModel = require('./files/LogData.model');
+const MongoDatabaseDataModel = require('./files/MongoDatabaseData.model');
+const MongoDatabaseResultModel = require('./files/MongoDatabaseResult.model');
+const PathDataModel = require('./files/PathData.model');
+const SendEmailDataModel = require('./files/SendEmailData.model');
+const SendGridCodeModel = require('./files/SendGridCode.model');
+const SendGridResultModel = require('./files/SendGridResult.model');
+const SourceDataModel = require('./files/SourceData.model');
+const StatusResultModel = require('./files/StatusResult.model');
+const SubjectDataModel = require('./files/SubjectData.model');
+const TemplateModel = require('./files/Template.model');
+const TemplateDataModel = require('./files/TemplateData.model');
+const TextDataModel = require('./files/TextData.model');
 
 module.exports = {
-    Account, AccountData, ApplicationData, BackupData, BackupDirectory, CountLimitData, CVData, Email, EmailProcessResult,
-    EmailData, LogData, MongoDatabaseData, MongoDatabaseResult, PathData, SendEmailData, SendGridCode, SendGridResult,
-    SourceData, StatusResult, SubjectData, Template, TemplateData, TextData
+    AccountModel, AccountDataModel, ApplicationDataModel, BackupDataModel, BackupDirectoryModel,
+    CountLimitDataModel, CVDataModel, EmailModel, EmailProcessResultModel,
+    EmailDataModel, LogDataModel, MongoDatabaseDataModel, MongoDatabaseResultModel,
+    PathDataModel, SendEmailDataModel, SendGridCodeModel, SendGridResultModel,
+    SourceDataModel, StatusResultModel, SubjectDataModel, TemplateModel, TemplateDataModel,
+    TextDataModel
 };

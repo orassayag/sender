@@ -1,4 +1,4 @@
-class TemplateData {
+class TemplateDataModel {
 
     constructor(settings) {
         // Set the parameters from the settings file.
@@ -11,4 +11,4 @@ class TemplateData {
     }
 }
 
-module.exports = TemplateData;
+module.exports = TemplateDataModel;

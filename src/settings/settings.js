@@ -1,4 +1,4 @@
-const { EmailAddressesSourceType } = require('../core/enums');
+const { EmailAddressesSourceTypeEnum } = require('../core/enums');
 const { pathUtils } = require('../utils');
 
 const settings = {
@@ -28,7 +28,7 @@ const settings = {
     // Determine the type of source to fetch the email addresses from in order to send them.
     // Can be DIRECTORY / FILE / ARRAY. Please note that the logic only supports scanning TXT
     // files with email addresses separated by comma.
-    EMAIL_ADDRESSES_SOURCE_TYPE: EmailAddressesSourceType.FILE,
+    EMAIL_ADDRESSES_SOURCE_TYPE: EmailAddressesSourceTypeEnum.ARRAY,
     // Determine the path of the development source in case 'DIRECTORY' or 'FILE' options are selected.
     // In case of 'ARRAY', option selected, the array located in source.service file.
     EMAIL_ADDRESSES_DEVELOPMENT_SOURCE_PATH: pathUtils.getJoinPath({
@@ -39,7 +39,7 @@ const settings = {
     // In case of 'ARRAY', option selected, the array located in source.service file.
     EMAIL_ADDRESSES_PRODUCTION_SOURCE_PATH: pathUtils.getJoinPath({
         targetPath: __dirname,
-        targetName: '../../sources/email_addresses_20210327_072938.txt'
+        targetName: '../../sources/'
     }),
     // Determine the part of a name of a file to be scanned in case the 'DIRECTORY' option is selected.
     // Other files which do not include this part in the file name will not be scanned.
@@ -177,7 +177,7 @@ const settings = {
     // check that files were created / moved to the target path.
     MILLISECONDS_DELAY_VERIFY_BACKUP_COUNT: 1000,
     // Determine the number of times in loop to check for version of a backup.
-    // For example, if a backup name "test-test-test-1" exists, it will check for "test-test-test-2",
+    // For example, if a backup name 'test-test-test-1' exists, it will check for 'test-test-test-2',
     // and so on, until the current maximum number.
     BACKUP_MAXIMUM_DIRECTORY_VERSIONS_COUNT: 50,
 

@@ -1,4 +1,4 @@
-class StatusResult {
+class StatusResultModel {
 
     constructor() {
         this.mongoDatabaseEmailAddressesCount = 0;
@@ -8,4 +8,4 @@ class StatusResult {
     }
 }
 
-module.exports = StatusResult;
+module.exports = StatusResultModel;

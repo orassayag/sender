@@ -1,4 +1,4 @@
-class Account {
+class AccountModel {
 
     constructor(data) {
         const { id, username, password, asterixPassword, apiKey } = data;
@@ -11,4 +11,4 @@ class Account {
     }
 }
 
-module.exports = Account;
+module.exports = AccountModel;

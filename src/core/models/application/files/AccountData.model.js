@@ -1,4 +1,4 @@
-class AccountData {
+class AccountDataModel {
 
     constructor(settings) {
         // Set the parameters from the settings file.
@@ -11,4 +11,4 @@ class AccountData {
     }
 }
 
-module.exports = AccountData;
+module.exports = AccountDataModel;

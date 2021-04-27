@@ -1,4 +1,4 @@
-class SendGridResult {
+class SendGridResultModel {
 
     constructor(data) {
         const { sendError, code, reason, description, isSent, isRetrySend, exitProgramStatus } = data;
@@ -12,4 +12,4 @@ class SendGridResult {
     }
 }
 
-module.exports = SendGridResult;
+module.exports = SendGridResultModel;

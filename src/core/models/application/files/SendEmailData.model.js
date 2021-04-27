@@ -1,9 +1,9 @@
-const { EmailAddressStatus } = require('../../../enums/files/emailAddress.enum');
+const { EmailAddressStatusEnum } = require('../../../enums');
 
-class SendEmailData {
+class SendEmailDataModel {
 
 	constructor() {
-		const keysList = Object.values(EmailAddressStatus);
+		const keysList = Object.values(EmailAddressStatusEnum);
 		for (let i = 0; i < keysList.length; i++) {
 			this[`${keysList[i]}Count`] = 0;
 		}
@@ -24,4 +24,4 @@ class SendEmailData {
 	}
 }
 
-module.exports = SendEmailData;
+module.exports = SendEmailDataModel;

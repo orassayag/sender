@@ -1,7 +1,7 @@
 const enumUtils = require('../enum.utils');
 const textUtils = require('../text.utils');
 
-const EmailAddressStatus = enumUtils.createEnum([
+const EmailAddressStatusEnum = enumUtils.createEnum([
     ['TOTAL', 'total'], // Not email address status de facto.
     ['TOTAL_PENDING', 'totalPending'], // Not email address status de facto.
     ['PENDING', 'pending'],
@@ -25,23 +25,23 @@ const EmailAddressStatus = enumUtils.createEnum([
     ['UNEXPECTED_FIELD', 'unexpectedField']
 ]);
 
-const EmailAddressStatusLog = enumUtils.createEnum(Object.keys(EmailAddressStatus).map(k => {
-    return [EmailAddressStatus[k], textUtils.replaceCharacter(k, '_', ' ')];
+const EmailAddressStatusLogEnum = enumUtils.createEnum(Object.keys(EmailAddressStatusEnum).map(k => {
+    return [EmailAddressStatusEnum[k], textUtils.replaceCharacter(k, '_', ' ')];
 }));
 
-const EmailAddressType = enumUtils.createEnum([
+const EmailAddressTypeEnum = enumUtils.createEnum([
     ['STANDARD', 'STANDARD'],
     ['MONITOR', 'MONITOR']
 ]);
 
-const SendEmailStepName = enumUtils.createEnum([
+const SendEmailStepNameEnum = enumUtils.createEnum([
     ['INITIATE', 'INITIATE'],
     ['VALIDATE', 'VALIDATE'],
     ['SEND', 'SEND'],
     ['FINALIZE', 'FINALIZE']
 ]);
 
-const SendGridReason = enumUtils.createEnum([
+const SendGridReasonEnum = enumUtils.createEnum([
     ['OK', 'OK'],
     ['ACCEPTED', 'ACCEPTED'],
     ['BAD_REQUEST', 'BAD REQUEST'],
@@ -56,4 +56,6 @@ const SendGridReason = enumUtils.createEnum([
     ['SERVICE_NOT_AVAILABLE', 'SERVICE NOT AVAILABLE']
 ]);
 
-module.exports = { EmailAddressStatus, EmailAddressStatusLog, EmailAddressType, SendEmailStepName, SendGridReason };
+module.exports = {
+    EmailAddressStatusEnum, EmailAddressStatusLogEnum, EmailAddressTypeEnum, SendEmailStepNameEnum, SendGridReasonEnum
+};

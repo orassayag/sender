@@ -1,4 +1,4 @@
-class SubjectData {
+class SubjectDataModel {
 
     constructor(data) {
         const { id, subject, subjectLine, subjectLineDisplay } = data;
@@ -9,4 +9,4 @@ class SubjectData {
     }
 }
 
-module.exports = SubjectData;
+module.exports = SubjectDataModel;

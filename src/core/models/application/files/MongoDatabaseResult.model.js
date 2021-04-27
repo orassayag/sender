@@ -1,4 +1,4 @@
-class MongoDatabaseResult {
+class MongoDatabaseResultModel {
 
     constructor(data) {
         const { status, description, isSave, exitProgramStatus } = data;
@@ -9,4 +9,4 @@ class MongoDatabaseResult {
     }
 }
 
-module.exports = MongoDatabaseResult;
+module.exports = MongoDatabaseResultModel;

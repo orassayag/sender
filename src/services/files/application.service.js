@@ -1,16 +1,23 @@
-const { ApplicationData } = require('../../core/models/application');
+const { ApplicationDataModel } = require('../../core/models/application');
+const { ModeEnum } = require('../../core/enums');
 
 class ApplicationService {
 
     constructor() {
-        this.applicationData = null;
+        this.applicationDataModel = null;
     }
 
-    initiate(settings, status) {
-        this.applicationData = new ApplicationData({
+    initiate(settings, status, logDateTime) {
+        this.applicationDataModel = new ApplicationDataModel({
             settings: settings,
-            status: status
+            status: status,
+            mode: this.getApplicationMode(settings.IS_PRODUCTION_MODE),
+            logDateTime: logDateTime
         });
+    }
+
+    getApplicationMode(isProductionMode) {
+        return isProductionMode ? ModeEnum.PRODUCTION : ModeEnum.DEVELOPMENT;
     }
 }
 

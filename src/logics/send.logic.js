@@ -1,127 +1,129 @@
 const settings = require('../settings/settings');
-const { Color, Status } = require('../core/enums');
+const { ColorEnum, StatusEnum } = require('../core/enums');
 const { accountService, applicationService, confirmationService, countLimitService,
     createEmailService, logService, mongoDatabaseService, pathService, sendEmailService,
     templateService, validationService } = require('../services');
 const globalUtils = require('../utils/files/global.utils');
-const { logUtils, systemUtils } = require('../utils');
+const { logUtils, systemUtils, timeUtils } = require('../utils');
 
 class SendLogic {
 
     constructor() {
-        this.emailData = null;
+        this.emailDataModel = null;
     }
 
     async run() {
+        const mode = applicationService.getApplicationMode(settings.IS_PRODUCTION_MODE);
         // Validate all settings are fit to the user needs.
-        await this.confirm();
+        await this.confirm(mode);
         // Initiate all the settings, configurations, services, etc...
-        await this.initiate();
+        await this.initiate(mode);
         // Validate general settings.
         await this.validateGeneralSettings();
         // Start the sending emails processes.
         await this.startSession();
     }
 
-    async initiate() {
-        this.updateStatus('INITIATE THE SERVICES', Status.INITIATE);
-        applicationService.initiate(settings, Status.INITIATE);
+    async initiate(mode) {
+        this.updateStatus('INITIATE THE SERVICES', StatusEnum.INITIATE);
+        applicationService.initiate(settings, StatusEnum.INITIATE, timeUtils.getFullDateNoSpaces());
         sendEmailService.initiate();
         countLimitService.initiate(settings);
-        await mongoDatabaseService.initiate(settings);
+        await mongoDatabaseService.initiate(settings, mode);
         pathService.initiate(settings);
         logService.initiate(settings);
         await accountService.initiate();
         templateService.initiate();
-        this.emailData = await createEmailService.initiate(settings);
+        this.emailDataModel = await createEmailService.initiate(settings);
     }
 
     async validateGeneralSettings() {
-        this.updateStatus('VALIDATE GENERAL SETTINGS', Status.VALIDATE);
-        if (!applicationService.applicationData.isProductionMode) {
+        this.updateStatus('VALIDATE GENERAL SETTINGS', StatusEnum.VALIDATE);
+        if (!applicationService.applicationDataModel.isProductionMode) {
             return;
         }
         // Validate that the internet connection works.
         await validationService.validateInternetConnection();
         // Validate that the mode is PRODUCTION and both send and save emails flags marked as true.
-        if (!applicationService.applicationData.isSendEmails || !applicationService.applicationData.isSaveEmails) {
+        if (!applicationService.applicationDataModel.isSendEmails || !applicationService.applicationDataModel.isSaveEmails) {
             throw new Error('Production mode but isSendEmails or isSaveEmails flags are false (1000003)');
         }
     }
 
     async startSession() {
         // Initiate.
-        applicationService.applicationData.startDateTime = new Date();
-        if (!applicationService.applicationData.isLogMode) {
+        applicationService.applicationDataModel.startDateTime = timeUtils.getCurrentDate();
+        if (!applicationService.applicationDataModel.isLogMode) {
             logService.startLogProgress();
         }
         await this.pause();
         // Loop the emails and process them.
-        for (let i = 0; i < this.emailData.emailsList.length; i++) {
+        for (let i = 0; i < this.emailDataModel.emailsList.length; i++) {
             // Start the process of sending email.
-            applicationService.applicationData.currentEmailIndex = i;
-            const email = this.emailData.emailsList[i];
-            const { isRetrySend, exitProgramStatus } = await this.send(email);
+            applicationService.applicationDataModel.currentEmailIndex = i;
+            const emailModel = this.emailDataModel.emailsList[i];
+            const { isRetrySend, exitProgramStatus } = await this.send(emailModel);
             // Log results.
-            this.log(email);
-            await logService.logResult(email);
+            this.log(emailModel);
+            await logService.logResult(emailModel);
             // Pause between each email here.
             await this.pause();
             // Exit the program if needed.
             if (exitProgramStatus) {
-                await this.exit(exitProgramStatus, Color.RED);
+                await this.exit(exitProgramStatus, ColorEnum.RED);
                 break;
             }
             // Check there is a need to retry to send the email.
             if (isRetrySend) {
-                this.emailData.emailsList[i] = createEmailService.resetEmail(email);
+                this.emailDataModel.emailsList[i] = createEmailService.resetEmail(emailModel);
                 i--;
-                applicationService.applicationData.currentEmailIndex = i;
+                applicationService.applicationDataModel.currentEmailIndex = i;
             }
         }
-        applicationService.applicationData.currentEmailIndex = this.emailData.emailsList.length;
-        await this.exit(Status.FINISH, Color.GREEN);
+        applicationService.applicationDataModel.currentEmailIndex = this.emailDataModel.emailsList.length;
+        await this.exit(StatusEnum.FINISH, ColorEnum.GREEN);
     }
 
     async sleep() {
-        await globalUtils.sleep(countLimitService.countLimitData.millisecondsSendEmailDelayCount);
+        await globalUtils.sleep(countLimitService.countLimitDataModel.millisecondsSendEmailDelayCount);
     }
 
-    async send(email) {
-        applicationService.applicationData.status = Status.SEND;
+    async send(emailModel) {
+        applicationService.applicationDataModel.status = StatusEnum.SEND;
         await this.sleep();
-        return await sendEmailService.runEmailProcess(email);
+        return await sendEmailService.runEmailProcess(emailModel);
     }
 
     async pause() {
-        applicationService.applicationData.status = Status.PAUSE;
+        applicationService.applicationDataModel.status = StatusEnum.PAUSE;
         await this.sleep();
     }
 
-    log(email) {
-        if (applicationService.applicationData.isLogMode) {
-            logUtils.log(logService.createEmailTemplate(email, false));
+    log(emailModel) {
+        if (applicationService.applicationDataModel.isLogMode) {
+            logUtils.log(logService.createEmailTemplate(emailModel, false));
         }
     }
 
     // Let the user confirm all the IMPORTANT settings before the process starts.
-    async confirm() {
-        if (!await confirmationService.confirm(settings)) {
-            await this.exit(Status.ABORT_BY_THE_USER, Color.RED);
+    async confirm(mode) {
+        if (!await confirmationService.confirm(settings, mode)) {
+            await this.exit(StatusEnum.ABORT_BY_THE_USER, ColorEnum.RED);
         }
     }
 
     updateStatus(text, status) {
         logUtils.logMagentaStatus(text);
-        if (applicationService.applicationData) {
-            applicationService.applicationData.status = status;
+        if (applicationService.applicationDataModel) {
+            applicationService.applicationDataModel.status = status;
         }
     }
 
     async exit(status, color) {
-        if (applicationService.applicationData) {
-            applicationService.applicationData.status = status;
+        if (applicationService.applicationDataModel) {
+            applicationService.applicationDataModel.status = status;
             await this.sleep();
+            await mongoDatabaseService.closeConnection();
             logService.close();
         }
         systemUtils.exit(status, color);

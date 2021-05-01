@@ -59,6 +59,6 @@
     "fs-extra": "^9.1.0",
     "is-reachable": "^5.0.0",
     "log-update": "^4.0.0",
-    "mongoose": "^5.12.5"
+    "mongoose": "^5.12.7"
   }
 }

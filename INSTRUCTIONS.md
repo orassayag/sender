@@ -15,7 +15,7 @@ FAST & BASIC START.
 7. If you see the console status line but the 'Sent' or 'Total' not progressing
 	- Need to check what's wrong.
 8. If no errors and the progress works OK, make sure to check on
-   dist/production/date of today (Example: 1_20200316_222124)/ That the TXT
+   dist/production/date of today (Example: 1_20200316_222124)/ that the TXT
    file was created successfully.
 9. Successful running application on production should look like this:
 
@@ -56,4 +56,4 @@ y
 * Or Assayag <orassayag@gmail.com>
 * GitHub: https://github.com/orassayag
 * StackOverFlow: https://stackoverflow.com/users/4442606/or-assayag?tab=profile
-* LinkedIn: https://il.linkedin.com/in/orassayag
+* LinkedIn: https://linkedin.com/in/orassayag

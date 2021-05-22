@@ -55,10 +55,10 @@
   "dependencies": {
     "@sendgrid/mail": "^7.4.4",
     "babel-eslint": "^10.1.0",
-    "eslint": "^7.25.0",
+    "eslint": "^7.26.0",
     "fs-extra": "^10.0.0",
     "is-reachable": "^5.0.0",
     "log-update": "^4.0.0",
-    "mongoose": "^5.12.7"
+    "mongoose": "^5.12.10"
   }
 }

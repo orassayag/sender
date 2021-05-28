@@ -7,25 +7,26 @@ Built in November 2020. An Node.js application to send bulk of email addresses f
 Clone the application to your computer.
 Steps to view the solution:
 1. Open server application on IDE (I use VSCode).
-2. In the terminal: npm i
-3. In the terminal: npm start
+2. In the terminal: 'npm i'.
+3. In the terminal: 'npm start'.
 
 ### Send emails via SendGrid script:
 
 READ THE FOLLOWING SETTINGS BEFORE YOU BEGIN:
 
 -Instructions & How to use:
-In the terminal: npm start
+In the terminal: 'npm start'.
 
 Happy testing! :)
 
 ### Prerequisites
 
-You'll need to install VSCode, Node, and clone the application, and in the terminal run npm i.
+You'll need to install VSCode, Node, and clone the application, and in the terminal run: 'npm i'.
 
 ## Built With
 
 * [Node.js](https://nodejs.org/en/) - The web framework used - Server side.
+* [Git](https://git-scm.com/) - Source management.
 
 ## Contributing
 
@@ -45,4 +46,4 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## License
 
-This application has an UNLICENSED License.
+This application has an UNLICENSED license.

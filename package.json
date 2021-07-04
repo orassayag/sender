@@ -53,12 +53,15 @@
     "not op_mini all"
   ],
   "dependencies": {
-    "@sendgrid/mail": "^7.4.4",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^7.27.0",
+    "@sendgrid/mail": "^7.4.5",
     "fs-extra": "^10.0.0",
     "is-reachable": "^5.0.0",
     "log-update": "^4.0.0",
-    "mongoose": "^5.12.12"
+    "mongoose": "^5.13.1"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.30.0",
+    "@types/node": "^16.0.0"
   }
 }

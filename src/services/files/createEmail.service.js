@@ -1,12 +1,14 @@
-const { EmailModel, EmailDataModel, SourceDataModel } = require('../../core/models/application');
-const { EmailAddressesSourceTypeEnum, EmailAddressStatusEnum, EmailAddressTypeEnum, MethodEnum } = require('../../core/enums');
-const { commonEmailAddressDomainsList, filterEmailAddresses, filterEmailAddressDomains,
-    invalidDomains } = require('../../configurations');
-const applicationService = require('./application.service');
-const countLimitService = require('./countLimit.service');
-const mongoDatabaseService = require('./mongoDatabase.service');
-const sendEmailService = require('./sendEmail.service');
-const { fileUtils, pathUtils, textUtils, timeUtils, validationUtils } = require('../../utils');
+import { EmailModel, EmailDataModel, SourceDataModel } from '../../core/models/application';
+import { EmailAddressesSourceTypeEnum, EmailAddressStatusEnum, EmailAddressTypeEnum, MethodEnum } from '../../core/enums';
+import {
+    commonEmailAddressDomainsList, filterEmailAddresses, filterEmailAddressDomains,
+    invalidDomains
+} from '../../configurations';
+import applicationService from './application.service';
+import countLimitService from './countLimit.service';
+import mongoDatabaseService from './mongoDatabase.service';
+import sendEmailService from './sendEmail.service';
+import { fileUtils, pathUtils, textUtils, timeUtils, validationUtils } from '../../utils';
 
 const emailAddressesFromArray = ['test@gmail.com'];
 
@@ -419,4 +421,4 @@ class CreateEmailService {
     }
 }
 
-module.exports = new CreateEmailService();
+export default new CreateEmailService();

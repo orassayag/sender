@@ -7,4 +7,4 @@ class EmailProcessResultModel {
     }
 }
 
-module.exports = EmailProcessResultModel;
+export default EmailProcessResultModel;

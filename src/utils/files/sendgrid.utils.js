@@ -1,5 +1,5 @@
-const { SendGridCodeModel } = require('../../core/models/application');
-const { SendGridReasonEnum } = require('../../core/enums');
+import { SendGridCodeModel } from '../../core/models/application';
+import { SendGridReasonEnum } from '../../core/enums';
 
 class SendGridUtils {
 
@@ -104,4 +104,4 @@ class SendGridUtils {
     }
 }
 
-module.exports = new SendGridUtils();
+export default new SendGridUtils();

@@ -1,10 +1,10 @@
-const sgMail = require('@sendgrid/mail');
-const { SendGridResultModel } = require('../../core/models/application');
-const { StatusEnum } = require('../../core/enums');
-const applicationService = require('./application.service');
-const countLimitService = require('./countLimit.service');
-const globalUtils = require('../../utils/files/global.utils');
-const { sendgridUtils, textUtils, validationUtils } = require('../../utils');
+import sgMail from '@sendgrid/mail';
+import { SendGridResultModel } from '../../core/models/application';
+import { StatusEnum } from '../../core/enums';
+import applicationService from './application.service';
+import countLimitService from './countLimit.service';
+import globalUtils from '../../utils/files/global.utils';
+import { sendgridUtils, textUtils, validationUtils } from '../../utils';
 
 class SendGridService {
 
@@ -143,4 +143,4 @@ class SendGridService {
   }
 }
 
-module.exports = new SendGridService();
+export default new SendGridService();

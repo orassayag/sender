@@ -1,5 +1,5 @@
-const { ApplicationDataModel } = require('../../core/models/application');
-const { ModeEnum } = require('../../core/enums');
+import { ApplicationDataModel } from '../../core/models/application';
+import { ModeEnum } from '../../core/enums';
 
 class ApplicationService {
 
@@ -21,4 +21,4 @@ class ApplicationService {
     }
 }
 
-module.exports = new ApplicationService();
+export default new ApplicationService();

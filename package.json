@@ -37,15 +37,15 @@
     "README.md"
   ],
   "scripts": {
-    "backup": "node src/scripts/backup.script.js",
-    "debug": "node --inspect-brk src/scripts/send.script.js",
-    "sand": "node src/tests/sandBox.test.js",
-    "send": "node src/tests/sendEmail.test.js",
-    "status": "node src/scripts/status.script.js",
-    "start": "node src/scripts/send.script.js",
-    "postinstall": "node src/scripts/initiate.script.js",
+    "backup": "node --es-module-specifier-resolution=node src/scripts/backup.script.js",
+    "sand": "node --es-module-specifier-resolution=node src/tests/sandBox.test.js",
+    "send": "node --es-module-specifier-resolution=node src/tests/sendEmail.test.js",
+    "status": "node --es-module-specifier-resolution=node src/scripts/status.script.js",
+    "start": "node --es-module-specifier-resolution=node src/scripts/send.script.js",
+    "postinstall": "node --es-module-specifier-resolution=node src/scripts/initiate.script.js",
     "stop": "taskkill -f -im node.exe"
   },
+  "type": "module",
   "browserslist": [
     ">0.2%",
     "not dead",
@@ -53,15 +53,15 @@
     "not op_mini all"
   ],
   "dependencies": {
-    "@sendgrid/mail": "^7.4.7",
+    "@sendgrid/mail": "^7.5.0",
     "fs-extra": "^10.0.0",
     "is-reachable": "^5.1.0",
-    "log-update": "^4.0.0",
-    "mongoose": "^6.0.11"
+    "log-update": "^5.0.0",
+    "mongoose": "^6.0.12"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.15.8",
-    "eslint": "^8.0.1",
-    "@types/node": "^16.11.1"
+    "@types/node": "^16.11.4",
+    "eslint": "^8.1.0"
   }
 }

@@ -1,6 +1,7 @@
-const errorScript = require('./error.script');
-require('../services/files/initiate.service').initiate('backup');
-const BackupLogic = require('../logics/backup.logic');
+import errorScript from './error.script';
+import initiateService from '../services/files/initiate.service';
+initiateService.initiate('backup');
+import BackupLogic from '../logics/backup.logic';
 
 (async () => {
     await new BackupLogic().run();

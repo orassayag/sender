@@ -1,7 +1,7 @@
-const settings = require('../../settings/settings');
-const { EmailAddressesSourceTypeEnum, ScriptTypeEnum } = require('../../core/enums');
-const globalUtils = require('../../utils/files/global.utils');
-const { fileUtils, pathUtils, validationUtils } = require('../../utils');
+import settings from '../../settings/settings';
+import { EmailAddressesSourceTypeEnum, ScriptTypeEnum } from '../../core/enums';
+import globalUtils from '../../utils/files/global.utils';
+import { fileUtils, pathUtils, validationUtils } from '../../utils';
 
 class InitiateService {
 
@@ -92,8 +92,7 @@ class InitiateService {
 			// ===BACKUP=== //
 			'MILLISECONDS_DELAY_VERIFY_BACKUP_COUNT', 'BACKUP_MAXIMUM_DIRECTORY_VERSIONS_COUNT',
 			// ===MONGO DATABASE=== //
-			'MAXIMUM_DROP_COLLECTION_RETRIES_COUNT', 'MONGO_DATABASE_POOL_SIZE_COUNT', 'MONGO_DATABASE_SOCKET_TIMEOUT_MILLISECONDS_COUNT',
-			'MONGO_DATABASE_KEEP_ALIVE_MILLISECONDS_COUNT',
+			'MAXIMUM_DROP_COLLECTION_RETRIES_COUNT', 'MONGO_DATABASE_SOCKET_TIMEOUT_MILLISECONDS_COUNT',
 			// ===VALIDATION=== //
 			'DEFAULT_ERROR_CODE',
 			// ===UNCHANGED SETTING=== //
@@ -138,8 +137,7 @@ class InitiateService {
 			// ===LOG=== //
 			'IS_LOG_RESULTS',
 			// ===MONGO DATABASE=== //
-			'IS_MONGO_DATABASE_USE_UNIFILED_TOPOLOGY', 'IS_MONGO_DATABASE_USE_NEW_URL_PARSER', 'IS_MONGO_DATABASE_USE_CREATE_INDEX',
-			'IS_MONGO_DATABASE_SSL', 'IS_MONGO_DATABASE_SSL_VALIDATE'
+			'MONGO_DATABASE_KEEP_ALIVE', 'IS_MONGO_DATABASE_SSL', 'IS_MONGO_DATABASE_SSL_VALIDATE'
 		].map(key => {
 			const value = settings[key];
 			if (!validationUtils.isValidBoolean(value)) {
@@ -223,4 +221,4 @@ class InitiateService {
 	}
 }
 
-module.exports = new InitiateService();
+export default new InitiateService();

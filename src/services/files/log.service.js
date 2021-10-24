@@ -1,14 +1,14 @@
-const { LogDataModel } = require('../../core/models/application');
-const { ColorEnum, EmailAddressStatusLogEnum, StatusIconEnum, PlaceholderEnum } = require('../../core/enums');
-const accountService = require('./account.service');
-const applicationService = require('./application.service');
-const countLimitService = require('./countLimit.service');
-const mongoDatabaseService = require('./mongoDatabase.service');
-const pathService = require('./path.service');
-const sendEmailService = require('./sendEmail.service');
-const sendgridService = require('./sendgrid.service');
-const templateService = require('./template.service');
-const { fileUtils, pathUtils, logUtils, textUtils, timeUtils, validationUtils } = require('../../utils');
+import { LogDataModel } from '../../core/models/application';
+import { ColorEnum, EmailAddressStatusLogEnum, StatusIconEnum, PlaceholderEnum } from '../../core/enums';
+import accountService from './account.service';
+import applicationService from './application.service';
+import countLimitService from './countLimit.service';
+import mongoDatabaseService from './mongoDatabase.service';
+import pathService from './path.service';
+import sendEmailService from './sendEmail.service';
+import sendgridService from './sendgrid.service';
+import templateService from './template.service';
+import { fileUtils, pathUtils, logUtils, textUtils, timeUtils, validationUtils } from '../../utils';
 
 class LogService {
 
@@ -312,4 +312,4 @@ OK to run? (y = yes)`;
 	}
 }
 
-module.exports = new LogService();
+export default new LogService();

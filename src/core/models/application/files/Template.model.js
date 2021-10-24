@@ -13,4 +13,4 @@ class TemplateModel {
     }
 }
 
-module.exports = TemplateModel;
+export default TemplateModel;

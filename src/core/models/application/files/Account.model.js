@@ -11,4 +11,4 @@ class AccountModel {
     }
 }
 
-module.exports = AccountModel;
+export default AccountModel;

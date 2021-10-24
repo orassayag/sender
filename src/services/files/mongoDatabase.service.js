@@ -1,10 +1,10 @@
-const mongoose = require('mongoose');
-const { EmailAddressModel } = require('../../core/models/mongo');
-const { MongoDatabaseDataModel, MongoDatabaseResultModel } = require('../../core/models/application');
-const { EmailAddressStatusEnum, StatusEnum } = require('../../core/enums');
-const countLimitService = require('./countLimit.service');
-const globalUtils = require('../../utils/files/global.utils');
-const { systemUtils, textUtils } = require('../../utils');
+import mongoose from 'mongoose';
+import { EmailAddressModel } from '../../core/models/mongo';
+import { MongoDatabaseDataModel, MongoDatabaseResultModel } from '../../core/models/application';
+import { EmailAddressStatusEnum, StatusEnum } from '../../core/enums';
+import countLimitService from './countLimit.service';
+import globalUtils from '../../utils/files/global.utils';
+import { systemUtils, textUtils } from '../../utils';
 
 class MongoDatabaseService {
 
@@ -21,12 +21,8 @@ class MongoDatabaseService {
         this.mongoDatabaseDataModel = new MongoDatabaseDataModel(settings, mongoDatabaseModeName);
         this.mongoConnectionString = `${this.mongoDatabaseDataModel.mongoDatabaseConnectionString}${this.mongoDatabaseDataModel.mongoDatabaseModeName}`;
         this.mongoConnectionOptions = {
-            useUnifiedTopology: this.mongoDatabaseDataModel.isMongoDatabaseUseUnifiledTopology,
-            useNewUrlParser: this.mongoDatabaseDataModel.isMongoDatabaseUseNewUrlParser,
-            useCreateIndex: this.mongoDatabaseDataModel.isMongoDatabaseUseCreateIndex,
-            poolSize: this.mongoDatabaseDataModel.mongoDatabasePoolSizeCount,
             socketTimeoutMS: this.mongoDatabaseDataModel.mongoDatabaseSocketTimeoutMillisecondsCount,
-            keepAlive: this.mongoDatabaseDataModel.mongoDatabaseKeepAliveMillisecondsCount,
+            keepAlive: this.mongoDatabaseDataModel.mongoDatabaseKeepAlive,
             ssl: this.mongoDatabaseDataModel.isMongoDatabaseSSL,
             sslValidate: this.mongoDatabaseDataModel.isMongoDatabaseSSLValidate
         };
@@ -66,7 +62,7 @@ class MongoDatabaseService {
         // Read.
         await this.testMongoDatabaseRead();
         // Update.
-        await this.testMongoDatabaseUpdate(result);
+        this.testMongoDatabaseUpdate(result);
         // Delete.
         await this.testMongoDatabaseDelete();
     }
@@ -79,8 +75,8 @@ class MongoDatabaseService {
         await EmailAddressModel.findOne({ 'emailAddress': 'XXX' });
     }
 
-    async testMongoDatabaseUpdate(result) {
-        await EmailAddressModel.updateOne({ id: result._id, 'emailAddress': 'XXX' }, new EmailAddressModel({ emailAddress: 'XXY' }));
+    testMongoDatabaseUpdate(result) {
+        EmailAddressModel.updateOne({ _id: result._id }, new EmailAddressModel({ emailAddress: 'XXY' }));
     }
 
     async testMongoDatabaseDelete() {
@@ -207,4 +203,4 @@ class MongoDatabaseService {
     }
 }
 
-module.exports = new MongoDatabaseService();
+export default new MongoDatabaseService();

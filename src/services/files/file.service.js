@@ -1,4 +1,4 @@
-const { fileUtils, pathUtils, validationUtils } = require('../../utils');
+import { fileUtils, pathUtils, validationUtils } from '../../utils';
 
 class FileService {
 
@@ -25,4 +25,4 @@ class FileService {
     }
 }
 
-module.exports = new FileService();
+export default new FileService();

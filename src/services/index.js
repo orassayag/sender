@@ -1,19 +1,19 @@
-const accountService = require('./files/account.service');
-const applicationService = require('./files/application.service');
-const confirmationService = require('./files/confirmation.service');
-const countLimitService = require('./files/countLimit.service');
-const createEmailService = require('./files/createEmail.service');
-const fileService = require('./files/file.service');
-const logService = require('./files/log.service');
-const mongoDatabaseService = require('./files/mongoDatabase.service');
-const pathService = require('./files/path.service');
-const sendEmailService = require('./files/sendEmail.service');
-const sendgridService = require('./files/sendgrid.service');
-const statusService = require('./files/status.service');
-const templateService = require('./files/template.service');
-const validationService = require('./files/validation.service');
+import accountService from './files/account.service';
+import applicationService from './files/application.service';
+import confirmationService from './files/confirmation.service';
+import countLimitService from './files/countLimit.service';
+import createEmailService from './files/createEmail.service';
+import fileService from './files/file.service';
+import logService from './files/log.service';
+import mongoDatabaseService from './files/mongoDatabase.service';
+import pathService from './files/path.service';
+import sendEmailService from './files/sendEmail.service';
+import sendgridService from './files/sendgrid.service';
+import statusService from './files/status.service';
+import templateService from './files/template.service';
+import validationService from './files/validation.service';
 
-module.exports = {
+export {
     accountService, applicationService, confirmationService, countLimitService, createEmailService,
     fileService, logService, mongoDatabaseService, pathService, sendEmailService, sendgridService,
     statusService, templateService, validationService

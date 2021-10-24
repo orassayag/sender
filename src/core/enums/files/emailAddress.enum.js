@@ -1,5 +1,5 @@
-const enumUtils = require('../enum.utils');
-const textUtils = require('../text.utils');
+import enumUtils from '../enum.utils';
+import textUtils from '../text.utils';
 
 const EmailAddressStatusEnum = enumUtils.createEnum([
     ['TOTAL', 'total'], // Not email address status de facto.
@@ -56,6 +56,6 @@ const SendGridReasonEnum = enumUtils.createEnum([
     ['SERVICE_NOT_AVAILABLE', 'SERVICE NOT AVAILABLE']
 ]);
 
-module.exports = {
+export {
     EmailAddressStatusEnum, EmailAddressStatusLogEnum, EmailAddressTypeEnum, SendEmailStepNameEnum, SendGridReasonEnum
 };

@@ -1,5 +1,9 @@
-const { EmailAddressesSourceTypeEnum } = require('../core/enums');
-const { pathUtils } = require('../utils');
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { EmailAddressesSourceTypeEnum } from '../core/enums';
+import { pathUtils } from '../utils';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const settings = {
     // ===FLAG=== //
@@ -190,18 +194,10 @@ const settings = {
     MONGO_DATABASE_COLLECTION_NAME: 'emailaddresses',
     // Determine the maximum number of times to retry to drop the collection.
     MAXIMUM_DROP_COLLECTION_RETRIES_COUNT: 5,
-    // Determine if to use better connection topology.
-    IS_MONGO_DATABASE_USE_UNIFILED_TOPOLOGY: true,
-    // Determine if to use the new url parser to connect to the Mongo database.
-    IS_MONGO_DATABASE_USE_NEW_URL_PARSER: true,
-    // Determine if to use indexes automatically created by the Mongo database.
-    IS_MONGO_DATABASE_USE_CREATE_INDEX: true,
-    // Determine the maximum poolSize for each individual server or proxy connection.
-    MONGO_DATABASE_POOL_SIZE_COUNT: 20,
     // Determine the TCP Socket timeout setting.
     MONGO_DATABASE_SOCKET_TIMEOUT_MILLISECONDS_COUNT: 480000,
-    // Determine the number of milliseconds to wait before initiating keepAlive on the TCP socket.
-    MONGO_DATABASE_KEEP_ALIVE_MILLISECONDS_COUNT: 300000,
+    // Determine if to wait before initiating keepAlive on the TCP socket.
+    MONGO_DATABASE_KEEP_ALIVE: true,
     // Determine if to use SSL connection (needs to have a Mongo Database server with SSL support).
     IS_MONGO_DATABASE_SSL: false,
     // Determine if to validate Mongo Database server certificate against CA (needs to have a Mongo Database server with SSL support, 2.4 or higher).
@@ -220,4 +216,4 @@ const settings = {
     MAXIMUM_SENDGRID_DAILY_EMAILS_COUNT: 100
 };
 
-module.exports = settings;
+export default settings;

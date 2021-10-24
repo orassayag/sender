@@ -1,8 +1,10 @@
-const settings = require('../settings/settings');
-const { ColorEnum, StatusEnum } = require('../core/enums');
-const { applicationService, countLimitService, logService, mongoDatabaseService,
-    pathService, statusService } = require('../services');
-const { logUtils, systemUtils, timeUtils } = require('../utils');
+import settings from '../settings/settings';
+import { ColorEnum, StatusEnum } from '../core/enums';
+import {
+    applicationService, countLimitService, logService, mongoDatabaseService,
+    pathService, statusService
+} from '../services';
+import { logUtils, systemUtils, timeUtils } from '../utils';
 
 class StatusLogic {
 
@@ -44,4 +46,4 @@ class StatusLogic {
     }
 }
 
-module.exports = StatusLogic;
+export default StatusLogic;

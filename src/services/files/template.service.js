@@ -1,8 +1,8 @@
-const settings = require('../../settings/settings');
-const { CVDataModel, TemplateModel, TemplateDataModel, TextDataModel, SubjectDataModel } = require('../../core/models/application');
-const countLimitService = require('./countLimit.service');
-const fileService = require('./file.service');
-const { fileUtils, pathUtils, textUtils, validationUtils } = require('../../utils');
+import settings from '../../settings/settings';
+import { CVDataModel, TemplateModel, TemplateDataModel, TextDataModel, SubjectDataModel } from '../../core/models/application';
+import countLimitService from './countLimit.service';
+import fileService from './file.service';
+import { fileUtils, pathUtils, textUtils, validationUtils } from '../../utils';
 
 class TemplateService {
 
@@ -149,4 +149,4 @@ class TemplateService {
     }
 }
 
-module.exports = new TemplateService();
+export default new TemplateService();

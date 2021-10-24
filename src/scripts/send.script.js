@@ -1,6 +1,7 @@
-const errorScript = require('./error.script');
-require('../services/files/initiate.service').initiate('send');
-const SendLogic = require('../logics/send.logic');
+import errorScript from './error.script';
+import initiateService from '../services/files/initiate.service';
+initiateService.initiate('send');
+import SendLogic from '../logics/send.logic';
 
 (async () => {
     await new SendLogic().run();

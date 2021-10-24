@@ -1,4 +1,4 @@
-const { EmailAddressStatusEnum } = require('../../../enums');
+import { EmailAddressStatusEnum } from '../../../enums';
 
 class EmailModel {
 
@@ -28,4 +28,4 @@ class EmailModel {
     }
 }
 
-module.exports = EmailModel;
+export default EmailModel;

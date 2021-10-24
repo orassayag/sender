@@ -1,4 +1,4 @@
-const enumUtils = require('../enum.utils');
+import enumUtils from '../enum.utils';
 
 // This enum defines the possible colors.
 const ColorEnum = enumUtils.createEnum([
@@ -45,4 +45,4 @@ const StatusIconEnum = enumUtils.createEnum([
     ['X', '❌']
 ]);
 
-module.exports = { ColorEnum, ColorCodeEnum, StatusIconEnum };
+export { ColorEnum, ColorCodeEnum, StatusIconEnum };

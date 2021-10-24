@@ -1,10 +1,12 @@
-const settings = require('../settings/settings');
-const { ColorEnum, StatusEnum } = require('../core/enums');
-const { accountService, applicationService, confirmationService, countLimitService,
+import settings from '../settings/settings';
+import { ColorEnum, StatusEnum } from '../core/enums';
+import {
+    accountService, applicationService, confirmationService, countLimitService,
     createEmailService, logService, mongoDatabaseService, pathService, sendEmailService,
-    templateService, validationService } = require('../services');
-const globalUtils = require('../utils/files/global.utils');
-const { logUtils, systemUtils, timeUtils } = require('../utils');
+    templateService, validationService
+} from '../services';
+import globalUtils from '../utils/files/global.utils';
+import { logUtils, systemUtils, timeUtils } from '../utils';
 
 class SendLogic {
 
@@ -130,4 +132,4 @@ class SendLogic {
     }
 }
 
-module.exports = SendLogic;
+export default SendLogic;

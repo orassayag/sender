@@ -1,5 +1,5 @@
-const exec = require('child_process').exec;
-const logUtils = require('./log.utils');
+import { exec } from 'child_process';
+import logUtils from './log.utils';
 
 class SystemUtils {
 
@@ -52,4 +52,4 @@ class SystemUtils {
     }
 }
 
-module.exports = new SystemUtils();
+export default new SystemUtils();

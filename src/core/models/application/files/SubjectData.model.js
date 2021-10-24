@@ -9,4 +9,4 @@ class SubjectDataModel {
     }
 }
 
-module.exports = SubjectDataModel;
+export default SubjectDataModel;

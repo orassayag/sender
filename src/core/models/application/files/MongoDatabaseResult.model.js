@@ -9,4 +9,4 @@ class MongoDatabaseResultModel {
     }
 }
 
-module.exports = MongoDatabaseResultModel;
+export default MongoDatabaseResultModel;

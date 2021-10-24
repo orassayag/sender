@@ -1,4 +1,4 @@
-const { CountLimitDataModel } = require('../../core/models/application');
+import { CountLimitDataModel } from '../../core/models/application';
 
 class CountLimitService {
 
@@ -11,4 +11,4 @@ class CountLimitService {
     }
 }
 
-module.exports = new CountLimitService();
+export default new CountLimitService();

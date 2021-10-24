@@ -1,6 +1,7 @@
-const errorScript = require('./error.script');
-require('../services/files/initiate.service').initiate('status');
-const StatusLogic = require('../logics/status.logic');
+import errorScript from './error.script';
+import initiateService from '../services/files/initiate.service';
+initiateService.initiate('status');
+import StatusLogic from '../logics/status.logic';
 
 (async () => {
     await new StatusLogic().run();

@@ -13,4 +13,4 @@ class SourceDataModel {
     }
 }
 
-module.exports = SourceDataModel;
+export default SourceDataModel;

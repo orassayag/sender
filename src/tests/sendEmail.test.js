@@ -1,10 +1,11 @@
 /* cSpell:disable */
-require('../services/files/initiate.service').initiate('test');
-const settings = require('../settings/settings');
-const { CVDataModel, EmailModel } = require('../core/models/application');
-const { EmailAddressStatusEnum, EmailAddressTypeEnum } = require('../core/enums');
-const { countLimitService, sendgridService } = require('../services');
-const { fileUtils, pathUtils, logUtils, timeUtils } = require('../utils');
+import initiateService from '../services/files/initiate.service';
+initiateService.initiate('test');
+import settings from '../settings/settings';
+import { CVDataModel, EmailModel } from '../core/models/application';
+import { EmailAddressStatusEnum, EmailAddressTypeEnum } from '../core/enums';
+import { countLimitService, sendgridService } from '../services';
+import { fileUtils, pathUtils, logUtils, timeUtils } from '../utils';
 
 (async () => {
     countLimitService.initiate(settings);

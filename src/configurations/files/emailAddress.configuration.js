@@ -59,4 +59,4 @@ const invalidDomains = [
 	'posting.google.com'
 ];
 
-module.exports = { commonEmailAddressDomainsList, filterEmailAddresses, filterEmailAddressDomains, invalidDomains };
+export { commonEmailAddressDomainsList, filterEmailAddresses, filterEmailAddressDomains, invalidDomains };

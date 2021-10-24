@@ -1,5 +1,5 @@
-const path = require('path');
-const textUtils = require('./text.utils');
+import path from 'path';
+import textUtils from './text.utils';
 
 class PathUtils {
 
@@ -54,4 +54,4 @@ class PathUtils {
     }
 }
 
-module.exports = new PathUtils();
+export default new PathUtils();

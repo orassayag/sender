@@ -1,11 +1,11 @@
-const { EmailProcessResultModel, SendEmailDataModel } = require('../../core/models/application');
-const { EmailAddressStatusEnum, EmailAddressTypeEnum, SendEmailStepNameEnum, StatusEnum } = require('../../core/enums');
-const accountService = require('./account.service');
-const applicationService = require('./application.service');
-const mongoDatabaseService = require('./mongoDatabase.service');
-const sendgridService = require('./sendgrid.service');
-const templateService = require('./template.service');
-const { systemUtils, timeUtils } = require('../../utils');
+import { EmailProcessResultModel, SendEmailDataModel } from '../../core/models/application';
+import { EmailAddressStatusEnum, EmailAddressTypeEnum, SendEmailStepNameEnum, StatusEnum } from '../../core/enums';
+import accountService from './account.service';
+import applicationService from './application.service';
+import mongoDatabaseService from './mongoDatabase.service';
+import sendgridService from './sendgrid.service';
+import templateService from './template.service';
+import { systemUtils, timeUtils } from '../../utils';
 
 class SendEmailService {
 
@@ -87,7 +87,7 @@ class SendEmailService {
     async runEmailSendProcess() {
         this.emailModel.step = SendEmailStepNameEnum.SEND;
         let emailProcessResultModel = null;
-        // Send the email (sendgridService) or simulate the email sending process (flag from settings.js) + Random SENT/ERROR status.
+        // Send the email (sendgridService) or simulate the email sending process (flag from settings) + Random SENT/ERROR status.
         const sendResult = await this.send();
         emailProcessResultModel = this.sendResultProcess(sendResult);
         if (!emailProcessResultModel.isContinueProcess) {
@@ -335,4 +335,4 @@ class SendEmailService {
     }
 }
 
-module.exports = new SendEmailService();
+export default new SendEmailService();

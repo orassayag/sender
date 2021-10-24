@@ -5,4 +5,4 @@ class EmailDataModel {
     }
 }
 
-module.exports = EmailDataModel;
+export default EmailDataModel;

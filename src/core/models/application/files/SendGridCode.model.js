@@ -9,4 +9,4 @@ class SendGridCodeModel {
     }
 }
 
-module.exports = SendGridCodeModel;
+export default SendGridCodeModel;

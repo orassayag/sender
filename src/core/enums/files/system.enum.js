@@ -1,4 +1,4 @@
-const enumUtils = require('../enum.utils');
+import enumUtils from '../enum.utils';
 
 const MethodEnum = enumUtils.createEnum([
     ['STANDARD', 'STANDARD'],
@@ -30,4 +30,4 @@ const StatusEnum = enumUtils.createEnum([
     ['FINISH', 'FINISH']
 ]);
 
-module.exports = { MethodEnum, ModeEnum, ScriptTypeEnum, StatusEnum };
+export { MethodEnum, ModeEnum, ScriptTypeEnum, StatusEnum };

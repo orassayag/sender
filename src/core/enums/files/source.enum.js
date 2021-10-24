@@ -1,4 +1,4 @@
-const enumUtils = require('../enum.utils');
+import enumUtils from '../enum.utils';
 
 const EmailAddressesSourceTypeEnum = enumUtils.createEnum([
     ['DIRECTORY', 'directory'],
@@ -6,4 +6,4 @@ const EmailAddressesSourceTypeEnum = enumUtils.createEnum([
     ['ARRAY', 'array']
 ]);
 
-module.exports = { EmailAddressesSourceTypeEnum };
+export { EmailAddressesSourceTypeEnum };

@@ -9,4 +9,4 @@ class TextDataModel {
     }
 }
 
-module.exports = TextDataModel;
+export default TextDataModel;

@@ -8,4 +8,4 @@ class StatusResultModel {
     }
 }
 
-module.exports = StatusResultModel;
+export default StatusResultModel;

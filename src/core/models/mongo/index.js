@@ -1,3 +1,3 @@
-const EmailAddressModel = require('./files/EmailAddress.model');
+import EmailAddressModel from './files/EmailAddress.model';
 
-module.exports = { EmailAddressModel };
+export { EmailAddressModel };

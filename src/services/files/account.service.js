@@ -1,8 +1,8 @@
-const settings = require('../../settings/settings');
-const { AccountModel, AccountDataModel } = require('../../core/models/application');
-const countLimitService = require('./countLimit.service');
-const fileService = require('./file.service');
-const { textUtils, validationUtils } = require('../../utils');
+import settings from '../../settings/settings';
+import { AccountModel, AccountDataModel } from '../../core/models/application';
+import countLimitService from './countLimit.service';
+import fileService from './file.service';
+import { textUtils, validationUtils } from '../../utils';
 
 class AccountService {
 
@@ -130,4 +130,4 @@ class AccountService {
     }
 }
 
-module.exports = new AccountService();
+export default new AccountService();

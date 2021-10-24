@@ -1,4 +1,4 @@
-const { PathDataModel } = require('../../core/models/application');
+import { PathDataModel } from '../../core/models/application';
 
 class PathService {
 
@@ -11,4 +11,4 @@ class PathService {
     }
 }
 
-module.exports = new PathService();
+export default new PathService();

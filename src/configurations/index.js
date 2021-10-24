@@ -1,7 +1,9 @@
-const { commonEmailAddressDomainsList, filterEmailAddresses, filterEmailAddressDomains,
-    invalidDomains } = require('./files/emailAddress.configuration');
+import {
+    commonEmailAddressDomainsList, filterEmailAddresses, filterEmailAddressDomains,
+    invalidDomains
+} from './files/emailAddress.configuration';
 
-module.exports = {
+export {
     commonEmailAddressDomainsList, filterEmailAddresses, filterEmailAddressDomains,
     invalidDomains
 };

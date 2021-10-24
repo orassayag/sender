@@ -1,8 +1,8 @@
-const { StatusResultModel } = require('../../core/models/application');
-const createEmailService = require('./createEmail.service');
-const logService = require('./log.service');
-const mongoDatabaseService = require('./mongoDatabase.service');
-const { logUtils } = require('../../utils');
+import { StatusResultModel } from '../../core/models/application';
+import createEmailService from './createEmail.service';
+import logService from './log.service';
+import mongoDatabaseService from './mongoDatabase.service';
+import { logUtils } from '../../utils';
 
 class StatusService {
 
@@ -37,4 +37,4 @@ class StatusService {
     }
 }
 
-module.exports = new StatusService();
+export default new StatusService();

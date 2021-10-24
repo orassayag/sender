@@ -10,4 +10,4 @@ class CVDataModel {
     }
 }
 
-module.exports = CVDataModel;
+export default CVDataModel;

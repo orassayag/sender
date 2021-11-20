@@ -11,6 +11,19 @@ Each time you change the logic / update NPM package version, do the following st
 
 ToDo tasks:
 ===========
+-Check why the program doesn't exit when emails to send are over.
+===[SETTINGS] Mode: PRODUCTION | Method: STANDARD | Database: send_production | Drop: false===
+===[GENERAL] Time: 00.06:57:04 [/] | Current: 185/185 (100.00%) | Available: 15 | Status: FINISH===
+===[PROCESS1] Total: 185 | Pending: 0 | Sent: ✅  185 | Error: ❌  0 | Exists: 0 | Database: 1===
+===[PROCESS2] Save: 185 | Invalid: 0 | Duplicate: 0 | Filter: 0 | Skip: 0 | Unsave: 0 | Identical Addresses: 0===
+===[PROCESS3] Monitor Sent: 0 | Security Error: 0 | Security Exists: 0 | Missing Field: 0 | Invalid Status: 0===
+===[PROCESS4] Identical Status: 0 | Unexpected Field: 0 | Sent Error In A Row: 0 | Save Error In A Row: 0===
+===[ACCOUNT] Id: 2 | Username: ############ | Password: ******************* | Sent: 85/100 (85.00%) | Accounts: 2/2===
+===[API KEY] ##############===
+===[TEMPLATE] Subject (Id: 4): םכתרבחב הדובעל ימצע תא העיצמ | Text (Id: 21): ?עמשנ המ ,ייה===
+===[ATTACHMENT] ###################===
+===[SEND] Code: 202 | Status: SENT | Step: FINALIZE | From: ########## | To: ####### | Id: 185 | Type: STANDARD===
+===[RESULT] Your message is both valid, and queued to be delivered.===
 
 Complete / canceled tasks:
 ==========================

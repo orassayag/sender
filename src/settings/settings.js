@@ -32,7 +32,7 @@ const settings = {
     // Determine the type of source to fetch the email addresses from in order to send them.
     // Can be DIRECTORY / FILE / ARRAY. Please note that the logic only supports scanning TXT
     // files with email addresses separated by comma.
-    EMAIL_ADDRESSES_SOURCE_TYPE: EmailAddressesSourceTypeEnum.ARRAY,
+    EMAIL_ADDRESSES_SOURCE_TYPE: EmailAddressesSourceTypeEnum.DIRECTORY,
     // Determine the path of the development source in case 'DIRECTORY' or 'FILE' options are selected.
     // In case of 'ARRAY', option selected, the array located in source.service file.
     EMAIL_ADDRESSES_DEVELOPMENT_SOURCE_PATH: pathUtils.getJoinPath({

@@ -39,6 +39,8 @@ misc/backups
 /coverage
 test
 coverage
+/bulk
+bulk
 
 # Build tools.
 .travis.yml

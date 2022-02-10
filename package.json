@@ -50,7 +50,7 @@
     "node": "^12.20.0 || ^14.13.1 || >=16.0.0"
   },
   "dependencies": {
-    "@sendgrid/mail": "^7.6.0",
+    "@sendgrid/mail": "^7.6.1",
     "fs-extra": "^10.0.0",
     "is-reachable": "^5.1.1",
     "log-update": "^5.0.0",
@@ -58,7 +58,7 @@
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.17.0",
-    "@types/node": "^17.0.16",
+    "@types/node": "^17.0.17",
     "eslint": "^8.8.0"
   }
 }

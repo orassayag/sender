@@ -54,7 +54,7 @@
     "fs-extra": "^10.1.0",
     "is-reachable": "^5.2.0",
     "log-update": "^5.0.1",
-    "mongoose": "^6.3.6"
+    "mongoose": "^6.3.8"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.18.2",

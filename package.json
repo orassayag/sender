@@ -54,11 +54,11 @@
     "fs-extra": "^10.1.0",
     "is-reachable": "^5.2.1",
     "log-update": "^5.0.1",
-    "mongoose": "^6.6.4"
+    "mongoose": "^6.6.5"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.19.1",
-    "@types/node": "^18.8.0",
+    "@types/node": "^18.8.3",
     "eslint": "^8.24.0"
   }
 }

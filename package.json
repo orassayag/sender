@@ -57,7 +57,7 @@
     "mongoose": "^7.3.1"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.22.5",
+    "@babel/eslint-parser": "^7.22.6",
     "@types/node": "^20.3.3",
     "eslint": "^8.44.0"
   }

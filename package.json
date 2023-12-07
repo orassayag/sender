@@ -50,7 +50,7 @@
     "node": "^12.20.0 || ^14.13.1 || >=16.0.0"
   },
   "dependencies": {
-    "@sendgrid/mail": "^8.0.0",
+    "@sendgrid/mail": "^8.1.0",
     "fs-extra": "^11.2.0",
     "is-reachable": "^5.2.1",
     "log-update": "^6.0.0",

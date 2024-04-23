@@ -1,68 +1,67 @@
-import regexUtils from './regex.utils';
+import regexUtils from './regex.utils.js';
 
 class ValidationUtils {
+  constructor() {}
 
-    constructor() { }
+  // This method checks if a given value is a valid number and returns the result.
+  isValidNumber(number) {
+    number = Number(number);
+    return !isNaN(number) && typeof number == 'number';
+  }
 
-    // This method checks if a given value is a valid number and returns the result.
-    isValidNumber(number) {
-        number = Number(number);
-        return !isNaN(number) && typeof number == 'number';
+  isValidArray(variable) {
+    return Object.prototype.toString.call(variable) === '[object Array]';
+  }
+
+  isPositiveNumber(number) {
+    if (!this.isValidNumber(number)) {
+      return false;
     }
+    return Number(number) > 0;
+  }
 
-    isValidArray(variable) {
-        return Object.prototype.toString.call(variable) === '[object Array]';
-    }
+  // This method checks if a given variable is a valid boolean and returns the result.
+  isValidBoolean(boolean) {
+    return typeof boolean == typeof true;
+  }
 
-    isPositiveNumber(number) {
-        if (!this.isValidNumber(number)) {
-            return false;
-        }
-        return Number(number) > 0;
-    }
+  isValidDate(dateTime) {
+    return dateTime instanceof Date;
+  }
 
-    // This method checks if a given variable is a valid boolean and returns the result.
-    isValidBoolean(boolean) {
-        return typeof boolean == typeof true;
-    }
+  isValidLink(link) {
+    return regexUtils.validateLinkRegex.test(link);
+  }
 
-    isValidDate(dateTime) {
-        return dateTime instanceof Date;
-    }
+  isValidMongoConnectionString(mongoConnectionString) {
+    return regexUtils.mongoConnectionStringRegex.test(mongoConnectionString);
+  }
 
-    isValidLink(link) {
-        return regexUtils.validateLinkRegex.test(link);
-    }
+  isExists(list) {
+    return list && list.length > 0;
+  }
 
-    isValidMongoConnectionString(mongoConnectionString) {
-        return regexUtils.mongoConnectionStringRegex.test(mongoConnectionString);
-    }
+  isValidEmailAddress(emailAddress) {
+    return regexUtils.validateEmailAddressRegex.test(emailAddress);
+  }
 
-    isExists(list) {
-        return list && list.length > 0;
-    }
+  isValidSendGridApiKey(apiKey) {
+    return apiKey.indexOf('SG.') === 0;
+  }
 
-    isValidEmailAddress(emailAddress) {
-        return regexUtils.validateEmailAddressRegex.test(emailAddress);
+  // This method validates that a given string exists in an array list of specific types.
+  isValidEnum(data) {
+    // Validate the existence and validity of the data parameters. If not exists, return false.
+    if (!data || !data.enum || !data.value) {
+      return false;
     }
+    // Check if the value exists within a given array. Return false if not.
+    return Object.values(data.enum).indexOf(data.value) > -1;
+  }
 
-    isValidSendGridApiKey(apiKey) {
-        return apiKey.indexOf('SG.') === 0;
-    }
-
-    // This method validates that a given string exists in an array list of specific types.
-    isValidEnum(data) {
-        // Validate the existence and validity of the data parameters. If not exists, return false.
-        if (!data || !data.enum || !data.value) {
-            return false;
-        }
-        // Check if the value exists within a given array. Return false if not.
-        return Object.values(data.enum).indexOf(data.value) > -1;
-    }
-
-    isPropertyExists(obj, fieldName) {
-        return Object.prototype.hasOwnProperty.call(obj, fieldName);
-    }
+  isPropertyExists(obj, fieldName) {
+    return Object.prototype.hasOwnProperty.call(obj, fieldName);
+  }
 }
 
 export default new ValidationUtils();

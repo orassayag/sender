@@ -3,6 +3,7 @@
 ===================
 FAST & BASIC START.
 ===================
+
 1. Open the project in IDE (Current to 01/12/2020 I'm using VSCode).
 2. Open the following file in the 'src/settings/settings.js' file.
 3. Search for the first setting - 'IS_PRODUCTION_MODE' - Make sure it is true.
@@ -13,13 +14,13 @@ FAST & BASIC START.
 6. If you see any error - Need to check what's changed. Current to 01/12/2020,
    it works fine.
 7. If you see the console status line but the 'Sent' or 'Total' not progressing
-	- Need to check what's wrong.
+   - Need to check what's wrong.
 8. If no errors and the progress works OK, make sure to check on
    dist/production/date of today (Example: 1_20200316_222124)/ that the TXT
    file was created successfully.
 9. Successful running application on production should look like this:
 
-/* cSpell:disable */
+/_ cSpell:disable _/
 ===IMPORTANT SETTINGS===
 DATABASE: send_production
 IS_PRODUCTION_MODE: true
@@ -39,11 +40,11 @@ y
 ===VALIDATE GENERAL SETTINGS===
 ===[SETTINGS] Mode: PRODUCTION | Method: STANDARD | Database: send_production | Drop: false===
 ===[GENERAL] Time: 00.00:00:09 [|] | Current: 1/1 (100.00%) | Available: 99 | Status: FINISH===
-===[PROCESS1] Total: 1 | Pending: 0 | Sent: ✅  1 | Error: ❌  0 | Exists: 0 | Database: 0===
+===[PROCESS1] Total: 1 | Pending: 0 | Sent: ✅ 1 | Error: ❌ 0 | Exists: 0 | Database: 0===
 ===[PROCESS2] Save: 1 | Invalid: 0 | Duplicate: 0 | Filter: 0 | Skip: 0 | Unsave: 0 | Identical Addresses: 0===
 ===[PROCESS3] Monitor Sent: 0 | Security Error: 0 | Security Exists: 0 | Missing Field: 0 | Invalid Status: 0===
 ===[PROCESS4] Identical Status: 0 | Unexpected Field: 0 | Sent Error In A Row: 0 | Save Error In A Row: 0===
-===[ACCOUNT] Id: 1 | Username: ################## | Password: **************** | Sent: 1/100 (01.00%) | Accounts: 1/1===
+===[ACCOUNT] Id: 1 | Username: ################## | Password: ******\*\*\*\******* | Sent: 1/100 (01.00%) | Accounts: 1/1===
 ===[API KEY] SG.####################################################===
 ===[TEMPLATE] Subject (Id: 16): םכנוגריאב הדובע יבגל תקדוב | Text (Id: 16): ,בוט עובשו ייה===
 ===[ATTACHMENT] C:\Or\Web\sender\sender\misc\data\cv\CV Billy Ravid.doc===
@@ -52,8 +53,8 @@ y
 
 ## Author
 
-* **Or Assayag** - *Initial work* - [orassayag](https://github.com/orassayag)
-* Or Assayag <orassayag@gmail.com>
-* GitHub: https://github.com/orassayag
-* StackOverFlow: https://stackoverflow.com/users/4442606/or-assayag?tab=profile
-* LinkedIn: https://linkedin.com/in/orassayag
+- **Or Assayag** - _Initial work_ - [orassayag](https://github.com/orassayag)
+- Or Assayag <orassayag@gmail.com>
+- GitHub: https://github.com/orassayag
+- StackOverFlow: https://stackoverflow.com/users/4442606/or-assayag?tab=profile
+- LinkedIn: https://linkedin.com/in/orassayag

@@ -1,55 +1,65 @@
 import { exec } from 'child_process';
-import logUtils from './log.utils';
+import logUtils from './log.utils.js';
 
 class SystemUtils {
+  constructor() {}
 
-    constructor() { }
+  exit(exitReason, color) {
+    logUtils.logColorStatus({
+      status: this.getExitReason(exitReason),
+      color: color,
+    });
+    process.exit(0);
+  }
 
-    exit(exitReason, color) {
-        logUtils.logColorStatus({
-            status: this.getExitReason(exitReason),
-            color: color
-        });
-        process.exit(0);
+  getExitReason(exitReason) {
+    if (!exitReason) {
+      return '';
     }
+    return `EXIT: ${exitReason}`;
+  }
 
-    getExitReason(exitReason) {
-        if (!exitReason) {
-            return '';
-        }
-        return `EXIT: ${exitReason}`;
+  getErrorDetails(error) {
+    let errorText = '';
+    if (!error) {
+      return errorText;
     }
+    if (error.message) {
+      errorText += error.message;
+    }
+    if (error.stack) {
+      errorText += error.stack;
+    }
+    return errorText;
+  }
 
-    getErrorDetails(error) {
-        let errorText = '';
-        if (!error) {
-            return errorText;
+  isProcessRunning(processName) {
+    return new Promise((resolve, reject) => {
+      if (reject) {
+      }
+      const platform = process.platform;
+      let cmd = '';
+      switch (platform) {
+        case 'win32': {
+          cmd = `tasklist`;
+          break;
         }
-        if (error.message) {
-            errorText += error.message;
+        case 'darwin': {
+          cmd = `ps -ax | grep ${processName}`;
+          break;
         }
-        if (error.stack) {
-            errorText += error.stack;
+        case 'linux': {
+          cmd = `ps -A`;
+          break;
         }
-        return errorText;
-    }
-
-    isProcessRunning(processName) {
-        return new Promise((resolve, reject) => {
-            if (reject) { }
-            const platform = process.platform;
-            let cmd = '';
-            switch (platform) {
-                case 'win32': { cmd = `tasklist`; break; }
-                case 'darwin': { cmd = `ps -ax | grep ${processName}`; break; }
-                case 'linux': { cmd = `ps -A`; break; }
-            }
-            exec(cmd, (err, stdout, stderr) => {
-                if (err || stderr) { }
-                resolve(stdout.toLowerCase().indexOf(processName.toLowerCase()) > -1);
-            });
-        }).catch();
-    }
+      }
+      exec(cmd, (err, stdout, stderr) => {
+        if (err || stderr) {
+        }
+        resolve(stdout.toLowerCase().indexOf(processName.toLowerCase()) > -1);
+      });
+    }).catch();
+  }
 }
 
 export default new SystemUtils();

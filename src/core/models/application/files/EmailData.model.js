@@ -1,8 +1,7 @@
 class EmailDataModel {
-
-    constructor() {
-        this.emailsList = [];
-    }
+  constructor() {
+    this.emailsList = [];
+  }
 }
 
 export default EmailDataModel;

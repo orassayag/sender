@@ -57,6 +57,6 @@
     "mongoose": "^8.6.3"
   },
   "devDependencies": {
-    "eslint": "^9.10.0"
+    "eslint": "^9.11.0"
   }
 }

@@ -54,7 +54,7 @@
     "fs-extra": "^11.3.2",
     "is-reachable": "^6.0.0",
     "log-update": "^7.0.1",
-    "mongoose": "^8.19.3"
+    "mongoose": "^8.19.4"
   },
   "devDependencies": {
     "eslint": "^9.39.1"

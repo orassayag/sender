@@ -51,7 +51,7 @@
   },
   "dependencies": {
     "@sendgrid/mail": "^8.1.6",
-    "fs-extra": "^11.3.2",
+    "fs-extra": "^11.3.3",
     "is-reachable": "^6.0.0",
     "log-update": "^7.0.2",
     "mongoose": "^9.0.2"

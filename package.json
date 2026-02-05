@@ -53,8 +53,8 @@
     "@sendgrid/mail": "^8.1.6",
     "fs-extra": "^11.3.3",
     "is-reachable": "^6.1.0",
-    "log-update": "^7.0.2",
-    "mongoose": "^9.1.5"
+    "log-update": "^7.1.0",
+    "mongoose": "^9.1.6"
   },
   "devDependencies": {
     "eslint": "^9.39.2"
